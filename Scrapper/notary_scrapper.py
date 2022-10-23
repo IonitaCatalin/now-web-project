@@ -38,7 +38,7 @@ def augment_from_notariat_public(notary):
             print("[NOTARIAT_PUBLIC] No search result for", notary)
             print("response status code", r.status_code)
             return
-        query_search = json.loads(r.text[r.text.find('4013') + 5:-2])
+        query_search = json.loads(r.text[r.text.find('(') + 1:-2])
 
         url = query_search['results'][0]['url']
         r = requests.get(url, verify=False)
