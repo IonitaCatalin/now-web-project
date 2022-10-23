@@ -1,7 +1,11 @@
+import json
 from bs4 import BeautifulSoup as bs
 import requests
 import openpyxl
 from pathlib import Path
+import urllib.parse as urlparser
+import re
+import time
 
 
 class Notary:
@@ -11,14 +15,66 @@ class Notary:
         self.address = address
         self.city = city
         self.country = country
+        self.description = ''
+        self.phone_numbers = []
+        self.email_addr = ''
+        self.languages = []
+
+    def __str__(self):
+        return "Notar {} din {}".format(self.name, self.city)
+
+
+def cleanhtml(raw_html):
+    cleantext = re.sub(clean_r, '', raw_html)
+    return cleantext
 
 
 def augment_from_notariat_public(notary):
-    url = 'https://notariatpublic.com/rezultate-cautare?cx=partner-pub-5453614192961613%3A1332164919&cof=FORID%3A10&ie=UTF-8&q={}'.format(notary.name.replace(" ", "+"))
-    r = requests.get(url, verify=False)
-    if r.status_code != 200:
-        print("[NOTARIAT_PUBLIC] Conexion problem", notary)
-    print(r)
+    try:
+        url_list = 'https://cse.google.com/cse/element/v1?rsz=filtered_cse&num=10&hl=ro&source=gcsc&gss=.com&cselibv=f275a300093f201a&cx=partner-pub-5453614192961613:1332164919&q={}&safe=off&cse_tok=AB1-RNXZKlg6B-IIJANFEzuZjQ7c:1666517031524&exp=csqr,cc&callback=google.search.cse.api4013'
+        url_list = url_list.format(urlparser.quote(notary.name))
+        r = requests.get(url_list, verify=False)
+        if r.status_code != 200:
+            print("[NOTARIAT_PUBLIC] No search result for", notary)
+            print("response status code", r.status_code)
+            return
+        query_search = json.loads(r.text[r.text.find('4013') + 5:-2])
+
+        url = query_search['results'][0]['url']
+        r = requests.get(url, verify=False)
+        if r.status_code != 200:
+            print("[NOTARIAT_PUBLIC] Connexion problem", notary)
+            return
+        start_description = r.text.find("Biroul notarial")
+        notary.description = cleanhtml(r.text[start_description: r.text.find(".", start_description)])
+
+        soup = bs(r.text, 'html.parser')
+        found_elements = soup.table.contents
+        if len(found_elements) != 5:
+            print("[NOTARIAT_PUBLIC] Not enough elements for", notary)
+            print("Nr of elements:", len(found_elements))
+        found_addr = found_elements[0].br.next.text
+        if found_addr:
+            notary.address = cleanhtml(found_addr)
+        found_phones = []
+        first_number = found_elements[1].contents[1].next.text
+        if first_number:
+            found_phones.append(cleanhtml(first_number))
+        second_number = soup.table.contents[1].contents[1].next.next.next
+        if second_number:
+            found_phones.append(cleanhtml(second_number.text))
+        notary.phone_numbers = found_phones
+        email_addr = found_elements[2].contents[1].text
+        if email_addr:
+            notary.email_addr = cleanhtml(email_addr)
+        languages = found_elements[3].contents[1].text
+        if languages:
+            notary.languages = found_elements[3].contents[1].text.split(',')
+
+    except Exception as e:
+        print("[NOTARIAT_PUBLIC] cannot augment", notary)
+        print("Exception", e)
+        return
 
 
 def augment_notary(notary):
@@ -29,6 +85,7 @@ def augment_notary(notary):
 def augment_notaries(notaries_list):
     for notary in notaries_list:
         augment_notary(notary)
+        time.sleep(1)
 
 
 def parse_notaries_list():
@@ -64,5 +121,7 @@ def parse_notaries_list():
     return data, notaries_obj_list
 
 
+clean_r = re.compile('<.*?>')
 raw_data, notaries_obj_list = parse_notaries_list()
 augment_notaries(notaries_obj_list)
+print(notaries_obj_list)
