@@ -1,0 +1,24 @@
+name: build
+on:
+  push:
+    branches:
+      - release-*
+      - master
+
+jobs:
+  run-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Installing npm dependencies
+        run: npm ci --no-audit --silent
+      - name: Building
+        id: building
+        run: npm run semantic-release
