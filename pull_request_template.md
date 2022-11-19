@@ -38,12 +38,10 @@
 
 **Daemons**
 
-
 **Other apps**
 
 - [ ] CLI, if so: **\_\_**
   
-
 **Libs**
 
   
