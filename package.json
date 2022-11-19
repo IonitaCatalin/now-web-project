@@ -28,7 +28,7 @@
         "prerelease": true
       },
       {
-        "name": "master",
+        "name": "main",
         "prerelease": false
       }
     ],

@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - release-*
-      - master
+      - main
 
 jobs:
   run-build:
