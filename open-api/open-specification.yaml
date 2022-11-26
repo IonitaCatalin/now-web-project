@@ -1,0 +1,99 @@
+openapi: 3.0.1
+info:
+  title: NOW - notarial knowledge web tool
+  description: >-
+    OpenAPI specification of the APIs working behind the NOW (notarial knowledge web tool) project of the WADe course.
+  license:
+    name: Apache-2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+  version: 1.0.0
+externalDocs:
+  description: GitHub repository
+  url: 'https://github.com/IonitaCatalin/now-web-project'
+paths:
+  '/notaries':
+    get:
+      summary: Get a list of notaries based on relevance.
+      description: Request a list of public notaries ordered by relevance in order to show them on a map.
+      parameters:
+        - name: location
+          in: query string
+          description: Location from where the request was sent.
+          required: true
+          schema:
+            type: array
+            format: GeoJSON
+        - name: language
+          in: query string
+          description: List of preferred languages separated by comma.
+          required: false
+          schema:
+            type: string
+            format: ISO 639-3
+        - name: service
+          in: query string
+          description: List of preferred provided services separated by comma.
+          required: false
+          schema:
+            type: string
+        responses:
+          '200':
+            description: List of notaries successfully sent.
+          '404':
+            description: No notary within specified parameters was found.
+        - name: limit
+          in: query string
+          description: List of preferred provided services separated by comma.
+          required: false
+          default: 10
+          schema:
+            type: integer
+        responses:
+          '200':
+            description: List of notaries successfully sent.
+          '404':
+            description: No notary within specified parameters was found.
+  '/translators':
+    get:
+      summary: Get a list of translators based on relevance.
+      description: Request a list of public translators ordered by relevance in order to show them on a map.
+      parameters:
+        - name: location
+          in: query string
+          description: Location from where the request was sent.
+          required: true
+          schema:
+            type: array
+            format: GeoJSON
+        - name: language
+          in: query string
+          description: List of preferred languages separated by comma.
+          required: false
+          schema:
+            type: string
+            format: ISO 639-3
+        - name: service
+          in: query string
+          description: List of preferred provided services separated by comma.
+          required: false
+          schema:
+            type: string
+  '/metrics':
+    get:
+      summary: Get a list metric results registered.
+      description: Request a list of total metrics registered into the app and statistics.
+      parameters:
+        - name: dateFrom
+          in: query string
+          description: Date since when to start the metric collection.
+          required: true
+          schema:
+            type: date
+            format: YYYY-MM-DD|HH:MM
+        - name: dateTo
+          in: query string
+          description: Date until when to stop the metric collection.
+          required: true
+          schema:
+            type: date
+            format: YYYY-MM-DD|HH:MM
