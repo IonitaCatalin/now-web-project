@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/IonitaCatalin/now-web-project/compare/1.1.0...1.2.0) (2022-11-27)
+
+
+### Features
+
+* **docs:** started working on scholarly html docs ([f082e00](https://github.com/IonitaCatalin/now-web-project/commit/f082e002a92e52f46bce0bb6cb1846e4eb639cda))
+
 # [1.1.0](https://github.com/IonitaCatalin/now-web-project/compare/1.0.0...1.1.0) (2022-11-27)
 
 
