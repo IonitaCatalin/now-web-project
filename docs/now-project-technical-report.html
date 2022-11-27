@@ -8,7 +8,6 @@
 	</head>
 	<body prefix="schema: http://schema.org">
 
-		<!-- article -->
 		<article resource="#" typeof="schema:ScholarlyArticle">
 
 			<header>
@@ -20,6 +19,7 @@
 						
 				</p>
 			</header>
+
 			<meta property="schema:accessibilityFeature" content="alternativeText">
 			<meta property="schema:accessibilityHazard" content="noFlashingHazard">
 			<meta property="schema:accessMode" content="textual">
@@ -27,110 +27,319 @@
 			<section>
 				<h2>Content</h2>
 				<ol>
-					<li><a href="#general-introduction">1. General introduction and requirements</a></li>
-					<li><a href="#proposed-solution">2. Proposed solution</a></li>
-					<li><a href="#to-be-used-stack">3. Technology stack</a></li>
-					<li><a href="#linked-data">4. Linked data</a></li>
-					<li><a href="#development-&-deployment">5. Development and Deployment</a></li>
+					<li><a href="#abstract">Abstract</a></li>
+					<li>
+						<a href="#introduction">Introduction</a>
+						<ol>
+							<li><a href="#goals-&-requiremnts">Goals and requirements</a></li>
+							<li>
+								<a href="#arhitecture">Architecture</a>
+								<ol>
+									<li>
+										<a href="#backend">Backend</a>
+									</li>
+									<li><a href="#frontend">Frontend</a></li>
+								</ol>
+							</li>
+
+						</ol>
+					</li>
+					<li>
+						<a href="#data-sources">Data sources</a>
+					</li>
+
+					<li><a href="#linked-data">Linked data principles</a></li>
 				</ol>
 
 			</section>
 
-			<section id="general-introduction">
-				<h2>General introduction and requirements</h2>
+			<dl>
+                <dt>Authors</dt>
+                <dd>
+                    Ionita Mihail-Catalin,
+                    Popa Stefan,
+                    Craciun Mihai-Cosmin
+                </dd>
+                <dt>License</dt>
+                <dd>
+                    <a property="schema:license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL-3.0</a>
+                </dd>
+                <dt>Keywords</dt>
+                <dd>
+                    <span property="schema:keywords">NoW</span>,
+                    <span property="schema:keywords">Public</span>,
+                    <span property="schema:keywords">Notary</span>,
+                    <span property="schema:keywords">Web</span>,
+                    <span property="schema:keywords">SPARQL</span>,
+                    <span property="schema:keywords">Schema</span>,
+                    <span property="schema:keywords">Knowledge</span>,
+                    <span property="schema:keywords">Modeling</span>
+					<span property="schema:keywords">RDF</span>
+                </dd>
+            </dl>
+
+			<section id="abstract">
+				<h1>Abstract</h1>
 				<p>
-					Using the official data regarding public notary entities [RO] and authorized translators + interpreters [RO], develop a smart modular Web system capable to provide support for locating offices and services – such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures – according to user preferences, geographical places, fees, restrictions, and other aspects (e.g., support for foreign citizens) – consider also legal paper provenance. Via SPARQL endpoints, the application will offer useful maps – see also Place schema.org concept – and additional knowledge (contact info, timetable, reviews, related points of interest) about each notary office.
+					NoW (Notarial Knowledge web Tool) is a Web application based on Semantic Web Principle. The application main goal is by using the official data regarding public notary entities [RO] and authorized translators + interpreters [RO], to develop a smart modular Web system capable to provide support for locating offices and services – such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures – according to user preferences, geographical places, fees, restrictions, and other aspects (e.g., support for foreign citizens) – consider also legal paper provenance. Via SPARQL endpoints, the application will offer useful maps – see also Place schema.org concept – and additional knowledge (contact info, timetable, reviews, related points of interest) about each notary office.
 				</p>
-				<!-- <figure typeof="sa:image">
-					<a href="file:///C:/xampp/htdocs/ProiectTW/docs/resources/classes_diagram.png">
-						<img src="resources/classes_diagram.png" alt="profile usecase">
-					</a>
-					<figcaption>Diagrama de clase pentru aplicatie(click pentru a mari)</figcaption>
-				</figure> -->
 			</section>
 
-			<section id="proposed-solution">
-				<h2>Proposed solution</h2>
-				<p>From exhaustive research in the domain of linked data and web services the best approach that was found for satisfying the given requirement are as follows. 
-					<p>The main concern is to offer the ability of the users to query known information of providers of notarized documents (acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures) in their near proximity in a manner that would satisfy the paradigm of linked data, thus the main functionality would not only require static data to be delivered but processing them as RDF data in order to be able offer semantic characteristics.  </p>
-			</section>
-
-			<section>
-				<h3>Microservices</h3>
-				Microservices - also known as the microservice architecture - is an architectural style that structures an application as a collection of services that are
-				<ul>
-					<li>Highly maintainable and testable</li>
-					<li>Loosely coupled</li>
-					<li>Independently deployable</li>
-				</ul>
-
-				<p> Considering the requirements mentioned in the first section of the documents and the objective advantages mentioned above the following split for the project's services was chosen</p> 
-				<figure typeof="sa:image">
-					<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/now-project-microservices-split.png">
-						<img src="resources/now-project-microservices-split.png" alt="NoW Project Microservices Split">
-					</a>
-					<figcaption>NoW Project Microservices Split</figcaption>
-				</figure>
-
-				<p>Different services will communicate with each other inside the application cluster using events queue. The message broker of choice for this project would be RabbitMQ for its capabilities to support replicated queues and streams. The main concern when proposing system for intercluster communication is availability and for this RabbitMQ offers high availability which is fit for the scope of the project.</p>
-
-				<section>
-					<h4>Sync Daemon</h4>
-					<p> Microservice that will manage the sync of the data between the Graph Database and the NoSQL Database use for storing information about public entities as mentioned in the requirements. </p>
-					<p> As a consequence of the data being crawled from public resources there is a high risk of false or incomplete cases, that is highly concerning for the functionality in general, a strategy for avoiding this particular case is in order. </p>
-					<figure typeof="sa:image">
-						<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/crawler-behavioural-diagram.drawio.svg">
-							<img src="resources/now-projec-crawler-behavioural-diagram.svg" alt="NoW Project Microservices Split">
+			<section id="introduction">
+				<h1>Introduction</h1>
+				<p>NoW (Notarial Knowledge web Tool) it is a Web application following the Semantic Web principles, developed as part of the <i>Web Application Development</i> according to the curriculum for the master program Software System Engineering </p>
+					<!-- <figure typeof="sa:image">
+						<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/use-case-diagram.drawio.svg">
+							<img src="resources/now-project-use-case-diagram.svg" alt="NoW Project Microservices Split">
 						</a>
-						<figcaption>NoW project Behavioural Diagram for Crawler Component</figcaption>
-					</figure>
-					<p>In order to mend this issue, as solving it completely would require, idealistically, a more spread dataset of public entities that in the making of this project was not considered or available, a multi-stage crawl process was composed.</p>
-					<p>This process consist of two steps:</p>
-					<ol>
-						<li>1. Scrap data from the available resources and convert it to document NoSQL specific and store it, try to enhance it as much as possible</li>
-						<li>2. Once data is available emit a message for the sync daemon to start converting it from document based to RDF data using the RDF schema</li>
-					</ol>
-				</section>
+						<figcaption>NoW Project Microservices Split</figcaption>
+					</figure> -->
+					<section id="goals-&-requiremnts">
+						<h2>Goals and requirements</h2>
+						<p>The project aims to enable users to perform various tasks related to official documents release and manipulation and such as:</p>
+						<ul>
+							<li>Visualize - sets of maps having as waypoints the available public entities in a geographical location. The application will offer visual aids such maps to guide the user toward where the entity is located according to the official government data.</li>
+							<li>Query - sets of data about the available public notary entities in a geographical area based on constraints such as fees, restrictions, support for foreign citizens.</li>
+							<li>Filter - on various criterias such as the type of service the public entity is offering under certain limitations such as languages, pricing, etc.</li>
+						</ul>
 
-				<section>
-					<h4>Geolocation Daemon</h4>
-					<p> Microservice that will manage the generation of location data in open format such as GeoJSON or Places.org. </p>
-				</section>
+						
+					<p>Some of the most important requirements for the developed project are:</p>
+					<ul>
+						<li>The application developed to be a multi-device Web application.</li>
+						<li>The application developed should follow the Linked Data recommended practices for publishing structured data on the Web, the application should be capable of serving not just human user but rather intelligent crawlers as well.</li>
+						<li>The application developed should use internally a knowledge graph/base and a SPARQL endpoint. The project should be using RDF data as a way of storing knowledge in a manner that keep the semantic characteristics of the data. The data should be available through all the known operation such as DELETE, UPDATE, READ and under s system that follows the ACID principles.</li>
+						<li>The application developed should use various conceptual models such as schema.org but not limited to.</li>
+					</ul>
 
-				<section>
-					<h4>CLI</h4>
-					<p> Microservice component that will manage the internal task such as invoking the crawler application and at the same time publishing messages to the event queue to let the sync-daemon start the process of converting the data according to the RDF schema.</p>
-					<p> Instances of this microservice will be spawned automatically by infrastructure component such as cronjobs from K8s. </p>
+					</section>
+					<section id="arhitecture">
+						<h2>Arhitecture</h2>
+						<section id="backend">
+							<h3>Backend</h3>
+							<figure typeof="sa:image">
+								<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/now-project-use-case-diagram.png">
+									<img src="resources/now-project-use-case-diagram.svg" alt="NoW Project Use Case Diagram">
+								</a>
+							<figcaption>NoW Project Frontend component visual prototype</figcaption>
+						<section id="microservices">
+							<h3>Microservices</h3>
+							Microservices - also known as the microservice architecture - is an architectural style that structures an application as a collection of services that are: highly maintainable and testable, loosely coupled, independently deployable.
 
-				</section>
+			
+							<p> Considering the requirements mentioned in the first section of the documents and the objective advantages mentioned above the following split for the project's services were chosen.</p> 
+							<figure typeof="sa:image">
+								<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/now-project-microservices-split.png">
+									<img src="resources/now-project-microservices-split.png" alt="NoW Project Microservices Split">
+								</a>
+								<figcaption>NoW Project Microservices Split</figcaption>
+							</figure>
+			
+							<p>Different services will communicate with each other inside the application cluster using events queue. The message broker of choice for this project would be RabbitMQ for its capabilities to support replicated queues and streams. The main concern when proposing system for intercluster communication is availability and for this RabbitMQ offers high availability which is fit for the scope of the project.</p>
+			
+							<section id="sync-daemon">
+								<h4>Sync Daemon</h4>
+								<p> Microservice that will manage the sync of the data between the Graph Database and the NoSQL Database use for storing information about public entities as mentioned in the requirements. </p>
+								<p> As a consequence of the data being crawled from public resources there is a high risk of false or incomplete cases, that is highly concerning for the functionality in general, a strategy for avoiding this particular case is in order. </p>
+								<figure typeof="sa:image">
+									<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/crawler-behavioural-diagram.drawio.svg">
+										<img src="resources/now-projec-crawler-behavioural-diagram.svg" alt="NoW Project Microservices Split">
+									</a>
+									<figcaption>NoW project Behavioural Diagram for Crawler Component</figcaption>
+								</figure>
+								<p>In order to mend this issue, as solving it completely would require, idealistically, a more spread dataset of public entities that in the making of this project was not considered or available, a multi-stage crawl process was composed.</p>
+								<p>This process consist of two steps:</p>
+								<ol>
+									<li>Scrap data from the available resources and convert it to document NoSQL specific and store it, try to enhance it as much as possible</li>
+									<li>2. Once data is available emit a message for the sync daemon to start converting it from document based to RDF data using the RDF schema</li>
+								</ol>
+							</section>
+			
+							<section id="geolocation-daemon">
+								<h4>Geolocation Daemon</h4>
+								<p> Microservice that will manage the generation of location data in open format such as GeoJSON or Places.org. </p>
+							</section>
+			
+							<section id="cli">
+								<h4>CLI</h4>
+								<p> Microservice component that will manage the internal task such as invoking the crawler application and at the same time publishing messages to the event queue to let the sync-daemon start the process of converting the data according to the RDF schema.</p>
+								<p> Instances of this microservice will be spawned automatically by infrastructure component such as cronjobs from K8s. </p>
 
-				<section>
-					<h4>MGT REST API</h4>
-					<p> Microservice component that will manage the internal tasks specific to the application such as starting a data import when requested by the. </p>
-				</section>
+								<figure typeof="sa:image">
+									<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/now-project-cli-crawler.png">
+										<img src="resources/now-project-cli-crawler.png" alt="NoW Project Import Job">
+									</a>
+								<figcaption>NoW Project Microservices Split</figcaption>
+			
+							</section>
+			
+							<section id="mgt-rest-api">
+								<h4>MGT REST API</h4>
+								<p> Microservice component that will manage the internal tasks specific to the application such as starting a data import when requested by the. </p>
+							</section>
 
+			
+							<section id="sparql-api">
+								<h4>SparQL API</h4>
+								<p> Microservice component that will manage resolving queries coming from the client for the linked data available in the graph database. </p>
+							</section>
+			
+							<section id="subscription-api">
+								<h4>Subscription API</h4>
+								<p> Microservice component that will manage subscription from the client to the backend component. When a new public entity is added to the available dataset, this action should made known to the client via a notification system. </p>
+							</section>
+						</section>
+						<section id="frontend">
+							<h3>Frontend</h3>
+								<p>For the frontend of the application, the technologies used are as follows:</p>
+								<ul>
+									<li><b><a href="https://angular.io/">Angular</a></b> - development platform, a component-based
+										framework for building scalable web applications.</li>
+									<li><b><a href="https://getbootstrap.com/">Bootstrap</a></b> - a powerful, feature-packed frontend
+										toolkit which includes production-ready CSS and JavaScript.</li>
+								</ul>
+								<figure typeof="sa:image">
+									<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/now-project-frontend-prototype.png">
+										<img src="resources/now-project-frontend-prototype.png" alt="NoW Project Prototype">
+									</a>
+								<figcaption>NoW Project Frontend component visual prototype</figcaption>
+						</section>
+					</section>
+			</section>
 
-				<section>
-					<h4>MGT REST API</h4>
-					<p> Microservice component that will manage the internal tasks specific to the application such as starting a data import when requested by the admin, the removal of public entity from the NoSQL database as well or adding one. </p>
-				</section>
+			<section id="data-sources">
+				<h1>Data sources</h1>
+				The proposed project relies on both constructing an internal knowledge dataset, starting from available government resources on the web. 
+				Since all the data that is concerning public entities such as notaries is available only through government institution and user input we identified the following data sources.
+			
+				<section id="data-gov-ro">
+					<p>The primary source of data for the project is data available at:
+						<ul>
+							<li><a>https://data.gov.ro/dataset/notari-publici</a></li>
+							<li><a>https://data.gov.ro/dataset/traducatori-si-interpreti</a></li>
+						</ul>
+					</p>
+					One limitation of the available data that could be used is that only government agencies hold valuable status information about the active public notaries entities.
 
-				<section>
-					<h4>SparQL API</h4>
-					<p> Microservice component that will manage resolving queries coming from the client for the linked data available in the graph database. </p>
-				</section>
+					<p>The dataset available at <a>https://data.gov.ro/dataset/notari-publici</a> offers:</p>
+					<section class="section_no_indent">
 
-				<section>
-					<h4>Subscription API</h4>
-					<p> Microservice component that will manage subscription from the client to the backend component. When a new public entity is added to the available dataset, this action should made known to the client via a notification system. </p>
-				</section>
+						<table>
+							<thead>
+								<tr>
+									<th>Field</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>name</td>
+									<td>The official registered name of the notary</td>
+								</tr>
+								<tr>
+									<td>room</td>
+									<td>The official registered room of the notary.</td>
+								</tr>
+								<tr>
+									<td>address</td>
+									<td>The place where the notary institution is located.</td>
+								</tr>
+								<tr>
+									<td>city</td>
+									<td>The city where the notary institution is aggregated to.</td>
+								</tr>
+								<tr>
+									<td>county</td>
+									<td>The county where the notary institution is aggregated to.</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<p>The dataset available at <a>https://data.gov.ro/dataset/traducatori-si-interpreti</a> offers:</p>
+					<section class="section_no_indent">
+
+						<table>
+							<thead>
+								<tr>
+									<th>Field</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>name</td>
+									<td>The official registered name of the notary</td>
+								</tr>
+								<tr>
+									<td>court-of-appeal</td>
+									<td>The institution the notary reports to.</td>
+								</tr>
+								<tr>
+									<td>languages</td>
+									<td>Comma separated values of available languages.</td>
+								</tr>
+								<tr>
+									<td>authorization-number</td>
+									<td>The authorization number.</td>
+								</tr>
+								<tr>
+									<td>county</td>
+									<td>The county where the notary institution is aggregated to.</td>
+								</tr>
+								<tr>
+									<td>phone</td>
+									<td>The phone number.</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
 				
-				<section id="to-be-used-stack">
-					<h2>Proposed solution</h2>
-					<p>From exhaustive research in the domain of linked data and web services the best approach that was found for satisfying the given requirement are as follows. 
-						<p>The main concern is to offer the ability of the users to query known information of providers of notarized documents (acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures) in their near proximity in a manner that would satisfy the paradigm of linked data, thus the main functionality would not only require static data to be delivered but processing them as RDF data in order to be able offer semantic characteristics.  </p>
-				</section>
+			</section>
 
+			<section id="linked-data">
+					<h1>Linked Data Principles</h1>
+					<p><b>Linked Data</b> is a paradigm for publishing data on the Web which uses existing Web technologies,
+						having as main goals:</p>
+					<ul>
+						<li>Reducing redundancy on the Web</li>
+						<li>Reutilization</li>
+						<li>Discovering links and (meta-)data of interest</li>
+						<li>Interconnecting things (concepts) of interest</li>
+						<li>Using a pragmatic approach to all of these</li>
+					</ul>
+		
+					<p>There are 4 main Linked Data Principles, that the application proposed respects:</p>
+					<ol>
+						<li>
+							<p><b>Identification</b></p>
+							<ul>
+								<li>Using URIs (Uniform Resource Identifiers) to denote "things".</li>
+								<li>The proposed application respects the principle of Identification by giving resource data like static information about notaries and visual cues like maps which internal structure is available as a serializable response identified by a unique URI. </li>
+							</ul>
+						</li>
+						<li>
+							<p><b>Access</b></p>
+							<ul>
+								<li>The use of HTTP URLs that can be looked up by humans and machines.</li>
+								<li>The application makes uses of URL for resources like maps with the locations of notaries. User and intelligent crawlers can use these to go down the chain and search for resources of interest for their purpose.</li>
+							</ul>
+						</li>
+						<li>
+							<p><b>Representation</b></p>
+							<ul>
+								<li>Provide informations using standardized Semantic Web formats such as RDF.</li>
+								<li>The application uses RDF standardized format for representing information as well as meta-information about resources of interests, which are both human and machine readable .</li>
+							</ul>
+						</li>
+						<li>
+							<p><b>Linking</b></p>
+							<ul>
+								<li>Inclusion in the RDF representations of links to other URIs.</li>
+								<li>Since in the data representations there are included references to other places and notaries, this creates a network effect by following links and makes it easier to discover and access more data of interest</li>
+							</ul>
+						</li>
+					</ol>
+				</p>
 			</section>
 		</article>
 		<footer>
