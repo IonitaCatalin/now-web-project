@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ro">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+		<title>NoW Web Project</title>
+		<link rel="stylesheet" href="resources/scholarly.css">
+	</head>
+	<body prefix="schema: http://schema.org">
+
+		<!-- article -->
+		<article resource="#" typeof="schema:ScholarlyArticle">
+
+			<header>
+				<div class="banner">
+					<div class="status">NoW Web Project</div>
+				</div>
+				<h1 property="schema:name">NoW (Notarial Knowledge web Tool) Project Technical Report</h1>
+				<p role="doc-subtitle" property="schema:alternateName">
+						
+				</p>
+			</header>
+			<meta property="schema:accessibilityFeature" content="alternativeText">
+			<meta property="schema:accessibilityHazard" content="noFlashingHazard">
+			<meta property="schema:accessMode" content="textual">
+
+			<section>
+				<h2>Content</h2>
+				<ol>
+					<li><a href="#general-introduction">1. General introduction and requirements</a></li>
+					<li><a href="#proposed-solution">2. Proposed solution</a></li>
+					<li><a href="#to-be-used-stack">3. Technology stack</a></li>
+					<li><a href="#linked-data">4. Linked data</a></li>
+					<li><a href="#development-&-deployment">5. Development and Deployment</a></li>
+
+
+				</ol>
+
+			</section>
+
+			<section id="general-introduction">
+				<h2>General introduction and requirements</h2>
+				<p>
+					Using the official data regarding public notary entities [RO] and authorized translators + interpreters [RO], develop a smart modular Web system capable to provide support for locating offices and services – such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures – according to user preferences, geographical places, fees, restrictions, and other aspects (e.g., support for foreign citizens) – consider also legal paper provenance. Via SPARQL endpoints, the application will offer useful maps – see also Place schema.org concept – and additional knowledge (contact info, timetable, reviews, related points of interest) about each notary office.
+				</p>
+				<!-- <figure typeof="sa:image">
+					<a href="file:///C:/xampp/htdocs/ProiectTW/docs/resources/classes_diagram.png">
+						<img src="resources/classes_diagram.png" alt="profile usecase">
+					</a>
+					<figcaption>Diagrama de clase pentru aplicatie(click pentru a mari)</figcaption>
+				</figure> -->
+			</section>
+
+			<section id="proposed-solution">
+				<h2>Proposed solution</h2>
+				<p>From exhaustive research in the domain of linked data and web services the best approach that was found for satisfying the given requirement are as follows. 
+					<p>The main concern is to offer the ability of the users to query known information of providers of notarized documents (acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures) in their near proximity in a manner that would satisfy the paradigm of linked data, thus the main functionality would not only require static data to be delivered but processing them as RDF data in order to be able offer semantic characteristics.  </p>
+			</section>
+
+			<section>
+				<h3>Microservices</h3>
+				Microservices - also known as the microservice architecture - is an architectural style that structures an application as a collection of services that are
+				<ul>
+					<li>Highly maintainable and testable</li>
+					<li>Loosely coupled</li>
+					<li>Independently deployable</li>
+					<li>Organized around business capabilities</li>
+					<li>Owned by a small team</li>
+				</ul>
+			</section>
+		</article>
+		<footer>
+			
+		</footer>
+	</body>
+</html>
