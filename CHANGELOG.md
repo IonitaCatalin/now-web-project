@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/IonitaCatalin/now-web-project/compare/1.0.0...1.1.0) (2022-11-27)
+
+
+### Features
+
+* **diagrams:** added platform diagram ([6590b7b](https://github.com/IonitaCatalin/now-web-project/commit/6590b7b5dba0fb7db6580fc16703882ec5135632))
+
 # 1.0.0 (2022-11-26)
 
 
