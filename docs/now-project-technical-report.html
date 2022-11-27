@@ -32,8 +32,6 @@
 					<li><a href="#to-be-used-stack">3. Technology stack</a></li>
 					<li><a href="#linked-data">4. Linked data</a></li>
 					<li><a href="#development-&-deployment">5. Development and Deployment</a></li>
-
-
 				</ol>
 
 			</section>
@@ -64,9 +62,75 @@
 					<li>Highly maintainable and testable</li>
 					<li>Loosely coupled</li>
 					<li>Independently deployable</li>
-					<li>Organized around business capabilities</li>
-					<li>Owned by a small team</li>
 				</ul>
+
+				<p> Considering the requirements mentioned in the first section of the documents and the objective advantages mentioned above the following split for the project's services was chosen</p> 
+				<figure typeof="sa:image">
+					<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/now-project-microservices-split.png">
+						<img src="resources/now-project-microservices-split.png" alt="NoW Project Microservices Split">
+					</a>
+					<figcaption>NoW Project Microservices Split</figcaption>
+				</figure>
+
+				<p>Different services will communicate with each other inside the application cluster using events queue. The message broker of choice for this project would be RabbitMQ for its capabilities to support replicated queues and streams. The main concern when proposing system for intercluster communication is availability and for this RabbitMQ offers high availability which is fit for the scope of the project.</p>
+
+				<section>
+					<h4>Sync Daemon</h4>
+					<p> Microservice that will manage the sync of the data between the Graph Database and the NoSQL Database use for storing information about public entities as mentioned in the requirements. </p>
+					<p> As a consequence of the data being crawled from public resources there is a high risk of false or incomplete cases, that is highly concerning for the functionality in general, a strategy for avoiding this particular case is in order. </p>
+					<figure typeof="sa:image">
+						<a href="https://github.com/IonitaCatalin/now-web-project/blob/main/diagrams/crawler-behavioural-diagram.drawio.svg">
+							<img src="resources/now-projec-crawler-behavioural-diagram.svg" alt="NoW Project Microservices Split">
+						</a>
+						<figcaption>NoW project Behavioural Diagram for Crawler Component</figcaption>
+					</figure>
+					<p>In order to mend this issue, as solving it completely would require, idealistically, a more spread dataset of public entities that in the making of this project was not considered or available, a multi-stage crawl process was composed.</p>
+					<p>This process consist of two steps:</p>
+					<ol>
+						<li>1. Scrap data from the available resources and convert it to document NoSQL specific and store it, try to enhance it as much as possible</li>
+						<li>2. Once data is available emit a message for the sync daemon to start converting it from document based to RDF data using the RDF schema</li>
+					</ol>
+				</section>
+
+				<section>
+					<h4>Geolocation Daemon</h4>
+					<p> Microservice that will manage the generation of location data in open format such as GeoJSON or Places.org. </p>
+				</section>
+
+				<section>
+					<h4>CLI</h4>
+					<p> Microservice component that will manage the internal task such as invoking the crawler application and at the same time publishing messages to the event queue to let the sync-daemon start the process of converting the data according to the RDF schema.</p>
+					<p> Instances of this microservice will be spawned automatically by infrastructure component such as cronjobs from K8s. </p>
+
+				</section>
+
+				<section>
+					<h4>MGT REST API</h4>
+					<p> Microservice component that will manage the internal tasks specific to the application such as starting a data import when requested by the. </p>
+				</section>
+
+
+				<section>
+					<h4>MGT REST API</h4>
+					<p> Microservice component that will manage the internal tasks specific to the application such as starting a data import when requested by the admin, the removal of public entity from the NoSQL database as well or adding one. </p>
+				</section>
+
+				<section>
+					<h4>SparQL API</h4>
+					<p> Microservice component that will manage resolving queries coming from the client for the linked data available in the graph database. </p>
+				</section>
+
+				<section>
+					<h4>Subscription API</h4>
+					<p> Microservice component that will manage subscription from the client to the backend component. When a new public entity is added to the available dataset, this action should made known to the client via a notification system. </p>
+				</section>
+				
+				<section id="to-be-used-stack">
+					<h2>Proposed solution</h2>
+					<p>From exhaustive research in the domain of linked data and web services the best approach that was found for satisfying the given requirement are as follows. 
+						<p>The main concern is to offer the ability of the users to query known information of providers of notarized documents (acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures) in their near proximity in a manner that would satisfy the paradigm of linked data, thus the main functionality would not only require static data to be delivered but processing them as RDF data in order to be able offer semantic characteristics.  </p>
+				</section>
+
 			</section>
 		</article>
 		<footer>
