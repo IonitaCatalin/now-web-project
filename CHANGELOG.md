@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/IonitaCatalin/now-web-project/compare/1.2.0...1.3.0) (2022-11-27)
+
+
+### Features
+
+* Create interface diagram ([051218d](https://github.com/IonitaCatalin/now-web-project/commit/051218d1f8a3ed2884bb9f9045a5051188f5ef6f))
+* create ontology diagram ([3feb0bc](https://github.com/IonitaCatalin/now-web-project/commit/3feb0bc98bcc724fbfe1d1a655bb2a0947082ee4))
+* create ui interface mock up ([6281e64](https://github.com/IonitaCatalin/now-web-project/commit/6281e64ed380d72f421a6180fec860556856db62))
+
 # [1.2.0](https://github.com/IonitaCatalin/now-web-project/compare/1.1.0...1.2.0) (2022-11-27)
 
 
