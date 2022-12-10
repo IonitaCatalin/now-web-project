@@ -1,0 +1,21 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "allowJs": true,
+      "module": "commonjs",
+      "types": [
+        "jest",
+        "node"
+      ]
+    },
+    "exclude": [
+      "**/node_modules",
+      "**/dist",
+      "tmp"
+    ],
+    "include": [
+      "**/*.spec.ts",
+      "**/*.d.ts"
+    ]
+  }
+  
