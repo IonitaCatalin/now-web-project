@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/IonitaCatalin/now-web-project/compare/1.3.0...1.4.0) (2022-12-10)
+
+
+### Features
+
+* **workspaces:** first working microservices code ([6ee45c4](https://github.com/IonitaCatalin/now-web-project/commit/6ee45c4e57c271c5821c2102e7b09ad260b7023a))
+* **workspaces:** implemented simple module for application ([7b244de](https://github.com/IonitaCatalin/now-web-project/commit/7b244de41d067e1d746b91330ea8569c5193dd42))
+
 # [1.3.0](https://github.com/IonitaCatalin/now-web-project/compare/1.2.0...1.3.0) (2022-11-27)
 
 
