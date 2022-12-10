@@ -112,13 +112,25 @@
             "!**/node_modules/**/package.json",
             "!**/node_modules/**/package-lock.json",
             "!**/node_modules/**",
+            "docs/**",
             "CHANGELOG.md",
             "package.json",
-            "package-lock.json"
+            "package-lock.json",
+            "libs/**/package.json",
+            "libs/**/package-lock.json",
+            [
+              "apps/**/package.json",
+              "!apps/**/node_modules/**/package.json"
+            ],
+            [
+              "apps/**/package-lock.json",
+              "!apps/**/node_modules/**/package-lock.json"
+            ]
           ],
           "message": "chore: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
         }
       ]
+      
     ]
   },
   "devDependencies": {
