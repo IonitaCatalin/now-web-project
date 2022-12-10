@@ -1,5 +1,5 @@
 {
-  "name": "api-mgt",
+  "name": "@now/api-mgt",
   "version": "1.3.0",
   "description": "The MGT API for NoW Web Project",
   "private": true,
@@ -11,7 +11,7 @@
     "test": "jest -c ../../../jest.unit-test.config.js --forceExit --unhandled-rejections=none"
   },
   "workspaces": [
-    
+    "../../../libs/tools"
   ],
   "dependencies": {
     "@nestjs/core": "8.0.11",
