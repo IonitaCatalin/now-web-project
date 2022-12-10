@@ -1,6 +1,6 @@
 {
   "name": "@now/cli",
-  "version": "1.3.0",
+  "version": "1.4.1-release-fix-semantic-release.1",
   "description": "The CLI for NoW Web Project",
   "private": true,
   "scripts": {
@@ -10,9 +10,7 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "jest -c ../../../jest.unit-test.config.js --forceExit --unhandled-rejections=none"
   },
-  "workspaces": [
-    
-  ],
+  "workspaces": [],
   "dependencies": {
     "@nestjs/core": "8.0.11",
     "@nestjs/common": "8.0.11",
