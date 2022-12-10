@@ -1,6 +1,6 @@
 {
   "name": "@now/common",
-  "version": "1.3.0",
+  "version": "1.4.1-release-fix-semantic-release.1",
   "private": true,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
