@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/IonitaCatalin/now-web-project/compare/1.4.0...1.4.1) (2022-12-10)
+
+
+### Bug Fixes
+
+* **semantic-release:** fix semantic-release issues ([91c97ae](https://github.com/IonitaCatalin/now-web-project/commit/91c97ae6ab4b3a5f133dcf9f0917fd275d0f6e80))
+
 # [1.4.0](https://github.com/IonitaCatalin/now-web-project/compare/1.3.0...1.4.0) (2022-12-10)
 
 

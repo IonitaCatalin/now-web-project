@@ -1,6 +1,6 @@
 {
   "name": "@now/daemon-sync",
-  "version": "1.4.1-release-fix-semantic-release.1",
+  "version": "1.4.1",
   "description": "The Sync Daemon for NoW Web Project",
   "private": true,
   "scripts": {

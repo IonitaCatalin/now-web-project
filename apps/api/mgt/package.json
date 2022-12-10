@@ -1,6 +1,6 @@
 {
   "name": "@now/api-mgt",
-  "version": "1.4.1-release-fix-semantic-release.1",
+  "version": "1.4.1",
   "description": "The MGT API for NoW Web Project",
   "private": true,
   "scripts": {
