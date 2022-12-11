@@ -1,6 +1,6 @@
 ARG VERSION
 
-FROM 152595642771.dkr.ecr.eu-central-1.amazonaws.com/now-services-core-builder:$VERSION AS builder
+FROM khonsu03/now-services-core-builder:$VERSION AS builder
 
 FROM node:16.13.1-alpine
 
