@@ -20,5 +20,8 @@
     if (await builder.execute(dependencies.dependencies)) {
       process.exit(1);
     }
+
+    process.exit(0);
+    
   })().catch(console.error);
   
