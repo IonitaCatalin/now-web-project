@@ -13,7 +13,7 @@ export VERSION=$(node -p -e "require('./package.json').version")
 docker login -u khonsu03 -p $DOCKERHUB_TOKEN
 
 # Install & build all workspaces
-./scripts/docker/build.sh "now-services-core-builder" "scripts/semantic-release/docker/Dockerfile" &
+./scripts/docker/build.sh "now-services-core-builder" "scripts/semantic-release/docker/Dockerfile"
 
 # Build & push now-services-daemon-sync image
 ./scripts/docker/build.sh "now-services-daemon-sync" "apps/daemons/sync/Dockerfile" &
