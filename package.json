@@ -92,6 +92,13 @@
           "prepareCmd": "./scripts/semantic-release/version/update.sh ${nextRelease.version}"
         }
       ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "./scripts/semantic-release/docker/build.sh"
+        }
+      ],
       [
         "@semantic-release/exec",
         {

@@ -4,10 +4,10 @@ on:
     branches:
       - release-*
       - main
-
+  
 jobs:
   run-build:
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted ]
 
     steps:
       - uses: actions/checkout@v3
@@ -19,6 +19,8 @@ jobs:
           node-version: 16.13.1
       - name: Installing npm dependencies
         run: npm ci --no-audit --silent
-      - name: Building
+      - name: Semantic release and build
         id: building
         run: npm run semantic-release
+        env: 
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
