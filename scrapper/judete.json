@@ -1,0 +1,212 @@
+[
+  {
+    "abr": "ab",
+    "nume": "alba",
+    "notariatpublic": "notari-alba"
+  },
+  {
+    "abr": "ar",
+    "nume": "arad",
+    "notariatpublic": "notari-arad-judetul"
+  },
+  {
+    "abr": "ag",
+    "nume": "arges",
+    "notariatpublic": "notari-arges"
+  },
+  {
+    "abr": "bc",
+    "nume": "bacau",
+    "notariatpublic": "notari-bacau"
+  },
+  {
+    "abr": "bh",
+    "nume": "bihor",
+    "notariatpublic": "notari-bihor"
+  },
+  {
+    "abr": "bn",
+    "nume": "bistrita-nasaud",
+    "notariatpublic": "notari-bistrita-nasaud"
+  },
+  {
+    "abr": "bt",
+    "nume": "botosani",
+    "notariatpublic": "notari-botosani"
+  },
+  {
+    "abr": "br",
+    "nume": "braila",
+    "notariatpublic": "notari-braila"
+  },
+  {
+    "abr": "bv",
+    "nume": "brasov",
+    "notariatpublic": "notari-brasov"
+  },
+  {
+    "abr": "b",
+    "nume": "bucuresti",
+    "notariatpublic": "notar-bucuresti-notari-publici"
+  },
+  {
+    "abr": "bz",
+    "nume": "buzau",
+    "notariatpublic": "notari-buzau"
+  },
+  {
+    "abr": "cl",
+    "nume": "calarasi",
+    "notariatpublic": "notari-calarasi"
+  },
+  {
+    "abr": "cs",
+    "nume": "caras-severin",
+    "notariatpublic": "notari-caras-severin"
+  },
+  {
+    "abr": "cj",
+    "nume": "cluj",
+    "notariatpublic": "notari-cluj"
+  },
+  {
+    "abr": "ct",
+    "nume": "constanta",
+    "notariatpublic": "notari-constanta"
+  },
+  {
+    "abr": "cv",
+    "nume": "covasna",
+    "notariatpublic": "notari-covasna"
+  },
+  {
+    "abr": "db",
+    "nume": "dambovita",
+    "notariatpublic": "notari-dambovita"
+  },
+  {
+    "abr": "dj",
+    "nume": "dolj",
+    "notariatpublic": "notari-dolj"
+  },
+  {
+    "abr": "gl",
+    "nume": "galati",
+    "notariatpublic": "notari-galati"
+  },
+  {
+    "abr": "gr",
+    "nume": "giurgiu",
+    "notariatpublic": "notari-giurgiu"
+  },
+  {
+    "abr": "gj",
+    "nume": "gorj",
+    "notariatpublic": "notari-gorj"
+  },
+  {
+    "abr": "hg",
+    "nume": "harghita",
+    "notariatpublic": "notari-harghita"
+  },
+  {
+    "abr": "hd",
+    "nume": "hunedoara",
+    "notariatpublic": "notari-hunedoara"
+  },
+  {
+    "abr": "il",
+    "nume": "ialomita",
+    "notariatpublic": "notari-ialomita"
+  },
+  {
+    "abr": "is",
+    "nume": "iasi",
+    "notariatpublic": "notari-iasi-judet"
+  },
+  {
+    "abr": "if",
+    "nume": "ilfov",
+    "notariatpublic": "notari-ilfov"
+  },
+  {
+    "abr": "mm",
+    "nume": "maramures",
+    "notariatpublic": "notari-maramures"
+  },
+  {
+    "abr": "mh",
+    "nume": "mehedinti",
+    "notariatpublic": "notari-mehedinti"
+  },
+  {
+    "abr": "ms",
+    "nume": "mures",
+    "notariatpublic": "notari-mures"
+  },
+  {
+    "abr": "nt",
+    "nume": "neamt",
+    "notariatpublic": "notari-neamt"
+  },
+  {
+    "abr": "ot",
+    "nume": "olt",
+    "notariatpublic": "notari-olt"
+  },
+  {
+    "abr": "ph",
+    "nume": "prahova",
+    "notariatpublic": "notari-prahova"
+  },
+  {
+    "abr": "sj",
+    "nume": "salaj",
+    "notariatpublic": "notari-salaj"
+  },
+  {
+    "abr": "sm",
+    "nume": "satu-mare",
+    "notariatpublic": "notari-satu-mare"
+  },
+  {
+    "abr": "sb",
+    "nume": "sibiu",
+    "notariatpublic": "notari-sibiu-judet"
+  },
+  {
+    "abr": "sv",
+    "nume": "suceava",
+    "notariatpublic": "notari-suceava-judet"
+  },
+  {
+    "abr": "tr",
+    "nume": "teleorman",
+    "notariatpublic": "notari-teleorman"
+  },
+  {
+    "abr": "tm",
+    "nume": "timis",
+    "notariatpublic": "notari-timis"
+  },
+  {
+    "abr": "tl",
+    "nume": "tulcea",
+    "notariatpublic": "notari-tulcea"
+  },
+  {
+    "abr": "vl",
+    "nume": "valcea",
+    "notariatpublic": "notari-valcea"
+  },
+  {
+    "abr": "vs",
+    "nume": "vaslui",
+    "notariatpublic": "notari-vaslui"
+  },
+  {
+    "abr": "vn",
+    "nume": "vrancea",
+    "notariatpublic": "notari-vrancea"
+  }
+]
