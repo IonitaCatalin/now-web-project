@@ -12,7 +12,7 @@ COPY apps /app/apps/
 COPY test/jest /app/test/jest/
 
 # Copy required root files.
-COPY package.json package-lock.json tsconfig.json jest.config.js /app/
+COPY package.json package-lock.json tsconfig.json jest.config.js /app/ /scritps/
 
 # Install dependencies & workspaces
 RUN npm ci --no-audit --verbose
