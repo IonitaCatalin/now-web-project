@@ -5,11 +5,11 @@ WORKDIR /app
 # Copy all libs
 COPY libs /app/libs/
 
-# Copy all applications
+# Copy all apps
 COPY apps /app/apps/
 
-# Copy test folder (for testing-e2e lib)
-COPY test/jest /app/test/jest/
+# Copy scripts
+COPY scripts/workspaces /app/scripts/workspaces/
 
 # Copy required root files.
 COPY package.json package-lock.json tsconfig.json jest.config.js /app/
@@ -19,4 +19,3 @@ RUN npm ci --no-audit --verbose
 
 # Build workspaces
 RUN npm run build:workspaces
-

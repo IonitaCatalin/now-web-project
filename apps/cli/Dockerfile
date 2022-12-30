@@ -2,7 +2,7 @@ ARG VERSION
 
 FROM khonsu03/now-services-core-builder:$VERSION AS builder
 
-FROM node:16.13.1-alpine
+FROM node:node:19-alpine3.16
 
 WORKDIR /app
 

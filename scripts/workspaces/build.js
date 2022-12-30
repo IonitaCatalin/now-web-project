@@ -3,7 +3,7 @@
       { ProcessRunner } = require('./util/process-runner');
   
     const dependencies = new Dependencies(),
-      builder = new ProcessRunner('Build', 'build', false);
+      builder = new ProcessRunner('Execute', 'build', false);
   
     await dependencies.all();
 
@@ -20,7 +20,6 @@
     if (await builder.execute(dependencies.dependencies)) {
       process.exit(1);
     }
-
     
   })().catch(console.error);
   
