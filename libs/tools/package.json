@@ -1,6 +1,6 @@
 {
   "name": "@now/tools",
-  "version": "1.5.0-release-docker-build.8",
+  "version": "1.5.0-release-docker-build.9",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
