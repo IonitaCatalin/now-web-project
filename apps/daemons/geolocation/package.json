@@ -1,6 +1,6 @@
 {
   "name": "@now/daemon-geolocation",
-  "version": "1.5.0-release-docker-build.10",
+  "version": "1.5.0-release-docker-build.9",
   "description": "The Geolocation Daemon for NoW Web Project",
   "private": true,
   "scripts": {
