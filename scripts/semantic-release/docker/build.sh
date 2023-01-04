@@ -18,9 +18,6 @@ docker login -u khonsu03 -p $DOCKERHUB_TOKEN
 # Build & push now-services-daemon-sync image
 ./scripts/docker/build.sh "now-services-daemon-sync" "apps/daemons/sync/Dockerfile" &
 
-# Build & push now-services-daemon-geolocation image
-./scripts/docker/build.sh "now-services-daemon-geolocation" "apps/daemons/geolocation/Dockerfile" &
-
 # Build & push now-services-api-sparql image
 ./scripts/docker/build.sh "now-services-api-sparql" "apps/api/sparql/Dockerfile" &
 
