@@ -1,4 +1,4 @@
-FROM node:19-alpine3.16
+FROM node:16.13.1
 
 WORKDIR /app
 
@@ -17,5 +17,7 @@ COPY package.json package-lock.json tsconfig.json jest.config.js /app/
 # Install dependencies & workspaces
 RUN npm ci --no-audit --verbose
 
+COPY node_modules /app/node_modules
+
 # Build workspaces
-RUN npm run build:workspaces
+CMD ["node", "./scripts/workspaces/build.js"]
