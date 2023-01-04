@@ -7,7 +7,7 @@ set -e
 export DOCKER_BUILDKIT=1
 
 # Get services version
-export VERSION=$(node -p -e "require('./package.json').version")
+export VERSION=$(node -p -e "JSON.stringify(require('./package.json').version)" | tr -d '"')
 
 #Login to DockerHub
 docker login -u khonsu03 -p $DOCKERHUB_TOKEN
