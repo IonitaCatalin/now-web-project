@@ -136,7 +136,7 @@
         {
           "prepareCmd": "./scripts/semantic-release/docker/build.sh"
         }
-      ],
+      ]
     ]
   },
   "devDependencies": {
