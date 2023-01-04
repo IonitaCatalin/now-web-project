@@ -1,6 +1,6 @@
 {
   "name": "@now/api-sparql",
-  "version": "1.5.0-release-docker-build.7",
+  "version": "1.5.0-release-docker-build.8",
   "description": "The SparQL API for NoW Web Project",
   "private": true,
   "scripts": {
