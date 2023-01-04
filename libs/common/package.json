@@ -1,6 +1,6 @@
 {
   "name": "@now/common",
-  "version": "1.5.0-release-docker-build.13",
+  "version": "1.5.0-release-docker-build.9",
   "private": true,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

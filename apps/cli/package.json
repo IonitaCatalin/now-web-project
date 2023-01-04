@@ -1,6 +1,6 @@
 {
   "name": "@now/cli",
-  "version": "1.5.0-release-docker-build.13",
+  "version": "1.5.0-release-docker-build.9",
   "description": "The CLI for NoW Web Project",
   "private": true,
   "scripts": {
