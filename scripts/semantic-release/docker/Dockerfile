@@ -1,5 +1,11 @@
 FROM node:16.13.1-alpine
 
+RUN addgroup app && adduser -S -G app app
+
+RUN mkdir /app && chown app:app /app
+
+USER app
+
 WORKDIR /app
 
 # Copy all libs
@@ -19,9 +25,6 @@ COPY package.json package-lock.json tsconfig.json jest.config.js /app/
 
 # Install dependencies & workspaces
 RUN npm ci --no-audit --verbose
-
-# Change to node user, otherwise the executor crashes
-USER node
 
 # Build workspaces
 RUN npm run build:workspaces
