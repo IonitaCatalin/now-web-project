@@ -129,7 +129,14 @@
           ],
           "message": "chore: ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
         }
-      ]
+      ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "./scripts/semantic-release/docker/build.sh"
+        }
+      ],
     ]
   },
   "devDependencies": {
