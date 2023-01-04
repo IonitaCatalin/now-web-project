@@ -21,5 +21,5 @@ COPY package.json package-lock.json tsconfig.json jest.config.js /app/
 RUN npm ci --no-audit --verbose
 
 # Build workspaces
-CMD ["node", "./scripts/workspaces/build.js"]
+RUN node ./scripts/workspaces/build.js 
 
