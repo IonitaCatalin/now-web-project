@@ -10,20 +10,20 @@ WORKDIR /app
 RUN export NODE_ENV=production
 
 # Expose the port
-EXPOSE 9106
+EXPOSE 9108
 
 # Start the service
-CMD node apps/daemons/geolocation/dist/main.js
+CMD node apps/api/mgt/dist/main.js
 
 # Copy compiled application & libraries
 COPY --from=builder /app/package.json /app/
 COPY --from=builder /app/package-lock.json /app/
 COPY --from=builder /app/libs /app/libs/
-COPY --from=builder /app/apps/daemons/geolocation/dist /app/apps/daemons/geolocation/dist/
-COPY --from=builder /app/apps/daemons/geolocation/package.json /app/apps/daemons/geolocation/
+COPY --from=builder /app/apps/api/mgt/dist /app/apps/api/mgt/dist/
+COPY --from=builder /app/apps/api/mgt/package.json /app/apps/api/mgt/
 
-# Install only daemon-geolocation application workspace
-RUN sed -i 's/"apps\/\**"/"apps\/\daemons\/\geolocation"/g' /app/package.json
+# Install only api-mgt application workspace
+RUN sed -i 's/"apps\/\**"/"apps\/\api\/\mgt"/g' /app/package.json
 
 # Install dependencies & workspaces
 RUN npm install --production --no-audit --silent

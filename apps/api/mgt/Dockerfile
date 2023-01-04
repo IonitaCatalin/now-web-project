@@ -4,6 +4,7 @@ FROM khonsu03/now-services-core-builder:$VERSION AS builder
 
 FROM node:16.13.1-alpine
 
+
 WORKDIR /app
 
 # Make sure node env is set to production

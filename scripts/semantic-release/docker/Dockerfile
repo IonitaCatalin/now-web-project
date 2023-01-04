@@ -4,15 +4,15 @@ RUN addgroup app && adduser -S -G app app
 
 RUN mkdir /app && chown app:app /app
 
-USER app
+
 
 WORKDIR /app
 
 # Copy all libs
-COPY libs /app
+COPY libs /app/libs/
 
 # Copy all applications
-COPY apps /app
+COPY apps /app/apps/
 
 # Copy test folder (for testing-e2e lib)
 COPY test/jest /app/test/jest/
@@ -21,7 +21,7 @@ COPY test/jest /app/test/jest/
 COPY scripts/workspaces /app/scripts/workspaces/
 
 # Copy required root files.
-COPY package.json package-lock.json tsconfig.json jest.config.js /app/
+COPY package.json package-lock.json tsconfig.json jest.config.js /app/ 
 
 # Install dependencies & workspaces
 RUN npm ci --no-audit --verbose
