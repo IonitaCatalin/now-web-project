@@ -9,10 +9,10 @@ USER app
 WORKDIR /app
 
 # Copy all libs
-COPY libs /app/libs/
+COPY libs /app
 
 # Copy all applications
-COPY apps /app/apps/
+COPY apps /app
 
 # Copy test folder (for testing-e2e lib)
 COPY test/jest /app/test/jest/
