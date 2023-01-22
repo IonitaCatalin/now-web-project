@@ -1,3 +1,52 @@
+# [1.5.0](https://github.com/IonitaCatalin/now-web-project/compare/1.4.1...1.5.0) (2023-01-22)
+
+
+### Bug Fixes
+
+* **build:** Added GH_TOKEN to env vars ([2ef9cc5](https://github.com/IonitaCatalin/now-web-project/commit/2ef9cc5699fe4c057d5fb093f04c34036da953cb))
+* **build:** Fix package.json path ([06bb8e8](https://github.com/IonitaCatalin/now-web-project/commit/06bb8e84aa05e728bb43ec384978c57d19b52b73))
+* **build:** Fix permission denied ([dc60625](https://github.com/IonitaCatalin/now-web-project/commit/dc606258724c528fe3c58331b3b20ee4e4213cc1))
+* **build:** Fix permission denied * 2 ([3115836](https://github.com/IonitaCatalin/now-web-project/commit/3115836786a11ddcfb8b99582a90896ff6a9caa1))
+* **build:** Fix permission denied * 3 ([bbc49d7](https://github.com/IonitaCatalin/now-web-project/commit/bbc49d7359c1fc470b5212ba12f1fce33114e053))
+* **build:** Fix permission denied * 4 ([cb22258](https://github.com/IonitaCatalin/now-web-project/commit/cb22258752b5544021d38f066d6b52ce1a95d439))
+* **build:** Fix permission issue ([3275801](https://github.com/IonitaCatalin/now-web-project/commit/3275801191ec2bf3520c89236854387003073c81))
+* **build:** Fix typo ([340b09e](https://github.com/IonitaCatalin/now-web-project/commit/340b09ea4476acfb849110f0da41f390e071d37a))
+* **docker:** fix Dockerfile ([137c0fc](https://github.com/IonitaCatalin/now-web-project/commit/137c0fcfc039323bbc53e02059076ca864f87df9))
+* **docker:** fix missing env var ([e78f1e5](https://github.com/IonitaCatalin/now-web-project/commit/e78f1e5b6fa33301ad3ef80c82926f45a257219e))
+* **docker:** fix typo ([8c29da5](https://github.com/IonitaCatalin/now-web-project/commit/8c29da5725522d321e51cfd734f0c26df2f4a187))
+* **docker:** fixing docker ([c33244a](https://github.com/IonitaCatalin/now-web-project/commit/c33244aebfd78de40bc3c2f6b4b79ffd0694a75b))
+* **docker:** fixing docker *2 ([333cb41](https://github.com/IonitaCatalin/now-web-project/commit/333cb4101f8145745b931867000afc872844912d))
+* **docker:** fixing docker *3 ([15a9502](https://github.com/IonitaCatalin/now-web-project/commit/15a9502114c3fb4795c8372014f8fda7834587e2))
+* **docker:** update COPY from main Dockerfile ([d2bb062](https://github.com/IonitaCatalin/now-web-project/commit/d2bb062644fab1489b678b7982888e868af461ab))
+* **docker:** update core-builder Dockerfile ([42a99ef](https://github.com/IonitaCatalin/now-web-project/commit/42a99efc1739abd6b8e6f9db1657e67d0ad1d02c))
+* **docker:** update dependencies and Dockerfile ([b8f9cd5](https://github.com/IonitaCatalin/now-web-project/commit/b8f9cd5fa1be09888d93c0c5e3f86feb1273fa54))
+* **docker:** update main Dockerfile ([4743f0d](https://github.com/IonitaCatalin/now-web-project/commit/4743f0deadb65c42f800d073b9e953f1c0568760))
+* **docker:** update to correct version of alpine ([df086f0](https://github.com/IonitaCatalin/now-web-project/commit/df086f014da596b49fcf08c4ee8bfa3484a2eda9))
+* **docker:** update to newer version of node alpine ([d6329f4](https://github.com/IonitaCatalin/now-web-project/commit/d6329f4ca4e0838417060f1a39b573e500c00976))
+* **jest:** rename jest file ([ce16471](https://github.com/IonitaCatalin/now-web-project/commit/ce164711d7c9a5c62d2f7fe49f432d54ef858413))
+* **libs:** Fix libs issues ([c2b6c87](https://github.com/IonitaCatalin/now-web-project/commit/c2b6c87fdc3bea6bd893dc52fe3c473adde880f8))
+* **npm:** Fix package-lock.json ([6674111](https://github.com/IonitaCatalin/now-web-project/commit/6674111bb94ee7280c2c1e89a2a335a7891e4324))
+* **semantic-release:** manual trigger ([9e98daf](https://github.com/IonitaCatalin/now-web-project/commit/9e98dafe829c19c606eb6847f49af791d957f955))
+* **version:** trigger version change ([f847f6d](https://github.com/IonitaCatalin/now-web-project/commit/f847f6d11b54ecf2c46d975de6db6e2c91e2ffaf))
+* **workflow:** fix node-alpine fuckery ([b5f13ba](https://github.com/IonitaCatalin/now-web-project/commit/b5f13bab4ae69ef784dc56016ed6bb8d52f3fe18))
+* **workflow:** fix semantic release ([d6de185](https://github.com/IonitaCatalin/now-web-project/commit/d6de18577eb1e902aac6ab6028ddb13723878815))
+* **workflow:** fix semantic release *2 ([f986fc5](https://github.com/IonitaCatalin/now-web-project/commit/f986fc52e2ff87f9be5d598300f6b9fcb3913baa))
+* **workflow:** fix typo ([3ceecbc](https://github.com/IonitaCatalin/now-web-project/commit/3ceecbcb4edac31321b02be177842c92738161b2))
+* **workflow:** run on ubuntu-latest ([4804b54](https://github.com/IonitaCatalin/now-web-project/commit/4804b548a058d0407dd6f4c6db4e949c796b8e74))
+* **workflow:** that's the wrong dockerfile ([4432653](https://github.com/IonitaCatalin/now-web-project/commit/4432653050919f1214ad5a4849b87646303f7e00))
+* **workflow:** trigger version change ([54a8313](https://github.com/IonitaCatalin/now-web-project/commit/54a8313d543d09ed1f9568bdf94be6f883d79d65))
+
+
+### Features
+
+* **docker:** more work for automated builds ([ab72710](https://github.com/IonitaCatalin/now-web-project/commit/ab72710c76929269017efad7c819e17ad2638560))
+* **docker:** removed geolocation-daemon ([a18e8db](https://github.com/IonitaCatalin/now-web-project/commit/a18e8db7e9d20e9c763dc84eb5af0e389ca16869))
+* **docker:** removed unused daemon ([91df136](https://github.com/IonitaCatalin/now-web-project/commit/91df136d64509bd85f9e82f3067582f6c2c072b9))
+* **docker:** trigger a release ([5543168](https://github.com/IonitaCatalin/now-web-project/commit/554316808b66c6e1263789e38273f7f0d3c421f4))
+* **docker:** WIP for automatically building docker images ([993f470](https://github.com/IonitaCatalin/now-web-project/commit/993f47035e4ddc6898b7e384edaf99e3f48d78fa))
+* **status:** changed status controller ([2bce5fa](https://github.com/IonitaCatalin/now-web-project/commit/2bce5fadf9ba3192c6c010cbdf49ed95bed713fd))
+* **version:** trigger version change ([22dd92c](https://github.com/IonitaCatalin/now-web-project/commit/22dd92ccc656052c65c58652f95187fa3668a252))
+
 ## [1.4.1](https://github.com/IonitaCatalin/now-web-project/compare/1.4.0...1.4.1) (2022-12-10)
 
 
