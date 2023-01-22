@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter, NestExpressApplication } from '@nestjs/platform-express';
-import { DynamicModule, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 
 export async function init(name: string, moduleClass: any, port: number): Promise<void> {
     const logger = new Logger(name),

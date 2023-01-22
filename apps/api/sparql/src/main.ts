@@ -1,14 +1,11 @@
-/* istanbul ignore file */
-/* eslint-disable import/order */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { join } from 'path';
 import { init } from '@now/tools';
 
 import * as dotenv from 'dotenv';
 dotenv.config({ path: join(__dirname, '../../../../.env') });
 
-import { CliModule } from './cli.module';
+import { ApiSparQLModule } from './api-sparql.module';
 
 (async () => {
-  await init('Sync Daemon', CliModule, 9110);
+  await init('API SparQL', ApiSparQLModule, parseInt(process.env.ENV_DAEMON_SYNC_PORT) || 9109);
 })();
