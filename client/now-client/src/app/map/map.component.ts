@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {environment} from '../../environments/environment';
-import * as mapboxgl from 'mapbox-gl';
-import {MapboxService} from "./_service/mapbox.service";
+import {MapboxService, Notary, Translator} from "./_service/mapbox.service";
+import {Marker} from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 
 @Component({
   selector: 'app-map',
@@ -9,37 +9,66 @@ import {MapboxService} from "./_service/mapbox.service";
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+
   // @ts-ignore
   public map: mapboxgl.Map;
-  private style = 'mapbox://styles/mapbox/streets-v11';
+  public notaries: Notary[] = [];
+  public translators: Translator[] = [];
 
+  public mapStyle = 'mapbox://styles/mapbox/streets-v11';
+  public mapZoom = 16;
   // UAIC FII
-  private lat = 47.17396317620398;
-  private lng = 27.57494318626357;
+  public initLat = 47.17396317620398;
+  public initLng = 27.57494318626357;
+
+  private markers: Marker[] = [];
+
 
   constructor(private mapboxService: MapboxService) {
   }
 
   ngOnInit(): void {
-    this.map = new mapboxgl.Map({
-      accessToken: environment.mapbox.accessToken,
-      container: 'map',
-      style: this.style,
-      zoom: 17,
-      center: [this.lng, this.lat]
-    });
 
-    this.map.addControl(new mapboxgl.NavigationControl());
-
-    const marker1 = new mapboxgl.Marker()
-      .setLngLat([this.lng, this.lat])
-      .addTo(this.map);
-
-    const marker2 = new mapboxgl.Marker()
-      .setLngLat([27.5996997051251, 47.1605983])
-      .addTo(this.map);
-
-    this.mapboxService.getMarkers();
   }
 
+  public mapReady(map: mapboxgl.Map) {
+    this.map = map;
+    console.log(this.map);
+    this.notaries = this.mapboxService.notaries;
+    this.translators = this.mapboxService.translators;
+    // this.addMarkers(this.notaries);
+  }
+
+  public onMarkerClick(markerId: number) {
+    console.log("marker click", markerId);
+  }
+
+  private addMarkers(notaries: Notary[]) {
+    this.markers = notaries.map(
+      notary => new mapboxgl.Marker()
+        .setLngLat([notary.coordinates.lng, notary.coordinates.lat])
+        .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+        .addTo(this.map)
+    );
+  }
+
+  public onTranslatorClick(translator: Translator) {
+    console.log(translator);
+  }
+
+  easeCameraTo(lng: number, lat: number) {
+    this.map.easeTo({center: [lng, lat]});
+  }
+
+  onNotaryClick(notary: Notary) {
+    console.log(notary);
+  }
+
+  focusTranslator(translator: Translator) {
+    this.easeCameraTo(translator.coordinates.lng, translator.coordinates.lat);
+  }
+
+  focusNotary(notary: Notary) {
+    this.easeCameraTo(notary.coordinates.lng, notary.coordinates.lat);
+  }
 }

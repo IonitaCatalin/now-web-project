@@ -26,6 +26,10 @@ class Notary:
         self.phone_numbers = []
         self.email_addr = ''
         self.languages = []
+        self.coordinates = {
+            "lat": None,
+            "lng": None
+        }
 
     def __str__(self):
         return "Notar {} din {}".format(self.name, self.city)
@@ -103,15 +107,66 @@ def augment_from_notariat_public(notary):
         return
 
 
+def augment_with_coordinates(notary, retry=False):
+    url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/{}.json?access_token=pk.eyJ1IjoibWNzc3RlZmFuIiwiYSI6ImNsYnJ1aWdiMjB2MDczdm12ZjExNzQyOHgifQ.fjq7re7h2ZsBNPGbty_wjQ&country=RO&limit=1'
+
+    if notary.address:
+        if retry:
+            try:
+                to_search = notary.address[notary.address.index('cod postal'):] + ", " + notary.city
+                print("RETRY with", to_search)
+            except Exception:
+                print("NOT FOUND WITH RETRY!")
+                return
+        else:
+            try:
+                to_search = notary.address[:80] + ", " + notary.city
+            except Exception:
+                print("[FAIL] Couldn't find coordinates for ", notary)
+                return
+    else:
+        print("No address for", notary)
+        to_search = notary.name + ", " + notary.city + ", " + notary.county
+
+    to_search = urlparser.quote(to_search)
+    url = url.format(to_search)
+    r = requests.get(url, verify=False)
+    if r.status_code != 200:
+        print("[FAIL] Couldn't find coordinates for ", notary)
+        augment_with_coordinates(notary, True)
+        return
+    res = json.loads(r.text)
+    if len(res['features']) > 0:
+        notary.coordinates = {
+            "lng": res['features'][0]['geometry']['coordinates'][0],
+            "lat": res['features'][0]['geometry']['coordinates'][1]
+        }
+        if retry:
+            print("FOUND WITH RETRY!")
+        if not notary.address:
+            if 'address' in res['features'][0]['properties']:
+                notary.address = res['features'][0]['properties']['address']
+            else:
+                notary.address = res['features'][0]['place_name']
+    else:
+        print("[FAIL] Couldn't find coordinates for ", notary)
+        augment_with_coordinates(notary, True)
+        return
+
+
 def augment_notary(notary):
-    # augment notary data from different sites
-    augment_from_notariat_public(notary)
+    try:
+        # augment notary data from different sites
+        # augment_from_notariat_public(notary)
+        augment_with_coordinates(notary)
+    except Exception:
+        print('[ERR]', notary)
 
 
 def augment_notaries(notaries_list):
     for notary in notaries_list:
         augment_notary(notary)
-        time.sleep(0.1)
+        # time.sleep(0.1)
     print("COULDN'T AUGMENT: ", NOT_FOUND_NOTARIES)
 
 
@@ -149,7 +204,7 @@ def parse_notaries_list():
 
 
 def serialize_notaries(notaries_obj_list):
-    path = Path('scrapped', 'notaries_list.json')
+    path = Path('scrapped', 'notaries_list_trim.json')
     text_file = open(path, "w")
     text_file.write(jsonpickle.encode(notaries_obj_list))
     text_file.close()
@@ -168,8 +223,28 @@ def compute_notary_for_judet():
     return dict
 
 
+def deserialize_notaries_json():
+    f = open(Path('scrapped', 'notaries_list.json'))
+    input = f.read()
+    f.close()
+    deserialized = jsonpickle.decode(input)
+    return deserialized
+
+
+def remove_notaries(notaries_obj_list):
+    new_list = []
+    for notar in notaries_obj_list:
+        if hasattr(notar, 'coordinates') and (notar.coordinates['lat'] and notar.coordinates['lng']):
+            new_list.append(notar)
+    return new_list
+
+
 notary_judet_to_url = compute_notary_for_judet()
 raw_data, notaries_obj_list = parse_notaries_list()
-augment_notaries(notaries_obj_list)
-serialize_notaries(notaries_obj_list)
-print(notaries_obj_list)
+notaries_obj_list = deserialize_notaries_json()
+# augment_notaries(notaries_obj_list)
+print("Length before cleaning", len(notaries_obj_list))
+to_serialize = remove_notaries(notaries_obj_list)
+print("Length after cleaning", len(to_serialize))
+serialize_notaries(to_serialize)
+# print(notaries_obj_list)
