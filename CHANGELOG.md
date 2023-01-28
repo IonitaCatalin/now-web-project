@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/IonitaCatalin/now-web-project/compare/1.5.0...1.6.0) (2023-01-28)
+
+
+### Features
+
+* markers with mapbox ([da51053](https://github.com/IonitaCatalin/now-web-project/commit/da51053c316d5368fa0a503ff5200d78c4f61cb9))
+
 # [1.5.0](https://github.com/IonitaCatalin/now-web-project/compare/1.4.1...1.5.0) (2023-01-22)
 
 
