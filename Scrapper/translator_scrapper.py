@@ -123,7 +123,16 @@ def remove_no_data_translators(translators_obj_list):
     return new_list
 
 
-raw_data, translators_obj_list = parse_translators_list()
+def deserialize_translators_json():
+    f = open(Path('scrapped', 'translators_list_pickle.json'))
+    input = f.read()
+    f.close()
+    deserialized = jsonpickle.decode(input)
+    return deserialized
+
+
+# raw_data, translators_obj_list = parse_translators_list() # load data from xls file
+translators_obj_list = deserialize_translators_json() # load data from json file (already augmented)
 augment_translators(translators_obj_list)
 print("Length before cleaning", len(translators_obj_list))
 to_serialize = remove_no_data_translators(translators_obj_list)
