@@ -157,7 +157,7 @@ def augment_with_coordinates(notary, retry=False):
 def augment_notary(notary):
     try:
         # augment notary data from different sites
-        # augment_from_notariat_public(notary)
+        augment_from_notariat_public(notary)
         augment_with_coordinates(notary)
     except Exception:
         print('[ERR]', notary)
@@ -204,9 +204,14 @@ def parse_notaries_list():
 
 
 def serialize_notaries(notaries_obj_list):
-    path = Path('scrapped', 'notaries_list_trim.json')
+    path = Path('scrapped', 'notaries_list_pickle.json')
     text_file = open(path, "w")
     text_file.write(jsonpickle.encode(notaries_obj_list))
+    text_file.close()
+
+    path = Path('scrapped', 'notaries_list.json')
+    text_file = open(path, "w")
+    text_file.write(jsonpickle.encode(notaries_obj_list, False))
     text_file.close()
 
 
@@ -224,14 +229,14 @@ def compute_notary_for_judet():
 
 
 def deserialize_notaries_json():
-    f = open(Path('scrapped', 'notaries_list.json'))
+    f = open(Path('scrapped', 'notaries_list_pickle.json'))
     input = f.read()
     f.close()
     deserialized = jsonpickle.decode(input)
     return deserialized
 
 
-def remove_notaries(notaries_obj_list):
+def remove_no_data_notaries(notaries_obj_list):
     new_list = []
     for notar in notaries_obj_list:
         if hasattr(notar, 'coordinates') and (notar.coordinates['lat'] and notar.coordinates['lng']):
@@ -240,11 +245,11 @@ def remove_notaries(notaries_obj_list):
 
 
 notary_judet_to_url = compute_notary_for_judet()
-raw_data, notaries_obj_list = parse_notaries_list()
-notaries_obj_list = deserialize_notaries_json()
-# augment_notaries(notaries_obj_list)
+# raw_data, notaries_obj_list = parse_notaries_list() # load data from xls file
+notaries_obj_list = deserialize_notaries_json() # load data from json file (already augmented)
+augment_notaries(notaries_obj_list)
 print("Length before cleaning", len(notaries_obj_list))
-to_serialize = remove_notaries(notaries_obj_list)
+to_serialize = remove_no_data_notaries(notaries_obj_list)
 print("Length after cleaning", len(to_serialize))
 serialize_notaries(to_serialize)
 # print(notaries_obj_list)
