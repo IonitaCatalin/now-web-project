@@ -1,0 +1,83 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix notary: <http://example.org/notary#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+
+
+notary:Notary rdf:type rdfs:Class ;
+    rdfs:label "Notary" .
+
+notary:Service rdf:type rdfs:Class ;
+    rdfs:label "Service" .
+
+notary:id rdf:type rdf:Property ;
+    rdfs:label "id" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "A unique identifier for the notary." .
+
+notary:name rdf:type rdf:Property ;
+    rdfs:label "name" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The name of the notary." .
+
+notary:room rdf:type rdf:Property ;
+    rdfs:label "room" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The room number where the notary is located." .
+
+notary:address rdf:type rdf:Property ;
+    rdfs:label "address" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The street address of the notary." .
+
+notary:city rdf:type rdf:Property ;
+    rdfs:label "city" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The city where the notary is located." .
+
+notary:county rdf:type rdf:Property ;
+    rdfs:label "county" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The county where the notary is located." .
+
+notary:description rdf:type rdf:Property ;
+    rdfs:label "description" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "A short description of the notary." .
+
+notary:phoneNumbers rdf:type rdf:Property ;
+    rdfs:label "phoneNumbers" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range rdf:List ;
+    rdfs:comment "A list of phone numbers associated with the notary." .
+
+notary:email rdf:type rdf:Property ;
+    rdfs:label "email" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The email address of the notary." .
+
+notary:languages rdf:type rdf:Property ;
+    rdfs:label "languages" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range rdf:List ;
+    rdfs:comment "A list of languages spoken by the notary." .
+
+notary:coordinates a geo:asWKT;
+    rdfs:label "coordinates"@en;
+    rdfs:domain notary:Notary;
+    rdfs:comment "The geographic coordinates of the notary.".
+
+notary:services rdf:type rdf:Property ;
+    rdfs:label "services" ;
+    rdfs:domain notary:Notary ;
+    rdfs:range rdf:List ;
+    rdfs:comment "A list of services provided by the notary." .
