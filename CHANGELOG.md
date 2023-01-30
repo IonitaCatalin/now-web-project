@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/IonitaCatalin/now-web-project/compare/1.5.0...1.6.0) (2023-01-30)
+
+
+### Features
+
+* **auth:** implementation of basic auth system ([#26](https://github.com/IonitaCatalin/now-web-project/issues/26)) ([66f6738](https://github.com/IonitaCatalin/now-web-project/commit/66f67389e815a0067273a52b88034a19c3960b14))
+* **auth:** improvements ([59b4432](https://github.com/IonitaCatalin/now-web-project/commit/59b44328a04cab90cc94e8dafb0b2dc7fe14661f))
+* markers with mapbox ([da51053](https://github.com/IonitaCatalin/now-web-project/commit/da51053c316d5368fa0a503ff5200d78c4f61cb9))
+
 # [1.6.0](https://github.com/IonitaCatalin/now-web-project/compare/1.5.0...1.6.0) (2023-01-28)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@now/cli",
-  "version": "1.6.0-release-advanced-authentication.1",
+  "version": "1.6.0",
   "description": "The CLI for NoW Web Project",
   "private": true,
   "scripts": {
