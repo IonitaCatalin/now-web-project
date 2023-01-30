@@ -1,28 +1,30 @@
 {
-  "name": "@now/api-mgt",
+  "name": "@now/users",
   "version": "1.6.0",
-  "description": "The MGT API for NoW Web Project",
   "private": true,
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/main.js",
-    "start:dev": "nest start --watch",
     "lint": "eslint --ext \".js,.ts\" src",
     "build": "tsc -p tsconfig.build.json",
     "test": "jest -c ../../../jest.unit-test.config.js --forceExit --unhandled-rejections=none"
   },
   "workspaces": [
-    "../../../libs/tools"
+    "../common"
   ],
   "dependencies": {
-    "@nestjs/core": "8.0.11",
     "@nestjs/common": "8.0.11",
-    "@nestjs/mongoose": "9.2.1",
+    "@nestjs/core": "8.0.11",
     "@nestjs/microservices": "8.0.11",
+    "@nestjs/platform-express": "8.0.11",
+    "@nestjs/mongoose": "9.2.1",
+    "@nestjs/jwt": "10.0.1",
+    "bcrypt":"5.1.0",
     "dotenv": "10.0.0"
   },
   "devDependencies": {
     "@types/jest": "27.4.1",
     "@types/node": "17.0.2",
+    "@types/bcrypt": "5.0.0",
     "ts-morph": "12.0.0",
     "typescript": "4.6.2"
   },

@@ -7,7 +7,6 @@
   
     await dependencies.all();
 
-  
     const circularDependencies = dependencies.getCircularDependencies();
     if (circularDependencies.length > 0) {
       circularDependencies.forEach(([packFile, dependency]) => {
