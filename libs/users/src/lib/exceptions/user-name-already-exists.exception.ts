@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { ErrorCode, exceptions, TranslatableBadRequestException, TranslatableException } from '@now/common';
+import { ErrorCode, exceptions, TranslatableBadRequestException } from '@now/common';
 
 export class UserNameAlreadyExistsException extends TranslatableBadRequestException {
     constructor() {
