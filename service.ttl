@@ -1,102 +1,145 @@
-@prefix notary: <http://example.org/notary#>.
-@prefix nservice: <http://example.org/nservice#>.
+@prefix now: <http://example.org/now#>.
+@prefix service: <http://example.org/service#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
-nservice:name rdf:type rdf:Property ;
+service:name rdf:type rdf:Property ;
     rdfs:label "name" ;
-    rdfs:domain notary:Service ;
+    rdfs:domain now:Service ;
     rdfs:range xsd:string ;
     rdfs:comment "The name of the service." .
 
-nservice:description rdf:type rdf:Property ;
+service:description rdf:type rdf:Property ;
     rdfs:label "description" ;
-    rdfs:domain notary:Service ;
+    rdfs:domain now:Service ;
     rdfs:range xsd:string ;
     rdfs:comment "A short description of the service" .
 
-nservice:SN1 a notary:Service;
-    nservice:name "Autentificarea actelor";
-    nservice:description "serviciu prin care un notar atesta autenticitatea unei semnaturi sau a unui document." .
+service:SN1 a now:Service;
+    service:name "Autentificarea actelor";
+    service:description "serviciu prin care un notar atesta autenticitatea unei semnaturi sau a unui document." .
 
-nservice:SN2 a notary:Service;
-    nservice:name "Eliberarea de certificate de mostenitor";
-    nservice:description "serviciu prin care un notar elibereaza un document care atesta dreptul unei persoane de a mosteni un bun." .
+service:SN2 a now:Service;
+    service:name "Eliberarea de certificate de mostenitor";
+    service:description "serviciu prin care un notar elibereaza un document care atesta dreptul unei persoane de a mosteni un bun." .
 
-nservice:SN3 a notary:Service;
-    nservice:name "Inscrierea de ipoteca";
-    nservice:description "serviciu prin care un notar inregistreaza o ipoteca asupra unui bun imobil." .
+service:SN3 a now:Service;
+    service:name "Inscrierea de ipoteca";
+    service:description "serviciu prin care un notar inregistreaza o ipoteca asupra unui bun imobil." .
 
-nservice:SN4 a notary:Service;
-    nservice:name "Eliberarea de certificate constatatoare";
-    nservice:description "serviciu prin care un notar elibereaza un document care atesta starea unui bun (de exemplu, proprietatea sau posesia unui bun)." .
+service:SN4 a now:Service;
+    service:name "Eliberarea de certificate constatatoare";
+    service:description "serviciu prin care un notar elibereaza un document care atesta starea unui bun (de exemplu, proprietatea sau posesia unui bun)." .
 
-nservice:SN5 a notary:Service;
-    nservice:name "Redactarea de acte notariale";
-    nservice:description "serviciu prin care un notar redacteaza acte juridice (de exemplu, contracte de vanzare-cumparare sau testamente)." .
+service:SN5 a now:Service;
+    service:name "Redactarea de acte notariale";
+    service:description "serviciu prin care un notar redacteaza acte juridice (de exemplu, contracte de vanzare-cumparare sau testamente)." .
 
-nservice:SN6 a notary:Service;
-    nservice:name "Legalizarea de semnaturi";
-    nservice:description "serviciu prin care un notar atesta ca o semnatura este autentica." .
+service:SN6 a now:Service;
+    service:name "Legalizarea de semnaturi";
+    service:description "serviciu prin care un notar atesta ca o semnatura este autentica." .
 
-nservice:SN7 a notary:Service;
-    nservice:name "Inscrierea de uzufruct";
-    nservice:description "serviciu prin care un notar inregistreaza un drept de uzufruct asupra unui bun." .
+service:SN7 a now:Service;
+    service:name "Inscrierea de uzufruct";
+    service:description "serviciu prin care un notar inregistreaza un drept de uzufruct asupra unui bun." .
 
-nservice:SN8 a notary:Service;
-    nservice:name "Eliberarea de copii legalizate";
-    nservice:description "serviciu prin care un notar elibereaza o copie legalizata a unui document." .
+service:SN8 a now:Service;
+    service:name "Eliberarea de copii legalizate";
+    service:description "serviciu prin care un notar elibereaza o copie legalizata a unui document." .
 
-nservice:SN9 a notary:Service;
-    nservice:name "Inscrierea de servitute";
-    nservice:description "serviciu prin care un notar inregistreaza o servitute asupra unui bun." .
+service:SN9 a now:Service;
+    service:name "Inscrierea de servitute";
+    service:description "serviciu prin care un notar inregistreaza o servitute asupra unui bun." .
 
-nservice:SN10 a notary:Service;
-    nservice:name "Depozitarea de documente";
-    nservice:description "serviciu prin care un notar pune la dispozitie o locatie sigura pentru depozitarea documentelor importante." .
+service:SN10 a now:Service;
+    service:name "Depozitarea de documente";
+    service:description "serviciu prin care un notar pune la dispozitie o locatie sigura pentru depozitarea documentelor importante." .
 
-nservice:SN11 a notary:Service;
-    nservice:name "Transcrierea de acte";
-    nservice:description "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)." .
+service:SN11 a now:Service;
+    service:name "Transcrierea de acte";
+    service:description "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)." .
 
-nservice:SN12 a notary:Service;
-    nservice:name "Autentificarea de traduceri";
-    nservice:description "serviciu prin care un notar autentifica traducerea unui document din limba originala in alta limba." .
+service:SN12 a now:Service;
+    service:name "Autentificarea de traduceri";
+    service:description "serviciu prin care un notar autentifica traducerea unui document din limba originala in alta limba." .
 
-nservice:SN13 a notary:Service;
-    nservice:name "Autentificarea de contracte";
-    nservice:description "serviciu prin care un notar autentifica un contract intre doua sau mai multe parti." .
+service:SN13 a now:Service;
+    service:name "Autentificarea de contracte";
+    service:description "serviciu prin care un notar autentifica un contract intre doua sau mai multe parti." .
 
-nservice:SN14 a notary:Service;
-    nservice:name "Inscrierea de drept de proprietate";
-    nservice:description "serviciu prin care un notar inregistreaza dreptul de proprietate asupra unui bun." .
+service:SN14 a now:Service;
+    service:name "Inscrierea de drept de proprietate";
+    service:description "serviciu prin care un notar inregistreaza dreptul de proprietate asupra unui bun." .
 
-nservice:SN15 a notary:Service;
-    nservice:name "Eliberarea de certificate de nastere";
-    nservice:description "serviciu prin care un notar elibereaza un document care atesta data si locul nasterii unei persoane." .
+service:SN15 a now:Service;
+    service:name "Eliberarea de certificate de nastere";
+    service:description "serviciu prin care un notar elibereaza un document care atesta data si locul nasterii unei persoane." .
 
-nservice:SN16 a notary:Service;
-    nservice:name "Inscrierea de drept de folosinta";
-    nservice:description "serviciu prin care un notar inregistreaza un drept de folosinta asupra unui bun." .
+service:SN16 a now:Service;
+    service:name "Inscrierea de drept de folosinta";
+    service:description "serviciu prin care un notar inregistreaza un drept de folosinta asupra unui bun." .
 
-nservice:SN17 a notary:Service;
-    nservice:name "Inscrierea de drept de superficie";
-    nservice:description "serviciu prin care un notar inregistreaza un drept de superficie asupra unui bun." .
+service:SN17 a now:Service;
+    service:name "Inscrierea de drept de superficie";
+    service:description "serviciu prin care un notar inregistreaza un drept de superficie asupra unui bun." .
 
-nservice:SN18 a notary:Service;
-    nservice:name "Inscrierea de drept de preemtiune";
-    nservice:description "serviciu prin care un notar inregistreaza un drept de preemtiune asupra unui bun." .
+service:SN18 a now:Service;
+    service:name "Inscrierea de drept de preemtiune";
+    service:description "serviciu prin care un notar inregistreaza un drept de preemtiune asupra unui bun." .
 
-nservice:SN19 a notary:Service;
-    nservice:name "Inregistrarea de societati comerciale";
-    nservice:description "serviciu prin care un notar inregistreaza o societate comerciala si emite actele necesare pentru functionarea acesteia." .
+service:SN19 a now:Service;
+    service:name "Inregistrarea de societati comerciale";
+    service:description "serviciu prin care un notar inregistreaza o societate comerciala si emite actele necesare pentru functionarea acesteia." .
 
-nservice:SN20 a notary:Service;
-    nservice:name "Inscrierea de drept de concesiune";
-    nservice:description "serviciu prin care un notar inregistreaza un drept de concesiune asupra unui bun." .
+service:SN20 a now:Service;
+    service:name "Inscrierea de drept de concesiune";
+    service:description "serviciu prin care un notar inregistreaza un drept de concesiune asupra unui bun." .
 
-nservice:SN21 a notary:Service;
-    nservice:name "Autentificarea de procuri";
-    nservice:description "serviciu prin care un notar autentifica o procura, care este un document prin care o persoana da altcuiva puterea de a lua decizii sau de a incheia acte in numele sau." .
+service:SN21 a now:Service;
+    service:name "Autentificarea de procuri";
+    service:description "serviciu prin care un notar autentifica o procura, care este un document prin care o persoana da altcuiva puterea de a lua decizii sau de a incheia acte in numele sau." .
 
-nservice:SN23 a notary:Service;
-    nservice:name "Altele";
-    nservice:description "Alte servicii notariale." .
+service:SN23 a now:Service;
+    service:name "Altele";
+    service:description "Alte servicii notariale." .
+
+service:ST1 a translator:Service;
+    service:name "Traducere de documente";
+    service:description "serviciu prin care un translator traduce documente din sau in limba dorita."
+
+service:ST2 a translator:Service;
+    service:name "Traducere legalizata";
+    service:description "serviciu prin care un translator traduce documente si obtine legalizarea traducerii de la autoritatile competente."
+
+service:ST3 a translator:Service;
+    service:name "Traducere de site-uri web";
+    service:description "serviciu prin care un translator traduce continutul unui site web in limba dorita."
+
+service:ST4 a translator:Service;
+    service:name "Traducere de subtitrari";
+    service:description "serviciu prin care un translator traduce subtitrarile unui film sau ale unei emisiuni TV."
+
+service:ST5 a translator:Service;
+    service:name "Traducere de carti";
+    service:description "serviciu prin care un translator traduce o carte din sau in limba dorita."
+
+service:ST6 a translator:Service;
+    service:name "Traducere de manuale";
+    service:description "serviciu prin care un translator traduce manuale tehnice sau de utilizare pentru produse."
+
+service:ST7 a translator:Service;
+    service:name "Traducere de materiale publicitare";
+    service:description "serviciu prin care un translator traduce materiale publicitare, cum ar fi brosuri, afise sau reclame."
+
+service:ST8 a translator:Service;
+    service:name "Traducere simultana";
+    service:description "serviciu prin care un translator asigura traducerea simultana a discursurilor sau a conversatiilor la evenimente sau conferinte."
+
+service:ST9 a translator:Service;
+    service:name "Traducere de aplicatii mobile";
+    service:description "serviciu prin care un translator traduce continutul unei aplicatii mobile in limba dorita."
+
+service:ST10 a translator:Service;
+    service:name "Traducere de continut audio";
+    service:description "serviciu prin care un translator transcrie si traduce continut audio sau video."
