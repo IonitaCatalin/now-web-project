@@ -1,5 +1,5 @@
 import { HttpException } from '@nestjs/common';
-import { IExceptionResponse } from '../../common';
+import { IExceptionResponse } from '..';
 
 export class TranslatableException extends HttpException {
   constructor(public readonly msg: string | ((input: any) => string), public readonly code: string, status?: number, public readonly stack?: string) {

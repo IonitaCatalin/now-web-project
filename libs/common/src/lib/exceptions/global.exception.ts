@@ -1,5 +1,5 @@
 import { HttpException } from '@nestjs/common';
-import { IExceptionResponse } from '../../common/interfaces';
+import { IExceptionResponse } from '../interfaces';
 
 export class GlobalException extends HttpException {
   constructor(public readonly message: string, public readonly code: string, status: number) {

@@ -1,6 +1,6 @@
 import { BadRequestException, ForbiddenException, HttpException, MethodNotAllowedException, NotFoundException, UnauthorizedException } from "@nestjs/common";
-import { IExceptionResponse } from "../../common/interfaces";
 import { GlobalException, TranslatableBadRequestException, TranslatableException, TranslatableForbiddenException, TranslatableInternalServerErrorException, TranslatableNotAllowedException, TranslatableNotFoundException, TranslatableUnauthorizedException } from "../exceptions";
+import { IExceptionResponse } from "../interfaces";
 
 export class ExceptionUtil {
     public static formatException(exception: unknown): GlobalException {

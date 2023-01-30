@@ -1,4 +1,5 @@
-import { IExceptionResponse } from '../../common';
+
+import { IExceptionResponse } from '../interfaces';
 import { ExceptionUtil } from './exception.util';
 
 export class ExceptionAsyncIterator implements AsyncIterator<unknown> {
