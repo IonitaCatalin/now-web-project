@@ -106,40 +106,40 @@ service:SN23 a now:Service;
 
 service:ST1 a translator:Service;
     service:name "Traducere de documente";
-    service:description "serviciu prin care un translator traduce documente din sau in limba dorita."
+    service:description "serviciu prin care un translator traduce documente din sau in limba dorita." .
 
 service:ST2 a translator:Service;
     service:name "Traducere legalizata";
-    service:description "serviciu prin care un translator traduce documente si obtine legalizarea traducerii de la autoritatile competente."
+    service:description "serviciu prin care un translator traduce documente si obtine legalizarea traducerii de la autoritatile competente." .
 
 service:ST3 a translator:Service;
     service:name "Traducere de site-uri web";
-    service:description "serviciu prin care un translator traduce continutul unui site web in limba dorita."
+    service:description "serviciu prin care un translator traduce continutul unui site web in limba dorita." .
 
 service:ST4 a translator:Service;
     service:name "Traducere de subtitrari";
-    service:description "serviciu prin care un translator traduce subtitrarile unui film sau ale unei emisiuni TV."
+    service:description "serviciu prin care un translator traduce subtitrarile unui film sau ale unei emisiuni TV." .
 
 service:ST5 a translator:Service;
     service:name "Traducere de carti";
-    service:description "serviciu prin care un translator traduce o carte din sau in limba dorita."
+    service:description "serviciu prin care un translator traduce o carte din sau in limba dorita." .
 
 service:ST6 a translator:Service;
     service:name "Traducere de manuale";
-    service:description "serviciu prin care un translator traduce manuale tehnice sau de utilizare pentru produse."
+    service:description "serviciu prin care un translator traduce manuale tehnice sau de utilizare pentru produse." .
 
 service:ST7 a translator:Service;
     service:name "Traducere de materiale publicitare";
-    service:description "serviciu prin care un translator traduce materiale publicitare, cum ar fi brosuri, afise sau reclame."
+    service:description "serviciu prin care un translator traduce materiale publicitare, cum ar fi brosuri, afise sau reclame." .
 
 service:ST8 a translator:Service;
     service:name "Traducere simultana";
-    service:description "serviciu prin care un translator asigura traducerea simultana a discursurilor sau a conversatiilor la evenimente sau conferinte."
+    service:description "serviciu prin care un translator asigura traducerea simultana a discursurilor sau a conversatiilor la evenimente sau conferinte." .
 
 service:ST9 a translator:Service;
     service:name "Traducere de aplicatii mobile";
-    service:description "serviciu prin care un translator traduce continutul unei aplicatii mobile in limba dorita."
+    service:description "serviciu prin care un translator traduce continutul unei aplicatii mobile in limba dorita." .
 
 service:ST10 a translator:Service;
     service:name "Traducere de continut audio";
-    service:description "serviciu prin care un translator transcrie si traduce continut audio sau video."
+    service:description "serviciu prin care un translator transcrie si traduce continut audio sau video." .

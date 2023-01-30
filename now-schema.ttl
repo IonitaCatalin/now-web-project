@@ -9,7 +9,7 @@ now:Notary rdf:type rdfs:Class ;
     rdfs:label "Notary" .
 
 now:Translator rdf:type rdfs:Class ;
-    rdfs:label "Translator"
+    rdfs:label "Translator" .
 
 now:Service rdf:type rdfs:Class ;
     rdfs:label "Service" .
