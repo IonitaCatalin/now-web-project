@@ -1,6 +1,6 @@
 {
   "name": "@now/daemon-sync",
-  "version": "1.6.0",
+  "version": "1.6.0-release-advanced-authentication.1",
   "description": "The Sync Daemon for NoW Web Project",
   "private": true,
   "scripts": {
