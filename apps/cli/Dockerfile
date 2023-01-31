@@ -8,6 +8,8 @@ WORKDIR /app
 
 EXPOSE 4001
 
+RUN chown -R node.node /app
+
 # Start the service
 CMD node apps/cli/dist/main.js
 
