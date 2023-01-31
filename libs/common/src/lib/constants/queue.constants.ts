@@ -1,0 +1,1 @@
+export const QUEUE_SEND_MAIL = 'now_quorum_send_mail';

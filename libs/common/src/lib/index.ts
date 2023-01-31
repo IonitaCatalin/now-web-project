@@ -5,3 +5,5 @@ export * from './exceptions';
 export * from './constants';
 export * from './utils';
 export * from './filters';
+export * from './services';
+export * from './types';
