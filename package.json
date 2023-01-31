@@ -6,14 +6,13 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "nest build",
     "build:workspaces": "node ./scripts/workspaces/build.js",
     "clean:workspaces": "sh ./scripts/workspaces/clean.sh",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev:daemon:email": "npm run start:dev --workspaces=apps/daemons/email",
     "dev:api:mgt": "npm run start:dev --workspaces=apps/api/mgt",
     "dev:api:client": "npm run start:dev --workspaces=apps/api/client",
+    "dev:api:now": "npm run start:dev --workspaces=apps/api/now",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -182,12 +181,14 @@
     "libs/tools",
     "libs/common",
     "libs/auth",
-    "libs/users"
+    "libs/users",
+    "libs/sparql"
   ],
   "dependencies": {
+    "jsonld": "^8.1.0",
     "mapbox-gl": "^2.12.0",
-    "ngx-mapbox-gl": "^9.1.0",
     "n3": "^1.16.3",
+    "ngx-mapbox-gl": "^9.1.0",
     "rdf-parse": "^2.1.1"
   }
 }

@@ -1,0 +1,147 @@
+[
+    {
+        "identifier": "SN1",
+        "name": "Autentificarea actelor",
+        "description": "serviciu prin care un notar atesta autenticitatea unei semnaturi sau a unui document."
+    },
+    {
+        "identifier": "SN2",
+        "name": "Eliberarea de certificate de mostenitor",
+        "description": "serviciu prin care un notar elibereaza un document care atesta dreptul unei persoane de a mosteni un bun."
+    },
+    {
+        "identifier": "SN3",
+        "name": "Inscrierea de ipoteca",
+        "description": "serviciu prin care un notar inregistreaza o ipoteca asupra unui bun imobil."
+    },
+    {
+        "identifier": "SN4",
+        "name": "Eliberarea de certificate constatatoare",
+        "description": "serviciu prin care un notar elibereaza un document care atesta starea unui bun (de exemplu, proprietatea sau posesia unui bun)."
+    },
+    {
+        "identifier": "SN5",
+        "name": "Redactarea de acte notariale",
+        "description": "serviciu prin care un notar redacteaza acte juridice (de exemplu, contracte de vanzare-cumparare sau testamente)."
+    },
+    {
+        "identifier": "SN6",
+        "name": "Legalizarea de semnaturi",
+        "description": "serviciu prin care un notar atesta ca o semnatura este autentica."
+    },
+    {
+        "identifier": "SN7",
+        "name": "Inscrierea de uzufruct",
+        "description": "serviciu prin care un notar inregistreaza un drept de uzufruct asupra unui bun."
+    },
+    {
+        "identifier": "SN8",
+        "name": "Eliberarea de copii legalizate",
+        "description": "serviciu prin care un notar elibereaza o copie legalizata a unui document."
+    },
+    {
+        "identifier": "SN9",
+        "name": "Inscrierea de servitute",
+        "description": "serviciu prin care un notar inregistreaza o servitute asupra unui bun."
+    },
+    {
+        "identifier": "SN10",
+        "name": "Depozitarea de documente",
+        "description": "serviciu prin care un notar pune la dispozitie o locatie sigura pentru depozitarea documentelor importante."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN12",
+        "name": "Autentificarea de traduceri",
+        "description": "serviciu prin care un notar autentifica traducerea unui document din limba originala in alta limba."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN11",
+        "name": "Transcrierea de acte",
+        "description": "serviciu prin care un notar transcrie informatii dintr-un act intr-un alt act (de exemplu, transcrierea unui act de nastere intr-un act de casatorie)."
+    },
+    {
+        "identifier": "SN12",
+        "name": "Autentificarea de traduceri",
+        "description": "serviciu prin care un notar autentifica traducerea unui document din limba originala in alta limba."
+    },
+    {
+        "identifier": "SN13",
+        "name": "Autentificarea de contracte",
+        "description": "serviciu prin care un notar autentifica un contract intre doua sau mai multe parti."
+    },
+    {
+        "identifier": "SN14",
+        "name": "Inscrierea de drept de proprietate",
+        "description": "serviciu prin care un notar inregistreaza dreptul de proprietate asupra unui bun."
+    },
+    {
+        "identifier": "SN15",
+        "name": "Eliberarea de certificate de nastere",
+        "description": "serviciu prin care un notar elibereaza un document care atesta data si locul nasterii unei persoane."
+    },
+    {
+        "identifier": "SN16",
+        "name": "Inscrierea de drept de folosinta",
+        "description": "serviciu prin care un notar inregistreaza un drept de folosinta asupra unui bun."
+    },
+    {
+        "identifier": "SN17",
+        "name": "Inscrierea de drept de superficie",
+        "description": "serviciu prin care un notar inregistreaza un drept de superficie asupra unui bun."
+    },
+    {
+        "identifier": "SN18",
+        "name": "Inscrierea de drept de preemtiune",
+        "description": "serviciu prin care un notar inregistreaza un drept de preemtiune asupra unui bun."
+    },
+    {
+        "identifier": "SN19",
+        "name": "Inregistrarea de societati comerciale",
+        "description": "serviciu prin care un notar inregistreaza o societate comerciala si emite actele necesare pentru functionarea acesteia."
+    },
+    {
+        "identifier": "SN20",
+        "name": "Inscrierea de drept de concesiune",
+        "description": "serviciu prin care un notar inregistreaza un drept de concesiune asupra unui bun."
+    },
+    {
+        "identifier": "SN21",
+        "name": "Autentificarea de procuri",
+        "description": "serviciu prin care un notar autentifica o procura, care este un document prin care o persoana da altcuiva puterea de a lua decizii sau de a incheia acte in numele sau."
+    },
+    {
+        "identifier": "SN23",
+        "name": "Altele",
+        "description": "Alte servicii notariale."
+    }
+]

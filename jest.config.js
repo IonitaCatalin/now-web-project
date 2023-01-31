@@ -15,7 +15,7 @@ module.exports = {
       'graceful-fs': '<rootDir>/test/jest/helpers/fs.js',
   
       // Jest resolver for the local libs
-      '@chargetrip/(.*)': '<rootDir>/libs/$1/src',
+      '@now/(.*)': '<rootDir>/libs/$1/src',
     },
     testEnvironment: 'node',
     globals: {

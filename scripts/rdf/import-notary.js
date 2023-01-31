@@ -3,12 +3,10 @@ const n3 = require("n3");
 const fs = require("fs");
 
 const { DataFactory } = n3;
-const { namedNode, literal } = DataFactory;
+const { namedNode, literal, quad, blankNode } = DataFactory;
 const writer = new n3.Writer({ 
     prefixes: { 
-        notary: 'http://example.org/notary#',
-        now: 'http://example.org/now#',
-        service: 'http://example.org/service#',
+        schema: 'https://schema.org#',
         rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
         rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
         xsd: 'http://www.w3.org/2001/XMLSchema#',
@@ -16,52 +14,160 @@ const writer = new n3.Writer({
     });
 
 
+
+
 const notaryData = require('../../Scrapper/scrapped/notaries_list.json');
+const servicesData = require('./notary-services.json');
 
 let index = 1;
 for(const notary of notaryData){
+
+    const not = blankNode();
+
+    //Type
     writer.addQuad(
-        namedNode(`http://example.org/notary#N${index}`),
+        not,
         namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-        namedNode(`http://example.org/now#Notary`)
+        namedNode(`schema:Notary`)
     );
-    for(key of Object.keys(notary)){
-        if(key == 'coordinates'){
-            const asWTK = literal(`POINT(${notary[key].lat} ${notary[key].lng})`, namedNode('http://www.opengis.net/ont/geosparql#wktLiteral'));
+
+    //identifier
+    writer.addQuad(
+        not,
+        namedNode('schema:identifier'),
+        literal(`N${index}`)
+    );
+
+    //name
+    writer.addQuad(
+        not,
+        namedNode('schema:name'),
+        literal(`${notary.name}`)
+    );
+
+    //areaServed
+    writer.addQuad(
+        not,
+        namedNode('schema:areaServed'),
+        literal(`${notary.room}`)
+    );
+
+    //address
+    const postalAddr = blankNode();
+    quad(postalAddr, namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), 'schema:PostalAddress')
+    
+    writer.addQuad(
+        not,
+        namedNode('schema:address'),
+        postalAddr
+    )
+
+    writer.addQuad(
+        postalAddr,
+        namedNode('schema:addressLocality'),
+        literal(`${notary.city}`)
+    )
+
+    writer.addQuad(
+        postalAddr, 
+        namedNode('schema:addressRegion'), 
+        literal(`${notary.county}`));
+
+
+    writer.addQuad(
+        postalAddr, 
+        namedNode('schema:streetAddress'), 
+        literal(`${notary.address}`));
+    
+    //description
+    writer.addQuad(
+        not,
+        namedNode('schema:description'),
+        literal(`${notary.description}`)
+    );
+
+    //telephone
+    if(notary.phone_numbers.length > 0){
+        for(phoneNr of notary.phone_numbers){
             writer.addQuad(
-                namedNode(`http://example.org/notary#N${index}`),
-                namedNode(`http://example.org/now#${key}`),
-                asWTK
+                not,
+                namedNode('schema:telephone'),
+                literal(`${phoneNr}`)
             );
         }
-        else if(Array.isArray(notary[key])){
-            for(value of notary[key]){
-                writer.addQuad(
-                    namedNode(`http://example.org/notary#N${index}`),
-                    namedNode(`http://example.org/now#${key}`),
-                    literal(value)
-                );
-            }
-        }else{
-            writer.addQuad(
-                namedNode(`http://example.org/notary#N${index}`),
-                namedNode(`http://example.org/now#${key}`),
-                literal(notary[key])
-            );
-        }
+    }else{
+        writer.addQuad(
+            not,
+            namedNode('schema:telephone'),
+            literal(``)
+        );
     }
 
-    for(let i = 0; i<24; i++){
-        if(Math.random()> 0.05){ // give each service a chance of 95% to be provided by said notary
+    //email
+    writer.addQuad(
+        not,
+        namedNode('schema:email'),
+        literal(`${notary.email_addr}`)
+    );
+
+    //knowsLanguage
+    if(notary.languages.length > 0){
+        for(lang of notary.languages){
             writer.addQuad(
-                namedNode(`http://example.org/notary#N${index}`),
-                namedNode(`http://example.org/now#services`),
-                literal(`SN${i+1}`, namedNode('http://example.org/now#Service'))
+                not,
+                namedNode('schema:knowsLanguage'),
+                literal(`${lang}`)
             );
         }
+    }else{
+        writer.addQuad(
+            not,
+            namedNode('schema:knowsLanguage'),
+            literal(``)
+        );
     }
 
+    //location
+    const asWTK = literal(`POINT(${notary.coordinates.lat} ${notary.coordinates.lng})`, namedNode('http://www.opengis.net/ont/geosparql#wktLiteral'));
+    writer.addQuad(
+        not,
+        namedNode('schema:location'),
+        asWTK
+    );
 
+    //makesOffer
+    for(let i=0; i<23; i++){
+        if (Math.random() < 0.05){
+            continue;
+        }
+        const service = blankNode();
+        quad(service, namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), 'schema:Offer')
+        
+        writer.addQuad(
+            not,
+            namedNode('schema:makesOffer'),
+            service
+        )
+    
+        writer.addQuad(
+            service,
+            namedNode('schema:identifier'),
+            literal(`${servicesData[i].identifier}`)
+        )
+
+        writer.addQuad(
+            service,
+            namedNode('schema:name'),
+            literal(`${servicesData[i].name}`)
+        )
+
+        writer.addQuad(
+            service,
+            namedNode('schema:description'),
+            literal(`${servicesData[i].description}`)
+        )
+    }
+    
     index++;
 }
 

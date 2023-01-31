@@ -1,0 +1,52 @@
+[
+    {
+        "identifier": "ST1",
+        "name": "Traducere de documente",
+        "description": "serviciu prin care un translator traduce documente din sau in limba dorita."
+    },
+    {
+        "identifier": "ST2",
+        "name": "Traducere legalizata",
+        "description": "serviciu prin care un translator traduce documente si obtine legalizarea traducerii de la autoritatile competente."
+    },
+    {
+        "identifier": "ST3",
+        "name": "Traducere de site-uri web",
+        "description": "serviciu prin care un translator traduce continutul unui site web in limba dorita."
+    },
+    {
+        "identifier": "ST4",
+        "name": "Traducere de subtitrari",
+        "description": "serviciu prin care un translator traduce subtitrarile unui film sau ale unei emisiuni TV."
+    },
+    {
+        "identifier": "ST5",
+        "name": "Traducere de carti",
+        "description": "serviciu prin care un translator traduce o carte din sau in limba dorita."
+    },
+    {
+        "identifier": "ST6",
+        "name": "Traducere de manuale",
+        "description": "serviciu prin care un translator traduce manuale tehnice sau de utilizare pentru produse."
+    },
+    {
+        "identifier": "ST7",
+        "name": "Traducere de materiale publicitare",
+        "description": "serviciu prin care un translator traduce materiale publicitare, cum ar fi brosuri, afise sau reclame."
+    },
+    {
+        "identifier": "ST8",
+        "name": "Traducere simultana",
+        "description": "serviciu prin care un translator asigura traducerea simultana a discursurilor sau a conversatiilor la evenimente sau conferinte."
+    },
+    {
+        "identifier": "ST9",
+        "name": "Traducere de aplicatii mobile",
+        "description": "serviciu prin care un translator traduce continutul unei aplicatii mobile in limba dorita."
+    },
+    {
+        "identifier": "ST10",
+        "name": "Traducere de continut audio",
+        "description": "serviciu prin care un translator transcrie si traduce continut audio sau video."
+    }
+]
