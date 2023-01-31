@@ -7,5 +7,5 @@ dotenv.config({ path: join(__dirname, '../../../../.env') });
 import { ApiMgtModule } from './app/api-mgt.module';
 
 (async () => {
-  await init('API MGT', ApiMgtModule, parseInt(process.env.ENV_API_MGT_PORT) || 9108);
+  // await init('API MGT', ApiMgtModule, parseInt(process.env.ENV_API_MGT_PORT) || 9108);
 })();

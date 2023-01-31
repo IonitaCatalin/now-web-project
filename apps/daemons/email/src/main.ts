@@ -4,8 +4,10 @@ import { init } from '@now/tools';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: join(__dirname, '../../../../.env') });
 
-import { DaemonEmailModule } from './email.module';
+import { DaemonEmailModule } from './app';
+import { RabbitMQTransportStrategy } from '@now/tools';
+import { QUEUE_SEND_MAIL } from '@now/common';
 
 (async () => {
-  await init('Sync Daemon', DaemonEmailModule, parseInt(process.env.ENV_DAEMON_EMAIL_PORT) || 9106);
+  await init('Email Daemon', DaemonEmailModule,new RabbitMQTransportStrategy(QUEUE_SEND_MAIL, 'daemon-email'), parseInt(process.env.ENV_DAEMON_EMAIL_PORT) || 9106);
 })();

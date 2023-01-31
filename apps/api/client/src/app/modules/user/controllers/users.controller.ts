@@ -2,10 +2,10 @@ import { Controller, Delete, Patch, UseGuards, Body } from "@nestjs/common";
 import { UserEmailAlreadyExistsException, UserNameAlreadyExistsException, UserNotFoundException } from "@now/users";
 import { GetUserId, JwtAuthGuard } from "@now/auth";
 import { UsersService } from "../services";
-import { IResponse } from "@now/common/src";
+import { IResponse } from "@now/common";
 import { Operations } from "@now/common";
 import { ResponseUtil } from "@now/common";
-import { IUserPatchInput } from "@now/users/src";
+import { IUserPatchInput } from "@now/users";
 
 @Controller('users')
 export class UsersController {
