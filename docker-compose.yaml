@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.11.7-management-alpine
+    container_name: now_queue
+    hostname: now_queue
+    environment:
+      RABBITMQ_DEFAULT_USER: 'now'
+      RABBITMQ_DEFAULT_PASS: '123'
+      RABBITMQ_DEFAULT_VHOST: 'now'
+    volumes:
+      - now_rabbitmq_volume:/var/lib/rabbitmq/mnesia
+    ports:
+      - 15672:15672
+      - 5672:5672
+    expose:
+      - 15672
+      - 5672
+volumes:
+  now_rabbitmq_volume:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '$PWD/volumes/rabbitmq'

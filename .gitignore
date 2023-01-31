@@ -43,3 +43,5 @@
 
 scripts/exceptions/output.json
 apps/cli/src/app/constants/version.constant.ts
+
+volumes/
