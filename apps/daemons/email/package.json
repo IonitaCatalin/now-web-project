@@ -1,7 +1,7 @@
 {
-  "name": "@now/daemon-sync",
+  "name": "@now/daemon-email",
   "version": "1.6.0",
-  "description": "The Sync Daemon for NoW Web Project",
+  "description": "The Email Daemon for NoW Web Project",
   "private": true,
   "scripts": {
     "start": "node dist/main.js",
@@ -14,11 +14,13 @@
     "../../../libs/tools"
   ],
   "dependencies": {
+    "@nestjs-modules/mailer": "1.8.1",
     "@nestjs/common": "8.0.11",
     "@nestjs/core": "8.0.11",
     "@nestjs/microservices": "8.0.11",
     "@nestjs/mongoose": "9.2.1",
-    "dotenv": "10.0.0"
+    "dotenv": "10.0.0",
+    "nodemailer": "6.9.1"
   },
   "devDependencies": {
     "@types/jest": "27.4.1",

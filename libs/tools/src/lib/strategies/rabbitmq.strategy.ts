@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { CustomTransportStrategy, Server, Transport } from '@nestjs/microservices';
-import { RabbitMQUtil,PlatformUtil } from '@now/common';
+import { RabbitMQUtil, PlatformUtil } from '@now/common';
 import { ConfirmChannel, Message, Options } from 'amqplib';
 
 export class RabbitMQTransportStrategy extends Server implements CustomTransportStrategy {

@@ -4,7 +4,7 @@ import { init } from '@now/tools';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: join(__dirname, '../../../../.env') });
 
-import { DaemonEmailModule } from './email.module';
+import { DaemonEmailModule } from './app';
 import { RabbitMQTransportStrategy } from '@now/tools';
 import { QUEUE_SEND_MAIL } from '@now/common';
 
