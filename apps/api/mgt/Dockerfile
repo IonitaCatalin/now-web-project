@@ -8,13 +8,15 @@ WORKDIR /app
 
 EXPOSE 4001
 
+RUN chown -R node.node /app
+
 # Start the service
-CMD node apps/api/client/dist/main.js
+CMD node apps/api/mgt/dist/main.js
 
 # Copy compiled application & libraries
 COPY --from=builder /app/libs/tools /app/libs/tools/
 
-# Install only api/client application workspace
+# Install only api-mgt application workspace
 RUN sed -i '/"libs\//d' /app/package.json && sed -i 's/"apps\/\**"/"libs\/tools"/g' /app/package.json
 
 # Install dependencies & workspaces
