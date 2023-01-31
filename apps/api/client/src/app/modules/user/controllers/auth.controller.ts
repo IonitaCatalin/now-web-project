@@ -1,12 +1,16 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { IResponse, Operations, ResponseUtil } from "@now/common";
+import { IResponse, Operations, QUEUE_SEND_MAIL, RabbitMQService, ResponseUtil } from "@now/common";
 import { UserNameAlreadyExistsException, UserEmailAlreadyExistsException, IUserSignupInput, IUserSinginInput, UserNotFoundException } from '@now/users';
 import { UsersService, AuthService } from "../services";
 
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly usersService: UsersService, private readonly authService: AuthService) {}
+    constructor(
+        private readonly usersService: UsersService, 
+        private readonly authService: AuthService, 
+        private readonly rabbitMQService: RabbitMQService
+    ) {}
 
     @Post('/signup')
     async createUser(@Body() user: IUserSignupInput): Promise<IResponse> {
@@ -21,7 +25,12 @@ export class AuthController {
             throw new UserEmailAlreadyExistsException();
         }
 
-        await this.usersService.createUser(user);
+        const newUser = await this.usersService.createUser(user);
+
+        await this.rabbitMQService.publish(QUEUE_SEND_MAIL, {
+            pattern: { action: 'send-email' },
+            data: { userId: `${newUser._id}`, email: user.email },
+        });
 
         return ResponseUtil.prepareAsyncResponse(Operations.CREATE_USER);
     }
