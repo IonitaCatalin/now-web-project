@@ -1,6 +1,6 @@
 {
   "name": "@now/api-mgt",
-  "version": "1.7.0-release-email-daemon.1",
+  "version": "1.7.0",
   "description": "The MGT API for NoW Web Project",
   "private": true,
   "scripts": {

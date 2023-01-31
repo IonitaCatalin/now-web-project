@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/IonitaCatalin/now-web-project/compare/1.6.0...1.7.0) (2023-01-31)
+
+
+### Features
+
+* **email:** final implementation for email daemon ([f0d947e](https://github.com/IonitaCatalin/now-web-project/commit/f0d947e2b71be996243ce8cfbbba11e7fe9bcc65))
+* **queue:** functional queue connection to rabbitmq ([dd44e92](https://github.com/IonitaCatalin/now-web-project/commit/dd44e9242efc6ba2638133afa1a6cf20a75d8ecf))
+
 # [1.6.0](https://github.com/IonitaCatalin/now-web-project/compare/1.5.0...1.6.0) (2023-01-30)
 
 

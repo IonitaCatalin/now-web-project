@@ -1,6 +1,6 @@
 {
   "name": "@now/tools",
-  "version": "1.7.0-release-email-daemon.1",
+  "version": "1.7.0",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
