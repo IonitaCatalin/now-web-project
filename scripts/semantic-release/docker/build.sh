@@ -14,7 +14,7 @@ export VERSION=1.8.0
 # docker login -u khonsu03 -p $DOCKERHUB_TOKEN
 
 # Install & build all workspaces
-sh /home/khonsu/Documents/wade/now-web-project/scripts/docker/build.sh "now-services-core-builder" "scripts/semantic-release/docker/Dockerfile" 
+./scripts/docker/build.sh "now-services-core-builder" "scripts/semantic-release/docker/Dockerfile" 
 
 # Build & push now-services-daemon-sync image
 ./scripts/docker/build.sh "now-services-api-client" "apps/api/client/Dockerfile" &
