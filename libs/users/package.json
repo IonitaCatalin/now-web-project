@@ -1,6 +1,10 @@
 {
   "name": "@now/users",
+<<<<<<< HEAD
   "version": "1.8.0-release-fix-broken-images.1",
+=======
+  "version": "1.8.0",
+>>>>>>> main
   "private": true,
   "main": "dist/index.js",
   "scripts": {

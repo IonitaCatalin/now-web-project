@@ -1,6 +1,10 @@
 {
   "name": "@now/api-client",
+<<<<<<< HEAD
   "version": "1.8.0-release-fix-broken-images.1",
+=======
+  "version": "1.8.0",
+>>>>>>> main
   "description": "The Client API for NoW Web Project",
   "private": true,
   "scripts": {
@@ -14,7 +18,8 @@
     "../../../libs/tools",
     "../../../libs/common",
     "../../../libs/auth",
-    "../../../libs/users"
+    "../../../libs/users",
+    "../../../libs/sparql"
   ],
   "dependencies": {
     "@nestjs/common": "8.0.11",

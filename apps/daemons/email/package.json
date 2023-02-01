@@ -1,6 +1,10 @@
 {
   "name": "@now/daemon-email",
+<<<<<<< HEAD
   "version": "1.8.0-release-fix-broken-images.1",
+=======
+  "version": "1.8.0",
+>>>>>>> main
   "description": "The Email Daemon for NoW Web Project",
   "private": true,
   "scripts": {
