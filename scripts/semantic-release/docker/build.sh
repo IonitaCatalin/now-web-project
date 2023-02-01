@@ -17,7 +17,7 @@ export VERSION=1.8.0
 sh /home/khonsu/Documents/wade/now-web-project/scripts/docker/build.sh "now-services-core-builder" "scripts/semantic-release/docker/Dockerfile" 
 
 # Build & push now-services-daemon-sync image
-./scripts/docker/build.sh "now-services-daemon-email" "apps/daemons/email/Dockerfile" &
+./scripts/docker/build.sh "now-services-api-client" "apps/api/client/Dockerfile" &
 
 # Build & push now-services-api-sparql image
 ./scripts/docker/build.sh "now-services-api-now" "apps/api/sparql/Dockerfile" &
