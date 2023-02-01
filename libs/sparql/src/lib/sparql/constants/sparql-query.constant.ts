@@ -361,3 +361,24 @@ INSERT {
     schema:identifier ?identifier ;
           filter(?identifier="%id")
 }`;
+
+export const UPDATE_AGG_REVIEW = `PREFIX schema: <https://schema.org/>
+
+DELETE {
+	?agg schema:ratingValue ?rating.
+}
+INSERT{
+    ?notary schema:aggregatedReview [
+    	schema:ratingValue "%rating"
+    ]; 
+}
+WHERE {
+  ?notary a schema:%type;
+  	schema:identifier ?identifier;
+   	schema:aggregatedReview ?agg ;
+    schema:aggregatedReview [
+    	schema:ratingValue ?rating
+    ];
+   filter (?identifier = "%id")
+}
+`
