@@ -1,6 +1,6 @@
 {
   "name": "@now/api-now",
-  "version": "1.9.0-force-release",
+  "version": "1.9.0-release-rdf-fixes.1",
   "description": "The NOW API for NoW Web Project",
   "private": true,
   "scripts": {
