@@ -184,7 +184,7 @@ WHERE {
       	schema:makesOffer [
         	schema:identifier ?offerId
     	] ;
-        BIND(geof:distance(?location, "POINT(46.716285 26.704703)"^^geo:wktLiteral) AS ?distance)
+        BIND(geof:distance(?location, "POINT(%lat %lng)"^^geo:wktLiteral) AS ?distance)
         %filters
 }
 GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?distance ?telephone
@@ -283,6 +283,7 @@ CONSTRUCT {} WHERE {
         	schema:identifier ?offerId
     	] ;
 }
+LIMIT 1000
 `
 
 export const GET_SCHEMA_TRANSLATORS = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
