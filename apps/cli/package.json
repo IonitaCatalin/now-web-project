@@ -1,6 +1,6 @@
 {
   "name": "@now/cli",
-  "version": "1.7.0",
+  "version": "1.8.0-release-rdf.1",
   "description": "The CLI for NoW Web Project",
   "private": true,
   "scripts": {
