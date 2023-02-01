@@ -1,10 +1,6 @@
 {
   "name": "now-project",
-<<<<<<< HEAD
-  "version": "1.8.0-release-fix-broken-images.2",
-=======
   "version": "1.8.0",
->>>>>>> main
   "description": "",
   "author": "",
   "private": true,
@@ -150,7 +146,7 @@
     "@semantic-release/release-notes-generator": "9.0.3",
     "@types/express": "4.17.13",
     "@types/jest": "28.1.8",
-    "@types/mapbox-gl": "^2.7.10",
+    "@types/mapbox-gl": "2.7.10",
     "@types/node": "16.0.0",
     "@types/supertest": "2.0.11",
     "@typescript-eslint/eslint-plugin": "5.0.0",
@@ -188,7 +184,7 @@
     "testEnvironment": "node"
   },
   "workspaces": [
-    "apps/**",
+    "apps/**" ,
     "libs/tools",
     "libs/common",
     "libs/auth",
@@ -196,10 +192,10 @@
     "libs/sparql"
   ],
   "dependencies": {
-    "jsonld": "^8.1.0",
-    "mapbox-gl": "^2.12.0",
-    "n3": "^1.16.3",
-    "ngx-mapbox-gl": "^9.1.0",
-    "rdf-parse": "^2.1.1"
+    "jsonld": "8.1.0",
+    "mapbox-gl": "2.12.0",
+    "n3": "1.16.3",
+    "ngx-mapbox-gl": "9.1.0",
+    "rdf-parse": "2.1.1"
   }
 }
