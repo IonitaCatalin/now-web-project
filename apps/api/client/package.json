@@ -1,6 +1,6 @@
 {
   "name": "@now/api-client",
-  "version": "1.7.0",
+  "version": "1.8.0-release-rdf.1",
   "description": "The Client API for NoW Web Project",
   "private": true,
   "scripts": {
@@ -14,7 +14,8 @@
     "../../../libs/tools",
     "../../../libs/common",
     "../../../libs/auth",
-    "../../../libs/users"
+    "../../../libs/users",
+    "../../../libs/sparql"
   ],
   "dependencies": {
     "@nestjs/common": "8.0.11",
