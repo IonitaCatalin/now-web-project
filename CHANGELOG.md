@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/IonitaCatalin/now-web-project/compare/1.7.0...1.8.0) (2023-02-01)
+
+
+### Features
+
+* **rdf:** initial commit for rdf parsing ([#25](https://github.com/IonitaCatalin/now-web-project/issues/25)) ([19ff8ab](https://github.com/IonitaCatalin/now-web-project/commit/19ff8ab83b47b5d22b44900a83ab1be90382c8a1))
+
 # [1.7.0](https://github.com/IonitaCatalin/now-web-project/compare/1.6.0...1.7.0) (2023-01-31)
 
 

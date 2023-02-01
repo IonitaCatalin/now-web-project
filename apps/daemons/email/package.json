@@ -1,6 +1,6 @@
 {
   "name": "@now/daemon-email",
-  "version": "1.8.0-release-rdf.1",
+  "version": "1.8.0",
   "description": "The Email Daemon for NoW Web Project",
   "private": true,
   "scripts": {
