@@ -1,6 +1,6 @@
 {
   "name": "@now/sparql",
-  "version": "1.9.0-release-rdf-fixes.1",
+  "version": "1.9.0",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
