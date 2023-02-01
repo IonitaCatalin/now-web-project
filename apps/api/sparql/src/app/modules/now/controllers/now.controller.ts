@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
 import { INotary, SparqlService } from "@now/sparql";
 
 @Controller('now')
@@ -53,5 +53,10 @@ export class NowController {
     @Get('/schema')
     async getSchema(){
         return await this.sparqlService.getSchema();
+    }
+
+    @Post('/review')
+    async getReviews(@Body() body){
+        //return await this.sparqlService.getReviews()
     }
 }
