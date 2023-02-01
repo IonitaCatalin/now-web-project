@@ -1,6 +1,7 @@
 const rdfParser = require("rdf-parse").default;
 const n3 = require("n3");
 const fs = require("fs");
+const {removeDiacritics} = require ('./clean-data');
 
 const { DataFactory } = n3;
 const { namedNode, literal, blankNode, quad } = DataFactory;
@@ -13,6 +14,8 @@ const writer = new n3.Writer({
         xsd: 'http://www.w3.org/2001/XMLSchema#',
         geo: 'http://www.opengis.net/ont/geosparql#'},
     });
+
+
 
 
 const translatorData = require('../../Scrapper/scrapped/translators_list.json');
@@ -61,7 +64,7 @@ for(const translator of translatorData){
     writer.addQuad(
         postalAddr, 
         namedNode('schema:addressRegion'), 
-        literal(`${translator.county}`));
+        literal(`${removeDiacritics(translator.county)}`));
 
     writer.addQuad(
         postalAddr, 
@@ -87,7 +90,7 @@ for(const translator of translatorData){
             writer.addQuad(
                 transl,
                 namedNode('schema:knowsLanguage'),
-                literal(`${lang}`)
+                literal(`${removeDiacritics(lang)}`)
             );
         }
     }else{
@@ -101,7 +104,7 @@ for(const translator of translatorData){
     writer.addQuad(
         transl,
         namedNode('schema:knowsLanguage'),
-        literal(`Rom\u00e2na`)
+        literal(`Romana`)
     );
 
 
@@ -151,3 +154,4 @@ for(const translator of translatorData){
 }
 
 writer.end((err,res) => {fs.writeFileSync('translator.ttl', res);});
+

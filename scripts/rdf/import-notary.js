@@ -1,6 +1,8 @@
 const rdfParser = require("rdf-parse").default;
 const n3 = require("n3");
 const fs = require("fs");
+const {removeDiacritics} = require ('./clean-data');
+
 
 const { DataFactory } = n3;
 const { namedNode, literal, quad, blankNode } = DataFactory;
@@ -71,7 +73,7 @@ for(const notary of notaryData){
     writer.addQuad(
         postalAddr, 
         namedNode('schema:addressRegion'), 
-        literal(`${notary.county}`));
+        literal(`${removeDiacritics(notary.county)}`));
 
 
     writer.addQuad(
@@ -116,7 +118,7 @@ for(const notary of notaryData){
             writer.addQuad(
                 not,
                 namedNode('schema:knowsLanguage'),
-                literal(`${lang}`)
+                literal(`${removeDiacritics(lang)}`)
             );
         }
     }else{
@@ -136,7 +138,7 @@ for(const notary of notaryData){
     );
 
     //makesOffer
-    for(let i=0; i<23; i++){
+    for(let i=0; i<22; i++){
         if (Math.random() < 0.05){
             continue;
         }
