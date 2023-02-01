@@ -1,0 +1,29 @@
+@prefix now: <http://example.org/now#>.
+@prefix rating: <http://example.org/rating#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+rating:score rdf:type rdf:Property ;
+    rdfs:label "score" ;
+    rdfs:domain now:Rating ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The value of the rating (between 1 and 5)" .
+
+rating:comment rdf:type rdf:Property ;
+    rdfs:label "comment" ;
+    rdfs:domain now:Rating ;
+    rdfs:range xsd:string ;
+    rdfs:comment "A comment added to said rating" .
+
+rating:user rdf:type rdf:Property ;
+    rdfs:label "user" ;
+    rdfs:domain now:Rating ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The user who added the rating" .
+
+rating:SN1 a now:Rating;
+    rating:score "5";
+    rating:comment "Servicii de calitate." ;
+    rating:user "63d7f3c1b8d46dffc336fc63" .
+
