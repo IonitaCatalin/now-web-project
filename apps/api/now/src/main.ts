@@ -23,10 +23,10 @@ async function init(): Promise<void> {
 
     app.useGlobalFilters(new GlobalExceptionFilter());
 
-    app.use(json({ limit: '50mb' }));
+    app.use(json({ limit: '250mb' }));
     app.use(
       urlencoded({
-          limit: '50mb',
+          limit: '250mb',
           extended: true,
       }),
     );

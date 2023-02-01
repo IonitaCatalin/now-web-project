@@ -66,7 +66,7 @@ for(const translator of translatorData){
     writer.addQuad(
         postalAddr, 
         namedNode('schema:streetAddress'), 
-        literal(`${transl.address}`));
+        literal(`${translator.address}`));
 
     //leiCode
     writer.addQuad(
