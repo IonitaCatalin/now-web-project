@@ -1,0 +1,21 @@
+.popup-info-content {
+  width: 75vw;
+}
+
+.basic-info-border {
+  border-right: 1px solid #dee2e6;
+}
+
+.basic-info-element {
+  padding: 0.2rem;
+  margin-top: 0.5rem;
+}
+
+.mat-typography p {
+  margin: 12px 0 12px 0;
+}
+
+:host ::ng-deep .mat-tab-body.mat-tab-body-active {
+  min-height: 55vh;
+  max-height:60vh;
+}

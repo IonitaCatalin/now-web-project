@@ -1,0 +1,97 @@
+<div class="popup-info-content">
+  <mat-card>
+    <div class="d-flex justify-content-between">
+      <span class="cursor-pointer" matTooltip="Claim this office"><fa-icon [icon]="faCrown"
+                                                                           (click)="onClaimClick()"></fa-icon></span>
+      <span class="cursor-pointer"><fa-icon [icon]="faXmark" (click)="onCloseClick()"></fa-icon></span>
+    </div>
+    <mat-card-header class="text-center" [ngStyle]="{'justify-content': 'center'}">
+      <mat-card-title>
+        <div>{{notary?.name}}</div>
+        <div>
+          <app-rating [ratingLevel]="notary?.rating ?? 0" [isReadonly]="true"></app-rating>
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle>Notary</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group animationDuration="800ms" dynamicHeight>
+
+        <mat-tab label="About">
+          <p class="lead mt-3">Basic informations</p>
+          <div class="container text-center">
+            <div class="row" style="padding: 0.5rem">
+              <!--          left-->
+              <div class="col-5">
+                <div class="row row-cols-2">
+                  <div class="col-4 basic-info-border basic-info-element">Room</div>
+                  <div class="col-8 basic-info-element">{{notary?.room}}</div>
+
+                  <div class="col-4 basic-info-border basic-info-element">City</div>
+                  <div class="col-8 basic-info-element">{{notary?.city}}</div>
+
+                  <div class="col-4 basic-info-border basic-info-element">County</div>
+                  <div class="col-8 basic-info-element">{{notary?.county}}</div>
+
+                  <div class="col-4 basic-info-border basic-info-element">Address</div>
+                  <div class="col-8 basic-info-element">{{notary?.address}}</div>
+
+                  <!--                  <div class="col-4  d-flex flex-column justify-content-center basic-info-border basic-info-element">-->
+                  <!--                    Rating-->
+                  <!--                  </div>-->
+                  <!--                  <div class="col-8 basic-info-element">-->
+                  <!--                    <app-rating [ratingLevel]="notary?.rating ?? 0" [isReadonly]="true"></app-rating>-->
+                  <!--                  </div>-->
+
+                  <!--              <div class="col-4 basic-info-border basic-info-element">Description</div>-->
+                  <!--              <div class="col-8 basic-info-element">Biroul notarial Ababei Gheorghe îşi desfăşoară activitatea în cadrul-->
+                  <!--                Camerei notarilor-->
+                  <!--                publici Bacau în circumscriptia judecătoriei Buhusi din localitatea Buhusi, judeţul Bacau-->
+                  <!--              </div>-->
+                </div>
+              </div>
+              <div class="col-2"></div>
+              <!--          right-->
+              <div class="col-5">
+                <div class="row row-cols-2">
+                  <div class="col-4 basic-info-border basic-info-element">Phone numbers</div>
+                  <div class="col-8 basic-info-element">
+                    <div *ngFor="let phoneNumber of notary?.phoneNumbers">{{phoneNumber}}</div>
+                  </div>
+
+                  <div class="col-4 basic-info-border basic-info-element">Languages</div>
+                  <div class="col-8 basic-info-element">
+                    <div *ngFor="let language of notary?.languages">{{language}}</div>
+                  </div>
+
+                  <div class="col-4 basic-info-border basic-info-element">Email</div>
+                  <div class="col-8 basic-info-element">{{notary?.email}}</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="lead mt-3">Services</p>
+          <div class="container text-center">
+            <div class="row row-cols-4" style="padding: 0.5rem;">
+              <div *ngFor="let service of notary?.services; let idx = index"
+                   class="col basic-info-element">{{service}}</div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Reviews">
+          <app-review-list [ratings]="ratings"></app-review-list>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+
+    <mat-card-actions [align]="'end'">
+      <ng-container *ngIf="nowUser$ | async as nowUser">
+        <button mat-raised-button color="primary" [disabled]="!nowUser.isAuth" (click)="onRateClick()">Rate</button>
+      </ng-container>
+    </mat-card-actions>
+  </mat-card>
+</div>
