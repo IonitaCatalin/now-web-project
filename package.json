@@ -1,6 +1,6 @@
 {
   "name": "now-project",
-  "version": "1.8.0",
+  "version": "1.9.0-release-fix-broken-images.1",
   "description": "",
   "author": "",
   "private": true,
@@ -184,7 +184,7 @@
     "testEnvironment": "node"
   },
   "workspaces": [
-    "apps/**" ,
+    "apps/**",
     "libs/tools",
     "libs/common",
     "libs/auth",

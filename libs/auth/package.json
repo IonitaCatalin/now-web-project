@@ -1,6 +1,6 @@
 {
   "name": "@now/auth",
-  "version": "1.8.0",
+  "version": "1.9.0-release-fix-broken-images.1",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
