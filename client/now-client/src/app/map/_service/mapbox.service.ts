@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
+import {BehaviorSubject, of} from "rxjs";
 
-enum EntityTypesEnum {
+export interface LngLatProximity {
+  lng: number;
+  lat: number;
+}
+
+export enum EntityTypesEnum {
   NOTARY = 'Notary',
   TRANSLATOR = 'Translator'
 }
@@ -20,6 +26,8 @@ export interface Notary {
     lng: number;
     lat: number;
   };
+  rating: number;
+  services: string[];
 }
 
 export interface Translator {
@@ -36,6 +44,8 @@ export interface Translator {
     lng: number;
     lat: number;
   };
+  rating: number;
+  services: string[];
 }
 
 @Injectable({
@@ -58,7 +68,16 @@ export class MapboxService {
       coordinates: {
         lng: 27.5194076,
         lat: 47.172899
-      }
+      },
+      rating: 3,
+      services: [
+        'Service 1',
+        'Service 2',
+        'Service 3',
+        'Service 1',
+        'Service 2',
+        'Service 3'
+      ]
     },
     {
       type: EntityTypesEnum.NOTARY,
@@ -74,7 +93,17 @@ export class MapboxService {
       coordinates: {
         lng: 27.589159,
         lat: 47.150161
-      }
+      },
+      rating: 4,
+      services: [
+        'Service 1',
+        'Service 2',
+        'Service 3',
+        'Service 1',
+        'Service 2',
+        'Service 3',
+        'legalizare documente'
+      ]
     }
   ];
 
@@ -92,7 +121,16 @@ export class MapboxService {
       coordinates: {
         lng: 27.5194076,
         lat: 47.182899
-      }
+      },
+      rating: 3,
+      services: [
+        'Service 1',
+        'Service 2',
+        'Service 3',
+        'Service 1',
+        'Service 2',
+        'Service 3'
+      ]
     },
     {
       type: EntityTypesEnum.TRANSLATOR,
@@ -107,18 +145,38 @@ export class MapboxService {
       coordinates: {
         lng: 27.5294076,
         lat: 47.172899
-      }
+      },
+      rating: 3,
+      services: [
+        'Service 1',
+        'Service 2',
+        'Service 3',
+        'Service 1',
+        'Service 2',
+        'Service 3'
+      ]
     }
   ];
+
+  private _notariesSubject = new BehaviorSubject<Notary[]>(this.inMemoryNotaries);
+  private _translatorsSubject = new BehaviorSubject<Translator[]>(this.inMemoryTranslators);
+
+  public get notaries$() {
+    return this._notariesSubject.asObservable();
+  }
+
+  public get translators$() {
+    return this._translatorsSubject.asObservable();
+  }
 
   constructor() {
   }
 
-  public get notaries() {
-    return this.inMemoryNotaries;
+  public getNotariesInProximity(proximity: LngLatProximity) {
+
   }
 
-  public get translators() {
-    return this.inMemoryTranslators;
+  public getTranslatorsInProximity(proximity: LngLatProximity) {
+
   }
 }

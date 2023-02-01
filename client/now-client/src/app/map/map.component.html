@@ -1,13 +1,13 @@
 <mgl-map
   [style]=this.mapStyle
   [zoom]=[this.mapZoom]
-  [center]="[initLng, initLat]"
+  [center]="[activeUserLng, activeUserLat]"
   (mapLoad)="mapReady($event)"
-  >
-  <div *ngFor="let notary of notaries; let i = index;">
+>
+  <div *ngFor="let notary of notaries$ | async; let i = index;">
     <mgl-marker #notaryMarker [lngLat]="[notary.coordinates.lng, notary.coordinates.lat]">
       <div (click)="focusNotary(notary)"
-      [ngStyle]="{
+           [ngStyle]="{
       'background-image':
         'url(https://media.istockphoto.com/id/1321765738/vector/legal-paper-line-icon.jpg?s=612x612&w=0&k=20&c=TYXgaVxpYQL0-Psvmw8NrioW70lmUsDYnaeqqyKqEik=)',
       'background-size': 'cover',
@@ -20,24 +20,17 @@
     <mgl-popup [marker]="notaryMarker">
       <div class="marker-container" (click)="onNotaryClick(notary)">
         {{notary.name}}
-        <hr>
+        <hr style="margin: 0">
         <div [ngStyle]="{'text-align': 'center'}">
-          <span ><i>Notary</i></span>
+          <span><i>Notary</i></span>
         </div>
       </div>
-<!--      <div class="marker-more">-->
-<!--        <span class="cursor-pointer">-->
-<!--          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">-->
-<!--            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>-->
-<!--          </svg>-->
-<!--        </span>-->
-<!--      </div>-->
     </mgl-popup>
   </div>
-  <div *ngFor="let translator of translators; let i = index;">
+  <div *ngFor="let translator of translators$ | async; let i = index;">
     <mgl-marker #translatorMarker [lngLat]="[translator.coordinates.lng, translator.coordinates.lat]">
       <div (click)="focusTranslator(translator)"
-        [ngStyle]="{
+           [ngStyle]="{
       'background-image':
         'url(https://c8.alamy.com/comp/2E3P183/multilingual-english-different-flat-translate-icon-language-service-logo-2E3P183.jpg)',
       'background-size': 'cover',
@@ -50,18 +43,34 @@
     <mgl-popup [marker]="translatorMarker">
       <div class="marker-container" (click)="onTranslatorClick(translator)">
         {{translator.name}}
-        <hr>
+        <hr style="margin: 0">
         <div [ngStyle]="{'text-align': 'center'}">
-          <span ><i>Translator</i></span>
+          <span><i>Translator</i></span>
         </div>
       </div>
     </mgl-popup>
   </div>
-    <mgl-control mglNavigation position="top-right"></mgl-control>
-
-  <mat-card>
-    <mat-card-content>Simple card</mat-card-content>
-  </mat-card>
-
+  <mgl-control mglNavigation position="top-right"></mgl-control>
 </mgl-map>
+
+<div class="popup-info-container" *ngIf="this.showNotaryPopupInfo">
+  <app-notar-popup-info [notary]="selectedNotary" (closeEvent)="onClosePopupInfo()"></app-notar-popup-info>
+</div>
+
+<div class="popup-info-container" *ngIf="this.showTranslatorPopupInfo">
+  <app-translator-popup-info [translator]="selectedTranslator"
+                             (closeEvent)="onClosePopupInfo()"></app-translator-popup-info>
+</div>
+
+<div class="popup-info-container" *ngIf="this.showAdvancedSearchDialog">
+  <app-search-dialog (closeEvent)="onClosePopupInfo()"></app-search-dialog>
+</div>
+
+<div class="advanced-search" mat-ripple="" (click)="advancedSearchDialog()">
+  <div>
+    <button mat-ripple="" mat-icon-button [disableRipple]="true">
+      Advanced search <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div>
 

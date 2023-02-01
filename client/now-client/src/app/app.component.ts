@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {productLD, sparqlrdf} from "./rdfa/myrdf";
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,5 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  myRdfa =  sparqlrdf;
 }

@@ -1,0 +1,5 @@
+<button *ngFor="let star of computeStars(); let idx = index"
+        mat-icon-button [color]="'accent'"
+        (click)="changeRating(idx+1)">
+  <mat-icon>{{star}}</mat-icon>
+</button>

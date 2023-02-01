@@ -1,0 +1,51 @@
+<div class="popup-info-content">
+  <mat-card>
+    <mat-card-header class="text-center" [ngStyle]="{'justify-content': 'center'}">
+      <mat-card-title>
+        <div>Advanced search</div>
+      </mat-card-title>
+      <mat-card-subtitle>Filter by various properties</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="d-flex justify-content-center flex-column align-items-center" style="margin: 2rem">
+      <div class="advanced-search-input">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="selectedName">
+        </mat-form-field>
+      </div>
+
+      <div class="advanced-search-input">
+        <mat-form-field appearance="fill">
+          <mat-label>Counties</mat-label>
+          <mat-select [(value)]="options.selections.selectedCounties" multiple>
+            <mat-option *ngFor="let county of options.options.county" [value]="county">{{county}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="advanced-search-input">
+        <mat-form-field appearance="fill">
+          <mat-label>Languages</mat-label>
+          <mat-select [(value)]="options.selections.selectedLanguages" multiple>
+            <mat-option *ngFor="let language of options.options.languages" [value]="language">{{language}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="advanced-search-input">
+        <mat-form-field appearance="fill">
+          <mat-label>Services</mat-label>
+          <mat-select [(value)]="options.selections.selectedServices" multiple>
+            <mat-option *ngFor="let service of options.options.services" [value]="service">{{service}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions [align]="'end'">
+      <button mat-raised-button color="primary" (click)="search()">Search</button>
+      <button mat-raised-button color="warn" (click)="close()">Close</button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>

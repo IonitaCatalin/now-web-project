@@ -37,3 +37,23 @@ a.active {
       mat.define-palette(mat.$indigo-palette)
   ) !important;
 }
+
+.toggle-button {
+  display: flex;
+  justify-content: end;
+  margin-right: 0.3rem;
+}
+
+.list-closest::-webkit-scrollbar {
+  display: none;
+}
+
+.list-closest {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.list-closest-item:hover {
+  background-color: lightgrey;
+  opacity: 0.8;
+}

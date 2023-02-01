@@ -1,0 +1,16 @@
+<h1 mat-dialog-title align="center">Rate {{data.type}}</h1>
+<div mat-dialog-content>
+  <div class="d-flex justify-content-center">
+    <app-rating (ratingChanged)="onRatingChanged($event)"></app-rating>
+  </div>
+  <div style="margin-top: 0.5rem;">
+    <mat-form-field appearance="fill" style="width: 100%">
+      <mat-label>How was your experience?</mat-label>
+      <textarea matInput [(ngModel)]="comment"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button cdkFocusInitial (click)="rateThis()">Rate</button>
+</div>

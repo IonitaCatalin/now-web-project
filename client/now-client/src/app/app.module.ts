@@ -14,7 +14,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from "./home/home.component";
 import {MatInputModule} from "@angular/material/input";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -25,14 +25,44 @@ import {MatRadioModule} from "@angular/material/radio";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
+import { NotarPopupInfoComponent } from './map/popup-info/notary/notar-popup-info.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import { RatingComponent } from './utils/rating/rating.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import { TranslatorPopupInfoComponent } from './map/popup-info/translator/translator-popup-info.component';
+import { ReviewListComponent } from './reviews/review-list/review-list.component';
+import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { LoginComponent } from './auth/login/login.component';
+import {SignupComponent} from "./auth/signup/signup.component";
+import {AuthBackgroundComponent} from "./auth/auth-background.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatRippleModule} from "@angular/material/core";
+import { SearchDialogComponent } from './search/search-dialog/search-dialog.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatChipsModule} from "@angular/material/chips";
+import { RdfaComponent } from './rdfa/rdfa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    HomeComponent
+    HomeComponent,
+    NotarPopupInfoComponent,
+    RatingComponent,
+    TranslatorPopupInfoComponent,
+    ReviewListComponent,
+    RateDialogComponent,
+    LoginComponent,
+    SignupComponent,
+    AuthBackgroundComponent,
+    SearchDialogComponent,
+    RdfaComponent,
+    RdfaComponent
   ],
   imports: [
+    FontAwesomeModule,
     BrowserModule,
     AppRoutingModule,
     NgxMapboxGLModule.withConfig({
@@ -63,6 +93,14 @@ import {RouterModule} from "@angular/router";
     MatSidenavModule,
     MatPaginatorModule,
     MatSlideToggleModule,
+    MatTooltipModule,
+    MatTabsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
