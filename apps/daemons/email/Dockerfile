@@ -25,7 +25,7 @@ COPY --from=builder /app/apps/daemons/email/package.json /app/apps/daemons/email
 
 
 # Install only daemon/email application workspace
-RUN sed -i 's/"apps\/\**"/"apps\/\daemons\/\email"/g' /app/package.json
+RUN sed -i 's/"apps\/\**"/"apps\/\daemons\/email"/g' /app/package.json
 
 # Install dependencies & workspaces
 RUN npm install --production --no-audit 

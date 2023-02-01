@@ -1,6 +1,6 @@
 ARG VERSION
 
-FROM khonsu03/now-services-core-builder:$VERSION AS builder
+FROM now-services-core-builder:$VERSION AS builder
 
 FROM node:16.13.1-alpine
 
@@ -23,7 +23,7 @@ COPY --from=builder /app/apps/api/client/dist /app/apps/api/client/dist/
 COPY --from=builder /app/apps/api/client/package.json /app/apps/api/client/
 
 # Install only api-client application workspace
-RUN sed -i 's/"apps\/\**"/"apps\/\api\/\client"/g' /app/package.json
+RUN sed -i 's/"apps\/\**"/"apps\/api\/client"/g' package.json
 
 # Install dependencies & workspaces
 RUN npm install --production --no-audit --silent

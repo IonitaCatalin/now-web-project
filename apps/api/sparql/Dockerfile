@@ -25,7 +25,7 @@ COPY --from=builder /app/apps/api/now/dist /app/apps/api/now/dist/
 COPY --from=builder /app/apps/api/now/package.json /app/apps/api/now/
 
 # Install only api-client application workspace
-RUN sed -i 's/"apps\/\**"/"apps\/\api\/\sparql"/g' /app/package.json
+RUN sed -i 's/"apps\/\**"/"apps\/api\/sparql"/g' /app/package.json
 
 # Install dependencies & workspaces
 RUN npm install --production --no-audit 
