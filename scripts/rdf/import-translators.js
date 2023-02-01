@@ -1,18 +1,21 @@
 const rdfParser = require("rdf-parse").default;
 const n3 = require("n3");
 const fs = require("fs");
+const {removeDiacritics} = require ('./clean-data');
 
 const { DataFactory } = n3;
 const { namedNode, literal, blankNode, quad } = DataFactory;
 let store = new n3.Store();
 const writer = new n3.Writer({ 
     prefixes: {
-        schema: 'https://schema.org#',
+        schema: 'https://schema.org/',
         rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
         rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
         xsd: 'http://www.w3.org/2001/XMLSchema#',
         geo: 'http://www.opengis.net/ont/geosparql#'},
     });
+
+
 
 
 const translatorData = require('../../Scrapper/scrapped/translators_list.json');
@@ -61,7 +64,7 @@ for(const translator of translatorData){
     writer.addQuad(
         postalAddr, 
         namedNode('schema:addressRegion'), 
-        literal(`${translator.county}`));
+        literal(`${removeDiacritics(translator.county)}`));
 
     writer.addQuad(
         postalAddr, 
@@ -81,13 +84,30 @@ for(const translator of translatorData){
         literal(`${translator.phone_numbers}`)
     );
 
+    const aggregatedReview = blankNode();
+    
+    writer.addQuad(
+        transl,
+        namedNode('schema:aggregatedReview'),
+        aggregatedReview
+    )
+
+    writer.addQuad(
+        aggregatedReview,
+        namedNode('schema:ratingValue'),
+        literal('0')
+    )
+
     //knowsLanguage
     if(translator.languages.length > 0){
         for(lang of translator.languages){
+            if(lang.startsWith(' ')){
+                lang = lang.substr(1);
+            }
             writer.addQuad(
                 transl,
                 namedNode('schema:knowsLanguage'),
-                literal(`${lang}`)
+                literal(`${removeDiacritics(lang)}`)
             );
         }
     }else{
@@ -101,7 +121,7 @@ for(const translator of translatorData){
     writer.addQuad(
         transl,
         namedNode('schema:knowsLanguage'),
-        literal(`Rom\u00e2na`)
+        literal(`Romana`)
     );
 
 
@@ -151,3 +171,4 @@ for(const translator of translatorData){
 }
 
 writer.end((err,res) => {fs.writeFileSync('translator.ttl', res);});
+

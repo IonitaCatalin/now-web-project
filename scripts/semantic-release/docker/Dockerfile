@@ -1,10 +1,6 @@
 FROM node:16.13.1-alpine
 
-RUN addgroup app && adduser -S -G app app
-
-RUN mkdir /app && chown app:app /app
-
-
+RUN ls -alh
 
 WORKDIR /app
 
@@ -27,5 +23,5 @@ COPY package.json package-lock.json tsconfig.json jest.config.js /app/
 RUN npm ci --no-audit --verbose
 
 # Build workspaces
-RUN npm run build:workspaces
+RUN npm run build:workspaces --force
 

@@ -1,12 +1,14 @@
 const rdfParser = require("rdf-parse").default;
 const n3 = require("n3");
 const fs = require("fs");
+const {removeDiacritics} = require ('./clean-data');
+
 
 const { DataFactory } = n3;
 const { namedNode, literal, quad, blankNode } = DataFactory;
 const writer = new n3.Writer({ 
     prefixes: { 
-        schema: 'https://schema.org#',
+        schema: 'https://schema.org/',
         rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
         rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
         xsd: 'http://www.w3.org/2001/XMLSchema#',
@@ -71,7 +73,7 @@ for(const notary of notaryData){
     writer.addQuad(
         postalAddr, 
         namedNode('schema:addressRegion'), 
-        literal(`${notary.county}`));
+        literal(`${removeDiacritics(notary.county)}`));
 
 
     writer.addQuad(
@@ -110,13 +112,30 @@ for(const notary of notaryData){
         literal(`${notary.email_addr}`)
     );
 
+    const aggregatedReview = blankNode();
+    
+    writer.addQuad(
+        not,
+        namedNode('schema:aggregatedReview'),
+        aggregatedReview
+    )
+
+    writer.addQuad(
+        aggregatedReview,
+        namedNode('schema:ratingValue'),
+        literal('0')
+    )
+
     //knowsLanguage
     if(notary.languages.length > 0){
         for(lang of notary.languages){
+            if(lang.startsWith(' ')){
+                lang = lang.substr(1);
+            }
             writer.addQuad(
                 not,
                 namedNode('schema:knowsLanguage'),
-                literal(`${lang}`)
+                literal(`${removeDiacritics(lang)}`)
             );
         }
     }else{
@@ -168,6 +187,7 @@ for(const notary of notaryData){
         )
     }
     
+
     index++;
 }
 

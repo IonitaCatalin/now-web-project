@@ -1,7 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import axios from 'axios';
-import { FILTER_ON_COUNTY, FILTER_ON_LANGUAGES, FILTER_ON_NAME, GET_ALL_COUNTIES, GET_ALL_LANGUAGES, GET_ALL_NOTARIES, GET_ALL_NOTARIES_SORTED_BY_DISTANCE_FROM_A_POINT, GET_ALL_SERVICES, GET_ALL_TRANSLATORS, GET_ALL_TRANSLATORS_SORTED_BY_DISTANCE_FROM_A_POINT, GET_NOTARY_BY_ID, GET_SCHEMA_NOTARIES, GET_SCHEMA_TRANSLATORS, GET_TRANSLATOR_BY_ID } from "../constants";
+import { FILTER_ON_COUNTY, FILTER_ON_LANGUAGES, FILTER_ON_NAME, GET_ALL_COUNTIES, GET_ALL_LANGUAGES, GET_ALL_NOTARIES, GET_ALL_NOTARIES_SORTED_BY_DISTANCE_FROM_A_POINT, GET_ALL_SERVICES, GET_ALL_TRANSLATORS, GET_ALL_TRANSLATORS_SORTED_BY_DISTANCE_FROM_A_POINT, GET_NOTARY_BY_ID, GET_REVIEWS_FOR_PROVIDER, GET_SCHEMA_NOTARIES, GET_SCHEMA_TRANSLATORS, GET_TRANSLATOR_BY_ID, POST_REVIEW } from "../constants";
 import { INotary } from "../interfaces";
+var FormData = require('form-data');
+
+
+
 
 @Injectable()
 export class SparqlService {
@@ -77,6 +81,24 @@ export class SparqlService {
         return await this.callSparqlEndpoint(GET_ALL_COUNTIES);
     }
 
+    public async getReviews(id: string){
+        let query = GET_REVIEWS_FOR_PROVIDER;
+        query = query.replace("%type", id.startsWith("T") ? 'LegalService' : 'Notary').replace('%id', id);
+
+        return await this.callSparqlEndpoint(query);
+    }
+
+    public async postReview(body){
+        let query = POST_REVIEW;
+        query = query.replace("%type", body.id.startsWith("T") ? 'LegalService' : 'Notary')
+            .replace('%id', body.id)
+            .replace('%ratingComment', body.ratingComment)
+            .replace('%ratingValue', body.ratingValue)
+            .replace('%username', body.username);
+
+        return await this.updateSparqlEndpoint(query);
+    }
+
     public async getSchema(){
         const schema = [];
         const notarySchema = await this.callSparqlEndpoint(GET_SCHEMA_NOTARIES, true);
@@ -86,7 +108,7 @@ export class SparqlService {
         return schema;
     }
 
-    protected async callSparqlEndpoint(query: string, schema=false){
+    protected async callSparqlEndpoint(query: string, schema=false, post=false){
         const headers = schema ? {
             "Content-Type": "application/sparql-query",
             "Accept": "application/ld+json"
@@ -100,14 +122,32 @@ export class SparqlService {
 
         if(schema){
             return response.data;
+        }if(!post){
+            return response.data.results.bindings.map(result => {
+                let formatted = {};
+                for(const key of Object.keys(result)){
+                    formatted[key] = result[key].value; 
+                }
+                return formatted;
+            });
         }
-        return response.data.results.bindings.map(result => {
-            let formatted = {};
-            for(const key of Object.keys(result)){
-                formatted[key] = result[key].value; 
-            }
-            return formatted;
-        });
+
+        return {succes: 'true'};
+    }
+
+    protected async updateSparqlEndpoint(query: string){
+        const endpoint = process.env.ENV_SPARQL_ENDPOINT + "/statements";
+        const update = query;
+
+
+        await axios.post(endpoint, update, 
+            {headers: {
+                "Content-Type": "application/sparql-update",
+            }}
+        ) as any;
+
+
+        return {succes: 'true'};
     }
 
 }
