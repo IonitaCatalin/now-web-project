@@ -115,6 +115,9 @@ for(const notary of notaryData){
     //knowsLanguage
     if(notary.languages.length > 0){
         for(lang of notary.languages){
+            if(lang.startsWith(' ')){
+                lang = lang.substr(1);
+            }
             writer.addQuad(
                 not,
                 namedNode('schema:knowsLanguage'),

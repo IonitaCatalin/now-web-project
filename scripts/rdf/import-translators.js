@@ -87,6 +87,9 @@ for(const translator of translatorData){
     //knowsLanguage
     if(translator.languages.length > 0){
         for(lang of translator.languages){
+            if(lang.startsWith(' ')){
+                lang = lang.substr(1);
+            }
             writer.addQuad(
                 transl,
                 namedNode('schema:knowsLanguage'),
