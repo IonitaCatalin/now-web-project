@@ -39,6 +39,23 @@
 
 * **docker:** fix broken images ([c53ee56](https://github.com/IonitaCatalin/now-web-project/commit/c53ee56abddbaac27cabab3c5012bf3b034c9ed2))
 * **docker:** fix permission issues with docker ([7b02054](https://github.com/IonitaCatalin/now-web-project/commit/7b020547f43e89883e0be7561cbfaef6fd54ffe4))
+* **rdf:** fixes for rdf schema ([#36](https://github.com/IonitaCatalin/now-web-project/issues/36)) ([13c9745](https://github.com/IonitaCatalin/now-web-project/commit/13c974598c725b81f4aeccb7b3eae9b068fb763e))
+* **version:** trigger release ([7d9e982](https://github.com/IonitaCatalin/now-web-project/commit/7d9e982d45fb5da83f94f5728d1a50d12f2ab2df))
+
+
+### Features
+
+* **docker:** added --force for build:workspace script inside the core-builder ([9cca870](https://github.com/IonitaCatalin/now-web-project/commit/9cca8702c9f594977c595fb6780289677ba8efc7))
+* **docker:** fix typo ([4d351cd](https://github.com/IonitaCatalin/now-web-project/commit/4d351cd1fee959fb728e54fc2af93ca3f1611442))
+* **release:** trigger release ([0ff41c8](https://github.com/IonitaCatalin/now-web-project/commit/0ff41c8d8b6449239986e513200231622f503d2d))
+
+# [1.9.0](https://github.com/IonitaCatalin/now-web-project/compare/1.8.0...1.9.0) (2023-02-01)
+
+
+### Bug Fixes
+
+* **docker:** fix broken images ([c53ee56](https://github.com/IonitaCatalin/now-web-project/commit/c53ee56abddbaac27cabab3c5012bf3b034c9ed2))
+* **docker:** fix permission issues with docker ([7b02054](https://github.com/IonitaCatalin/now-web-project/commit/7b020547f43e89883e0be7561cbfaef6fd54ffe4))
 * **version:** trigger release ([7d9e982](https://github.com/IonitaCatalin/now-web-project/commit/7d9e982d45fb5da83f94f5728d1a50d12f2ab2df))
 
 

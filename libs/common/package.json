@@ -1,6 +1,6 @@
 {
   "name": "@now/common",
-  "version": "1.9.0-force-release",
+  "version": "1.9.0",
   "private": true,
   "main": "dist/index.js",
   "scripts": {
