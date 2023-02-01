@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {productLD, sparqlrdf} from "./rdfa/myrdf";
+import {MapboxService} from "./map/_service/mapbox.service";
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,4 @@ import {productLD, sparqlrdf} from "./rdfa/myrdf";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  myRdfa =  sparqlrdf;
 }

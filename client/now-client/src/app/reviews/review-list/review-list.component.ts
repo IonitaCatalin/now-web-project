@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faUserTie} from '@fortawesome/free-solid-svg-icons';
+import {MapboxService} from "../../map/_service/mapbox.service";
+import {ReviewService} from "../review.service";
 
 export interface RatingData {
   username: string;
@@ -15,12 +17,21 @@ export interface RatingData {
 export class ReviewListComponent implements OnInit {
   faUserTie = faUserTie;
 
-  @Input() ratings: RatingData[] = [];
+  ratings: RatingData[] = [];
+  @Input() providerId: string = '';
 
-  constructor() { }
+  constructor(private reviewService: ReviewService) {
+  }
 
   ngOnInit(): void {
+    this.reviewService.getReviewsByProviderId(this.providerId).subscribe(
+      _ratings => this.ratings = _ratings
+    );
     console.log("Review list init");
   }
 
+  addRating(ratingData: RatingData, id?: string) {
+    this.ratings.push(ratingData);
+    this.reviewService.createRating(ratingData, id);
+  }
 }

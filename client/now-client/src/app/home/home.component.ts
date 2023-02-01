@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
         return entities.filter(
           entity => entity.name.toUpperCase().includes(searched) ||
             entity.type.toUpperCase().includes(searched) ||
-            entity.services.some(service => service.toUpperCase().includes(searched))
+            entity.services.some(service => this.mapService.services[service].name.toUpperCase().includes(searched))
         )
       }
 
@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
   }
 
   private computeClosestEntities(): Observable<{
+    id: string;
     name: string;
     type: EntityTypesEnum;
     distance: number;
@@ -94,6 +95,7 @@ export class HomeComponent implements OnInit {
       map(([user, translators, notaries]) => {
           console.log(user);
           let entities: {
+            id: string;
             name: string;
             type: EntityTypesEnum;
             distance: number;
@@ -104,6 +106,7 @@ export class HomeComponent implements OnInit {
             services: string[];
           }[] = [];
           entities = entities.concat(translators.map((translator) => ({
+            id: translator.id,
             name: translator.name,
             type: translator.type,
             distance: this.distance(user.coords.lat, user.coords.lng, translator.coordinates.lat, translator.coordinates.lng),
@@ -112,6 +115,7 @@ export class HomeComponent implements OnInit {
           })));
 
           entities = entities.concat(notaries.map((notaries) => ({
+            id: notaries.id,
             name: notaries.name,
             type: notaries.type,
             distance: this.distance(user.coords.lat, user.coords.lng, notaries.coordinates.lat, notaries.coordinates.lng),
@@ -136,8 +140,14 @@ export class HomeComponent implements OnInit {
     return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
   }
 
-  focusOn(coordinates: { lng: number; lat: number }, type: EntityTypesEnum) {
+  focusOn(id: string, coordinates: { lng: number; lat: number }, type: EntityTypesEnum) {
     console.log("focus on", coordinates);
-    this.myMap?.triggerMarker(coordinates.lng, coordinates.lat, type);
+    this.myMap?.triggerMarker(id, coordinates.lng, coordinates.lat, type);
+  }
+
+  searchNearby() {
+    const coords = this.userService.getCurrentUser().coords;
+    this.mapService.getNotariesInProximity(coords);
+    this.mapService.getTranslatorsInProximity(coords);
   }
 }

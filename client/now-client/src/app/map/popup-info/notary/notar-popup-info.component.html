@@ -75,15 +75,19 @@
 
           <p class="lead mt-3">Services</p>
           <div class="container text-center">
-            <div class="row row-cols-4" style="padding: 0.5rem;">
-              <div *ngFor="let service of notary?.services; let idx = index"
-                   class="col basic-info-element">{{service}}</div>
+            <div class="row row-cols-1 elem-service">
+              <ng-container *ngIf="services$ | async as allServices">
+                <span *ngFor="let service of notary?.services; let idx = index">
+                  <div class="col basic-info-element d-flex justify-content-between"><h2
+                    style="margin-bottom: 0; text-align:start;">{{allServices[service]?.name}}</h2> <i style="text-align: start; max-width: 50vw">{{allServices[service]?.description}}</i></div>
+                </span>
+              </ng-container>
             </div>
           </div>
         </mat-tab>
 
         <mat-tab label="Reviews">
-          <app-review-list [ratings]="ratings"></app-review-list>
+          <app-review-list #reviews [providerId]="notary?.id ?? ''"></app-review-list>
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>

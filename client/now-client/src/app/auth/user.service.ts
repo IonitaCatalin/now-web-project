@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, of, tap} from "rxjs";
+import {environment} from "../../environments/environment";
 
 export interface NowUser {
+  username: string;
   email: string;
   isAuth: boolean;
   authToken: string;
@@ -17,6 +19,7 @@ export interface NowUser {
 })
 export class UserService {
   private _userInit: NowUser = {
+    username: 'username',
     email: 'anonymous@email.com',
     isAuth: false,
     authToken: '',
@@ -27,6 +30,7 @@ export class UserService {
   }
 
   private _mockUser: NowUser = {
+    username: 'test',
     email: 'test@test.com',
     isAuth: true,
     authToken: '123',
@@ -55,9 +59,20 @@ export class UserService {
   }
 
   login(loginData: {
-    email: string;
+    username: string;
     password: string;
   }) {
+    // return this.http.post<{
+    //   access_token: string
+    // }>(`${environment.AUTH_URL}/auth/login`, loginData).pipe(
+    //   tap(token => this._userSubject.next(({
+    //     ...this._userSubject.value,
+    //     isAuth: true,
+    //     authToken: token.access_token,
+    //     username: loginData.username,
+    //   }))),
+    //   tap(user => this.persistIntoLocalStorage(this._userSubject.value))
+    // );
     return of(this._mockUser).pipe(
       tap(user => this._userSubject.next(user)),
       tap(user => this.persistIntoLocalStorage(user))
@@ -65,9 +80,23 @@ export class UserService {
   }
 
   signup(signupData: {
+    username: string;
     email: string;
     password: string;
   }) {
+    // return this.http.post<{
+    //   access_token: string
+    // }>(`${environment.AUTH_URL}/auth/login`, signupData).pipe(
+    //   tap(token => this._userSubject.next(({
+    //     ...this._userSubject.value,
+    //     isAuth: true,
+    //     authToken: token.access_token,
+    //     username: signupData.username,
+    //     email: signupData.email,
+    //   }))),
+    //   tap(user => this.persistIntoLocalStorage(this._userSubject.value))
+    // );
+
     return of(this._mockUser).pipe(
       tap(user => this._userSubject.next(user)),
       tap(user => this.persistIntoLocalStorage(user))

@@ -14,7 +14,7 @@ class Dependencies {
     }
 
     try {
-      const pack = JSON.parse(readFileSync(`./${file}`, 'utf-8')),
+      const pack = JSON.parse(readFileSync(`${file}`, 'utf-8')),
         dir = path.resolve('./') + '/',
         packageFileDirectory = file.replace('/package.json', '');
       if (pack.workspaces) {

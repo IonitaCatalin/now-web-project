@@ -1,5 +1,8 @@
 <div class="popup-info-content">
   <mat-card>
+    <div class="d-flex justify-content-end">
+      <span class="cursor-pointer"><fa-icon [icon]="faXmark" (click)="close()"></fa-icon></span>
+    </div>
     <mat-card-header class="text-center" [ngStyle]="{'justify-content': 'center'}">
       <mat-card-title>
         <div>Advanced search</div>
@@ -11,40 +14,43 @@
       <div class="advanced-search-input">
         <mat-form-field appearance="fill">
           <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="selectedName">
+          <input matInput [(ngModel)]="selections.selectedName" (ngModelChange)="onNameChange($event)">
         </mat-form-field>
       </div>
 
-      <div class="advanced-search-input">
-        <mat-form-field appearance="fill">
-          <mat-label>Counties</mat-label>
-          <mat-select [(value)]="options.selections.selectedCounties" multiple>
-            <mat-option *ngFor="let county of options.options.county" [value]="county">{{county}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <ng-container *ngIf="availableOptions | async as options">
+        <div class="advanced-search-input">
+          <mat-form-field appearance="fill">
+            <mat-label>Counties</mat-label>
+            <mat-select [(value)]="selections.selectedCounties" (valueChange)="onCountiesChange($event)">
+              <mat-option *ngFor="let county of options.county" [value]="county">{{county}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <div class="advanced-search-input">
-        <mat-form-field appearance="fill">
-          <mat-label>Languages</mat-label>
-          <mat-select [(value)]="options.selections.selectedLanguages" multiple>
-            <mat-option *ngFor="let language of options.options.languages" [value]="language">{{language}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+        <div class="advanced-search-input">
+          <mat-form-field appearance="fill">
+            <mat-label>Languages</mat-label>
+            <mat-select [(value)]="selections.selectedLanguages" (valueChange)="onLanguagesChange($event)">
+              <mat-option *ngFor="let language of options.languages"
+                          [value]="language">{{language}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-      <div class="advanced-search-input">
-        <mat-form-field appearance="fill">
-          <mat-label>Services</mat-label>
-          <mat-select [(value)]="options.selections.selectedServices" multiple>
-            <mat-option *ngFor="let service of options.options.services" [value]="service">{{service}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+        <div class="advanced-search-input">
+          <mat-form-field appearance="fill">
+            <mat-label>Services</mat-label>
+            <mat-select [(value)]="selections.selectedServices" (valueChange)="onServicesChange($event)">
+              <mat-option *ngFor="let service of options.services" [value]="service">{{service}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </ng-container>
     </mat-card-content>
     <mat-card-actions [align]="'end'">
       <button mat-raised-button color="primary" (click)="search()">Search</button>
-      <button mat-raised-button color="warn" (click)="close()">Close</button>
+      <button mat-raised-button color="warn" (click)="clearSelections()">Clear</button>
     </mat-card-actions>
 
   </mat-card>

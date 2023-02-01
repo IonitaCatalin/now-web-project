@@ -1,52 +1,66 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AdvancedSearchOptions} from "../search.service";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {AdvancedSearchOptions, SearchService} from "../search.service";
+import {Subscription} from "rxjs";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search-dialog',
   templateUrl: './search-dialog.component.html',
   styleUrls: ['./search-dialog.component.scss']
 })
-export class SearchDialogComponent implements OnInit {
+export class SearchDialogComponent implements OnInit, OnDestroy {
 
-  @Input() options: AdvancedSearchOptions = {
-    options: {
-      county: [],
-      languages: [],
-      services: [],
-      },
-    selections: {
-      selectedName: '',
-      selectedCounties: [],
-      selectedLanguages: [],
-      selectedServices: []
-    }
-  }
+  availableOptions = this.searchService.availableOptions;
+  selections = {
+    selectedName: '',
+    selectedCounties: '',
+    selectedLanguages: '',
+    selectedServices: ''
+  };
+  subscription = new Subscription();
+
   @Output() closeEvent = new EventEmitter<boolean>();
+  faXmark = faXmark;
 
-  selectedName: string = '';
-  selectedNames: string[] = [];
-
-
-  constructor() {
+  constructor(private searchService: SearchService) {
   }
 
   ngOnInit(): void {
-    // this.options = {
-    //   county: ['Iasi', 'Focsani', 'Bucuresti'],
-    //   languages: ['Romana', 'Engleza'],
-    //   services: ['legalizare doc', 'traducere']
-    // }
+    this.subscription.add(this.searchService.selectedOptions.subscribe(_selections => this.selections = _selections));
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   search() {
-    // console.log(this.selectedCounties);
+    this.searchService.search();
+    this.close();
   }
 
   close() {
     this.closeEvent.emit(true);
   }
 
-  addName(selectedName: string) {
-    this.selectedNames.push(selectedName);
+  onCountiesChange($event: string) {
+    this.searchService.selectCounties = $event;
+  }
+
+  onNameChange($event: string) {
+    this.searchService.selectName = $event;
+  }
+
+  onLanguagesChange($event: string) {
+    this.searchService.selectLanguages = $event;
+  }
+
+  onServicesChange($event: string) {
+    this.searchService.selectServices = $event;
+  }
+
+  clearSelections() {
+    this.searchService.clearSelections();
   }
 }

@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, map, Observable} from "rxjs";
+import {MapboxService} from "../map/_service/mapbox.service";
+import {HttpClient} from "@angular/common/http";
 
 export interface AdvancedSearchOptions {
   options: {
@@ -9,9 +11,9 @@ export interface AdvancedSearchOptions {
   }
   selections: {
     selectedName: string;
-    selectedCounties: string[];
-    selectedLanguages: string[];
-    selectedServices: string[];
+    selectedCounties: string;
+    selectedLanguages: string;
+    selectedServices: string;
   }
 }
 
@@ -19,18 +21,58 @@ export interface AdvancedSearchOptions {
 export class SearchService {
   private _advancedSearchSubject = new BehaviorSubject<AdvancedSearchOptions>({
     options: {
-      county: [],
-      languages: [],
-      services: [],
+      county: ['Iasi', 'Focsani', 'Bucuresti'],
+      languages: ['Romana', 'Engleza'],
+      services: ['legalizare doc', 'traducere']
     },
     selections: {
       selectedName: '',
-      selectedCounties: [],
-      selectedLanguages: [],
-      selectedServices: []
+      selectedCounties: '',
+      selectedLanguages: '',
+      selectedServices: ''
     }
   });
   private _advancedSearchObs = this._advancedSearchSubject.asObservable();
+
+  constructor(private mapboxService: MapboxService,
+              private http: HttpClient) {
+    this.mapboxService.countiesOptions$.subscribe(val => {
+      const old = this._advancedSearchSubject.value;
+      this._advancedSearchSubject.next({
+        ...old,
+        options: {
+          ...old.options,
+          county: val
+        }
+      })
+    })
+
+    this.mapboxService.languagesOptions$.subscribe(val => {
+      const old = this._advancedSearchSubject.value;
+      this._advancedSearchSubject.next({
+        ...old,
+        options: {
+          ...old.options,
+          languages: val
+        }
+      })
+    })
+
+    this.mapboxService.services$.subscribe(val => {
+      const old = this._advancedSearchSubject.value;
+      const serviceOptions = [];
+      for (const key in val) {
+        serviceOptions.push(val[key].name);
+      }
+      this._advancedSearchSubject.next({
+        ...old,
+        options: {
+          ...old.options,
+          services: serviceOptions
+        }
+      })
+    })
+  }
 
   public get availableOptions(): Observable<AdvancedSearchOptions['options']> {
     return this._advancedSearchObs.pipe(map(
@@ -59,7 +101,7 @@ export class SearchService {
     })
   }
 
-  public set selectCounties(_counties: string[]) {
+  public set selectCounties(_counties: string) {
     const old = this._advancedSearchSubject.value;
     this._advancedSearchSubject.next({
       ...old,
@@ -70,7 +112,7 @@ export class SearchService {
     })
   }
 
-  public set selectLanguages(_counties: string[]) {
+  public set selectLanguages(_counties: string) {
     const old = this._advancedSearchSubject.value;
     this._advancedSearchSubject.next({
       ...old,
@@ -81,14 +123,31 @@ export class SearchService {
     })
   }
 
-  public set selectServices(_services: string[]) {
+  public set selectServices(_services: string) {
     const old = this._advancedSearchSubject.value;
     this._advancedSearchSubject.next({
       ...old,
       selections: {
         ...old.selections,
-        selectedCounties: _services
+        selectedServices: _services
       }
     })
+  }
+
+  clearSelections() {
+    const old = this._advancedSearchSubject.value;
+    this._advancedSearchSubject.next({
+      ...old,
+      selections: {
+        selectedName: '',
+        selectedCounties: '',
+        selectedLanguages: '',
+        selectedServices: ''
+      }
+    })
+  }
+
+  search() {
+    this.mapboxService.advancedSearch(this._advancedSearchSubject.value.selections);
   }
 }

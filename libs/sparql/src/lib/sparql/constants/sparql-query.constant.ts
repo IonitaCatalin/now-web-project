@@ -184,7 +184,7 @@ WHERE {
       	schema:makesOffer [
         	schema:identifier ?offerId
     	] ;
-        BIND(geof:distance(?location, "POINT(46.716285 26.704703)"^^geo:wktLiteral) AS ?distance)
+        BIND(geof:distance(?location, "POINT(%lat %lng)"^^geo:wktLiteral) AS ?distance)
         %filters
 }
 GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?distance ?telephone

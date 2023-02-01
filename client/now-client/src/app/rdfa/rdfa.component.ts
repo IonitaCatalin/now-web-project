@@ -1,19 +1,23 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {MapboxService} from "../map/_service/mapbox.service";
 
 @Component({
   selector: 'app-my-rdfa',
   template: '<div [innerHTML]="html"></div>'
 })
 export class RdfaComponent implements OnInit {
-  @Input() itemLD: { [key: string]: any; } | undefined;
+  @Input() itemLD: any;
   html: SafeHtml | undefined;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer,
+              private mapService: MapboxService) { }
 
   ngOnInit() {
-    // @ts-ignore
-    this.html = this.getSafeHTML(this.itemLD);
+    // this.html = this.getSafeHTML(this.itemLD);
+    this.mapService.myRDF$.subscribe(val => {
+      this.html = this.getSafeHTML(val);
+    })
   }
 
   getSafeHTML(jsonLD: {[key: string]: any}): SafeHtml {

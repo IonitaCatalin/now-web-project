@@ -16,12 +16,15 @@
       </div>
       <ng-container *ngIf="currentUser$ | async as currentUser">
         <div style="padding-top: 1rem;">
-          <span *ngIf="currentUser.isAuth">Hello, {{currentUser.email}}</span>
+          <span *ngIf="currentUser.isAuth">Hello, {{currentUser.username}}</span>
           <span *ngIf="!currentUser.isAuth">You are not logged in!</span>
         </div>
         <div style="margin-top: 1rem;">
           <button *ngIf="currentUser.isAuth" mat-raised-button (click)="logout()">Logout</button>
           <button *ngIf="!currentUser.isAuth" mat-raised-button (click)="login()">Login</button>
+        </div>
+        <div style="margin-top: 0.5rem;">
+          <button mat-raised-button (click)="searchNearby()">Search nearby</button>
         </div>
       </ng-container>
     </div>
@@ -51,10 +54,10 @@
       <mat-list>
         <ng-container *ngFor="let closestEntity of filteredClosestEntities$ | async">
           <mat-list-item matRipple style="cursor: pointer" class="list-closest-item"
-                         (click)="focusOn(closestEntity.coordinates, closestEntity.type)">
+                         (click)="focusOn(closestEntity.id, closestEntity.coordinates, closestEntity.type)">
             <div class="d-flex justify-content-between" style="width: 100%;">
               <div class="d-flex flex-column">
-                <span>{{closestEntity.name}}</span>
+                <span>{{closestEntity.name.length > 20 ? ((closestEntity.name | slice:0:20) + '...') : closestEntity.name}}</span>
                 <h5 style="margin-bottom: 0">{{closestEntity.type}}</h5>
               </div>
               <h4 style="margin-bottom: 0">{{closestEntity.distance | number : '1.0-2'}}km</h4>

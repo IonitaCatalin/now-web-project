@@ -7,6 +7,7 @@
   <div *ngFor="let notary of notaries$ | async; let i = index;">
     <mgl-marker #notaryMarker [lngLat]="[notary.coordinates.lng, notary.coordinates.lat]">
       <div (click)="focusNotary(notary)"
+           [attr.data-sectionvalue]="notary.id"
            [ngStyle]="{
       'background-image':
         'url(https://media.istockphoto.com/id/1321765738/vector/legal-paper-line-icon.jpg?s=612x612&w=0&k=20&c=TYXgaVxpYQL0-Psvmw8NrioW70lmUsDYnaeqqyKqEik=)',
@@ -30,6 +31,7 @@
   <div *ngFor="let translator of translators$ | async; let i = index;">
     <mgl-marker #translatorMarker [lngLat]="[translator.coordinates.lng, translator.coordinates.lat]">
       <div (click)="focusTranslator(translator)"
+           [attr.data-sectionvalue]="translator.id"
            [ngStyle]="{
       'background-image':
         'url(https://c8.alamy.com/comp/2E3P183/multilingual-english-different-flat-translate-icon-language-service-logo-2E3P183.jpg)',

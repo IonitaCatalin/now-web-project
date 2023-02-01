@@ -136,7 +136,7 @@ for(const notary of notaryData){
     );
 
     //makesOffer
-    for(let i=0; i<23; i++){
+    for(let i=0; i<22; i++){
         if (Math.random() < 0.05){
             continue;
         }

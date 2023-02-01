@@ -76,21 +76,21 @@ export class MapComponent implements OnInit {
     });
   }
 
-  triggerMarker(lng: number, lat: number, type: EntityTypesEnum) {
+  triggerMarker(id: string, lng: number, lat: number, type: EntityTypesEnum) {
     this.easeCameraTo(lng, lat);
     if (type === EntityTypesEnum.TRANSLATOR) {
       const foundTranslatorMarker = this.translatorsMarkersComp?.find((item) => {
           const coords = (item.lngLat as Array<number>);
-          console.log("coords", coords);
-          return coords[0] === lng && coords[1] === lat
+          const translatorId = item.content.nativeElement.firstChild.dataset.sectionvalue;
+          return translatorId === id && coords[0] === lng && coords[1] === lat
         }
       )
       foundTranslatorMarker?.togglePopup();
     } else {
       const foundNotaryMarker = this.notaryMarkersComp?.find((item) => {
           const coords = (item.lngLat as Array<number>);
-          console.log("coords", coords);
-          return coords[0] === lng && coords[1] === lat
+          const notaryId = item.content.nativeElement.firstChild.dataset.sectionvalue;
+          return notaryId === id && coords[0] === lng && coords[1] === lat
         }
       )
       foundNotaryMarker?.togglePopup();

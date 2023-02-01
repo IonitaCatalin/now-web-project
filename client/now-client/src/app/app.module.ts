@@ -25,24 +25,24 @@ import {MatRadioModule} from "@angular/material/radio";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
-import { NotarPopupInfoComponent } from './map/popup-info/notary/notar-popup-info.component';
+import {NotarPopupInfoComponent} from './map/popup-info/notary/notar-popup-info.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import { RatingComponent } from './utils/rating/rating.component';
+import {RatingComponent} from './utils/rating/rating.component';
 import {MatTabsModule} from "@angular/material/tabs";
-import { TranslatorPopupInfoComponent } from './map/popup-info/translator/translator-popup-info.component';
-import { ReviewListComponent } from './reviews/review-list/review-list.component';
-import { RateDialogComponent } from './dialogs/rate-dialog/rate-dialog.component';
+import {TranslatorPopupInfoComponent} from './map/popup-info/translator/translator-popup-info.component';
+import {ReviewListComponent} from './reviews/review-list/review-list.component';
+import {RateDialogComponent} from './dialogs/rate-dialog/rate-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { LoginComponent } from './auth/login/login.component';
+import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from "./auth/signup/signup.component";
 import {AuthBackgroundComponent} from "./auth/auth-background.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRippleModule} from "@angular/material/core";
-import { SearchDialogComponent } from './search/search-dialog/search-dialog.component';
+import {SearchDialogComponent} from './search/search-dialog/search-dialog.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatChipsModule} from "@angular/material/chips";
-import { RdfaComponent } from './rdfa/rdfa.component';
+import {RdfaComponent} from './rdfa/rdfa.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,7 @@ import { RdfaComponent } from './rdfa/rdfa.component';
     AuthBackgroundComponent,
     SearchDialogComponent,
     RdfaComponent,
-    RdfaComponent
+    RdfaComponent,
   ],
   imports: [
     FontAwesomeModule,

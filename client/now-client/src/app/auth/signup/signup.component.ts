@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {AnimationOptions} from "mapbox-gl";
 import {faHouse} from "@fortawesome/free-solid-svg-icons";
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";

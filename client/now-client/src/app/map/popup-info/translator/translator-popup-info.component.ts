@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { faXmark, faCrown } from '@fortawesome/free-solid-svg-icons';
-import {Translator} from "../../_service/mapbox.service";
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {faCrown, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {MapboxService, NowService, Translator} from "../../_service/mapbox.service";
 import {RateDialogComponent} from "../../../dialogs/rate-dialog/rate-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "../../../auth/user.service";
+import {Observable} from "rxjs";
+import {ReviewListComponent} from "../../../reviews/review-list/review-list.component";
 
 @Component({
   selector: 'app-translator-popup-info',
@@ -15,6 +17,8 @@ export class TranslatorPopupInfoComponent implements OnInit {
   @Output() closeEvent = new EventEmitter<boolean>();
   @Input() translator: Translator | undefined;
   public nowUser$ = this.userService.getCurrentUser$();
+  @ViewChild('reviews') reviewsComp: ReviewListComponent | undefined;
+
 
   numbers = Array(20).fill(1);
   faXmark = faXmark;
@@ -57,9 +61,13 @@ export class TranslatorPopupInfoComponent implements OnInit {
       ratingComment: 'Very long description! Very long description! Very long description! Very long description!'
     }
   ];
+  services$: Observable<NowService> = this.mapService.services$;
+
 
   constructor(public dialog: MatDialog,
-              private userService: UserService) { }
+              private userService: UserService,
+              private mapService: MapboxService) {
+  }
 
   ngOnInit(): void {
   }
@@ -81,7 +89,7 @@ export class TranslatorPopupInfoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      if(!!result?.ratingValue) {
+      if (!!result?.ratingValue) {
         this.submitRating(result);
       }
     });
@@ -95,6 +103,11 @@ export class TranslatorPopupInfoComponent implements OnInit {
     this.ratings.push({
       ...rating,
       username: 'User'
+    })
+
+    this.reviewsComp?.addRating({
+      ...rating,
+      username: this.userService.getCurrentUser().username
     })
   }
 }

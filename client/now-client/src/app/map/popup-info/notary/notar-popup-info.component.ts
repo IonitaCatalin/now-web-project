@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { faXmark, faCrown } from '@fortawesome/free-solid-svg-icons';
-import {Notary} from "../../_service/mapbox.service";
+import {MapboxService, Notary, NowService} from "../../_service/mapbox.service";
 import {MatDialog} from "@angular/material/dialog";
 import {RateDialogComponent} from "../../../dialogs/rate-dialog/rate-dialog.component";
 import {UserService} from "../../../auth/user.service";
+import {Observable} from "rxjs";
+import {ReviewListComponent} from "../../../reviews/review-list/review-list.component";
 
 @Component({
   selector: 'app-notar-popup-info',
@@ -14,6 +16,8 @@ export class NotarPopupInfoComponent implements OnInit {
 
   @Output() closeEvent = new EventEmitter<boolean>();
   @Input() notary: Notary | undefined;
+  @ViewChild('reviews') reviewsComp: ReviewListComponent | undefined;
+  services$: Observable<NowService> = this.mapService.services$;
 
   faXmark = faXmark;
   faCrown = faCrown;
@@ -59,7 +63,8 @@ export class NotarPopupInfoComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog,
-              private userService: UserService) { }
+              private userService: UserService,
+              private mapService: MapboxService) { }
 
   ngOnInit(): void {
   }
@@ -96,5 +101,9 @@ export class NotarPopupInfoComponent implements OnInit {
       ...rating,
       username: 'User'
     })
+    this.reviewsComp?.addRating({
+      ...rating,
+      username: this.userService.getCurrentUser().username
+    }, this.notary?.id)
   }
 }
