@@ -20,10 +20,31 @@ mgl-map {
 .cursor-pointer {
   cursor: pointer;
 }
-//mapboxgl-marker {
-//  width: 25px;
-//  height: 25px;
-//  border-radius: 50%;
-//  border:1px solid gray;
-//  background-color:lightblue;
-//}
+
+.popup-info-container {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+.advanced-search {
+  margin-top: 2rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 9998;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0.2rem 0.7rem 0.2rem;
+  width: 10rem;
+}
+
+
+

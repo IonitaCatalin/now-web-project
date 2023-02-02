@@ -1,0 +1,20 @@
+<p class="lead mt-3">Ratings</p>
+<div class="container text-center">
+  <div class="row row-cols-2 review-list-container">
+    <div *ngFor="let rating of ratings; let idx = index"
+         class="col rating-element">
+      <div class="review-item-container">
+        <div class="review-item-user">
+          <div class="review-item-icon">
+            <fa-icon class="fa-2xl" [icon]="faUserTie"></fa-icon>
+          </div>
+          <h3 style="margin-bottom: 0;">{{rating.username}}</h3>
+          <div>
+            <app-rating [isReadonly]="true" [ratingLevel]="rating.ratingValue"></app-rating>
+          </div>
+        </div>
+        <div class="review-item-message">{{rating.ratingComment}}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="popup-info-content">
+  <mat-card>
+    <div class="d-flex justify-content-between">
+      <span class="cursor-pointer" matTooltip="Claim this office"><fa-icon [icon]="faCrown"
+                                                                           (click)="onClaimClick()"></fa-icon></span>
+      <span class="cursor-pointer"><fa-icon [icon]="faXmark" (click)="onCloseClick()"></fa-icon></span>
+    </div>
+    <mat-card-header class="text-center" [ngStyle]="{'justify-content': 'center'}">
+      <mat-card-title>
+        <div>{{translator?.name}}</div>
+        <div>
+          <app-rating [ratingLevel]="translator?.rating ?? 0" [isReadonly]="true"></app-rating>
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle>Translator</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group animationDuration="800ms" dynamicHeight>
+
+        <mat-tab label="About">
+          <p class="lead mt-3">Basic informations</p>
+          <div class="container text-center">
+            <div class="row" style="padding: 0.5rem">
+              <!--          left-->
+              <div class="col-5">
+                <div class="row row-cols-2">
+                  <div class="col-4 basic-info-border basic-info-element">Appeal Court</div>
+                  <div class="col-8 basic-info-element">{{translator?.appealCourt}}</div>
+
+                  <div class="col-4 basic-info-border basic-info-element">City</div>
+                  <div class="col-8 basic-info-element">{{translator?.city}}</div>
+
+                  <div class="col-4 basic-info-border basic-info-element">County</div>
+                  <div class="col-8 basic-info-element">{{translator?.county}}</div>
+
+                  <div class="col-4 basic-info-border basic-info-element">Address</div>
+                  <div class="col-8 basic-info-element">{{translator?.address}}</div>
+
+                  <!--                  <div class="col-4  d-flex flex-column justify-content-center basic-info-border basic-info-element">-->
+                  <!--                    Rating-->
+                  <!--                  </div>-->
+                  <!--                  <div class="col-8 basic-info-element">-->
+                  <!--                    <app-rating [ratingLevel]="translator?.rating ?? 0" [isReadonly]="true"></app-rating>-->
+                  <!--                  </div>-->
+
+                  <!--              <div class="col-4 basic-info-border basic-info-element">Description</div>-->
+                  <!--              <div class="col-8 basic-info-element">Biroul notarial Ababei Gheorghe îşi desfăşoară activitatea în cadrul-->
+                  <!--                Camerei notarilor-->
+                  <!--                publici Bacau în circumscriptia judecătoriei Buhusi din localitatea Buhusi, judeţul Bacau-->
+                  <!--              </div>-->
+                </div>
+              </div>
+              <div class="col-2"></div>
+              <!--          right-->
+              <div class="col-5">
+                <div class="row row-cols-2">
+                  <div class="col-4 basic-info-border basic-info-element">Phone numbers</div>
+                  <div class="col-8 basic-info-element">
+                    <div *ngFor="let phoneNumber of translator?.phoneNumbers">{{phoneNumber}}</div>
+                  </div>
+
+                  <div class="col-4 basic-info-border basic-info-element">Languages</div>
+                  <div class="col-8 basic-info-element">
+                    <div *ngFor="let language of translator?.languages">{{language}}</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="lead mt-3">Services</p>
+          <div class="container text-center">
+            <div class="row row-cols-1 elem-service">
+              <ng-container *ngIf="services$ | async as allServices">
+                <span *ngFor="let service of translator?.services; let idx = index">
+                  <div class="col basic-info-element d-flex justify-content-between"><h2
+                    style="margin-bottom: 0;text-align:start;">{{allServices[service]?.name}}</h2> <i style="text-align: start; max-width: 50vw">{{allServices[service]?.description}}</i></div>
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Reviews">
+          <app-review-list #reviews [providerId]="translator?.id ?? ''"></app-review-list>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+
+    <mat-card-actions [align]="'end'">
+      <ng-container *ngIf="nowUser$ | async as nowUser">
+        <button mat-raised-button color="primary" (click)="onRateClick()" [disabled]="!nowUser.isAuth">Rate</button>
+      </ng-container>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,35 @@
+.review-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.review-item-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.review-item-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-item-message {
+  width: 50%;
+  font-style: italic;
+}
+
+.rating-element {
+  margin-top: 2rem;
+}
+
+.review-list-container {
+  padding: 0.5rem;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.review-list-container::-webkit-scrollbar {
+  display: none;
+}
