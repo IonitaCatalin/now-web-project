@@ -1,99 +1,513 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  title: NOW - notarial knowledge web tool
-  description: >-
-    OpenAPI specification of the APIs working behind the NOW (notarial knowledge web tool) project of the WADe course.
-  license:
-    name: Apache-2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0'
-  version: 1.0.0
-externalDocs:
-  description: GitHub repository
-  url: 'https://github.com/IonitaCatalin/now-web-project'
+  title: NoW Project - OpenAPI Specification
+  description: |-
+    OpenAPI description for NoW Web Project
+  version: 1.0.11
+servers:
+  - url: http://teapot.go.ro:9106
+  - url: http://teapot.go.ro:9107
+  - url: http://teapot.go.ro:9108
 paths:
-  '/notaries':
+  /auth/signin:
+    post:
+      tags:
+        - auth
+      summary: "Authenticate user"
+      description: Authenticate user using credentials
+      requestBody:
+        description: Authenticate user using username and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth'
+        required: true
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'          
+        '404':
+          description: User not found
+        '500':
+          description: Internal server error
+  /auth/signup:
+    post:
+      tags:
+        - auth
+      summary: Register user
+      description: Register user using credentials
+      requestBody:
+        description: Register user using given credentials
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResp'          
+        '409':
+          description: Email or username taken
+        '500': 
+          description: Internal server error
+  /now/notary:
     get:
-      summary: Get a list of notaries based on relevance.
-      description: Request a list of public notaries ordered by relevance in order to show them on a map.
+      tags:
+        - now
+      summary: Get all the notaries
+      description: Get the data for all the notaries.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotaryResp'         
+        '500':
+          description: Internal server error
+  /now/notary/{id}:
+    get:
+      tags:
+        - now
+      summary: Find notary by id
+      description: Find a specific notary by id
       parameters:
-        - name: location
-          in: query string
-          description: Location from where the request was sent.
+        - name: id
+          in: path
+          description: ID of the notary
           required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotaryResp'
+        '404':
+          description: Notary not found
+            
+  /now/translator:
+    get:
+      tags:
+        - now
+      summary: Get all the translator data
+      description: Get all availabe translator data.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+               type: array
+               items:
+                  $ref: '#/components/schemas/TranslatorResp'          
+        '500':
+          description: Internal server error
+  /now/translator/{id}:
+    get:
+      tags:
+        - now
+      summary: Find translator by id
+      description: Find a specific translator by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of the translator
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslatorResp'          
+        '400':
+          description: Invalid ID
+        '404':
+          description: Translator not found
+  /now/provides:
+    get:
+      tags:
+        - now
+      summary: Find all the providers
+      description: Find all the available providers.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotaryResp'          
+        '500':
+          description: Invalid tag value
+  /now/languages:
+    get:
+      tags:
+        - now
+      summary: Find all the language
+      description: Find all the available lanaguages.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LanguageResp'          
+        '500':
+          description: Internal server error
+  /now/services:
+    get:
+      tags:
+        - now
+      summary: Find all the services
+      description: Find all the available services.
+      parameters:
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: false
+          explode: true
           schema:
             type: array
-            format: GeoJSON
-        - name: language
-          in: query string
-          description: List of preferred languages separated by comma.
-          required: false
-          schema:
-            type: string
-            format: ISO 639-3
-        - name: service
-          in: query string
-          description: List of preferred provided services separated by comma.
-          required: false
-          schema:
-            type: string
-        responses:
-          '200':
-            description: List of notaries successfully sent.
-          '404':
-            description: No notary within specified parameters was found.
-        - name: limit
-          in: query string
-          description: List of preferred provided services separated by comma.
-          required: false
-          default: 10
-          schema:
-            type: integer
-        responses:
-          '200':
-            description: List of notaries successfully sent.
-          '404':
-            description: No notary within specified parameters was found.
-  '/translators':
+            items:
+              type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceResp'          
+        '500':
+          description: Internal server error
+  /now/counties:
     get:
-      summary: Get a list of translators based on relevance.
-      description: Request a list of public translators ordered by relevance in order to show them on a map.
-      parameters:
-        - name: location
-          in: query string
-          description: Location from where the request was sent.
-          required: true
-          schema:
-            type: array
-            format: GeoJSON
-        - name: language
-          in: query string
-          description: List of preferred languages separated by comma.
-          required: false
-          schema:
-            type: string
-            format: ISO 639-3
-        - name: service
-          in: query string
-          description: List of preferred provided services separated by comma.
-          required: false
-          schema:
-            type: string
-  '/metrics':
+      tags:
+        - now
+      summary: Find all the counties
+      description: Find all the available counties.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountyResp'
+        '500':
+          description: Internal server error
+          
+  /now/review/{id}:
     get:
-      summary: Get a list metric results registered.
-      description: Request a list of total metrics registered into the app and statistics.
+      tags:
+        - now
+      summary: Get the review with id
+      description: Get the review with specified id.
       parameters:
-        - name: dateFrom
-          in: query string
-          description: Date since when to start the metric collection.
+        - name: id
+          in: path
+          description: ID of pet to return
           required: true
           schema:
-            type: date
-            format: YYYY-MM-DD|HH:MM
-        - name: dateTo
-          in: query string
-          description: Date until when to stop the metric collection.
-          required: true
-          schema:
-            type: date
-            format: YYYY-MM-DD|HH:MM
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewResp'          
+        '404':
+          description: Review not found
+        '500':
+          description: Internal server error
+
+  /now/review/:
+    post:
+      tags:
+        - now
+      summary: Create a review
+      description: Get the review with specified id.
+      requestBody:
+        description: The review info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewResp'          
+        '400':
+          description: Invalid tag value
+    
+components:
+  schemas:
+    Auth:
+      required:
+        - username
+        - password
+      type: object
+      properties:
+        username:
+          type: string
+          example: "usr"
+        password:
+          type: string
+          example: "pass"
+    AuthResponse:
+      required:
+        - message
+        - data
+      type: object
+      properties:
+        message:
+          type: string
+          example: "User authenticated successfully."
+        data:
+          $ref: '#/components/schemas/DataToken'
+    DataToken:
+      required:
+        - access_token
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: "token"
+    Register:
+        required:
+          - username
+          - password
+          - email
+        type: object
+        properties:
+          username:
+            type: string
+            example: "usr"
+          password:
+            type: string
+            example: "pass"
+          email:
+            type: string
+            example: "email"
+    RegisterResp:
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+          example: "User registered successfully."
+    NotaryResp:
+      required:
+        - identifier
+        - name
+        - addressLocality
+        - addressRegion
+        - areaServed
+        - description
+        - location
+        - streetAddress
+        - email
+        - offerId
+        - rating
+        - telephone
+      type: object
+      properties:
+        identifier:
+          type: string
+          example: "N1"
+        name: 
+          type: string
+          example: "ABABEI  GHEORGHE"
+        addressLocality:
+          type: string
+          example: "BUHUŞI"
+        addressRegion:
+          type: string
+          example: "BACAU"
+        areaServed:
+          type: string
+          example: "BACĂU"
+        description: 
+          type: string
+          example: "Biroul notarial Ababei Gheorghe îşi desfăşoară activitatea în cadrul Camerei notarilor publici Bacau în circumscriptia judecătoriei Buhusi din localitatea Buhusi, judeţul Bacau"
+        location:
+          type: string
+          example: "POINT(46.716285 26.704703)"
+        streetAddress:
+          type: string
+          example: "Str. Republicii, nr.9, cod postal 605100"
+        email:
+          type: string
+          example: "gh.ababei@gmail.com"
+        offerId:
+          type: string
+          example: "SN1,SN2,SN3,SN4,SN5,SN6,SN9,SN10,SN11,SN12,SN13,SN14,SN15,SN16,SN17,SN20,SN21,SN23"
+        rating:
+          type: string
+          example: "0"
+        telephone: 
+          type: string
+          example: "0762918718"
+        knowsLanguage:
+          type: string
+          example: "Romana,Rusa"
+          
+    TranslatorResp:
+      required:
+        - identifier
+        - name
+        - addressLocality
+        - addressRegion
+        - leiCode
+        - location
+        - streetAddress
+        - email
+        - offerId
+        - rating
+        - telephone
+        - knowsLanguage
+      type: object
+      properties:
+        identifier:
+          type: string
+          example: "N1"
+        name: 
+          type: string
+          example: "ABABEI  GHEORGHE"
+        addressLocality:
+          type: string
+          example: "BUHUŞI"
+        addressRegion:
+          type: string
+          example: "BACAU"
+        leiCode:
+          type: string
+          example: "5880"
+        location:
+          type: string
+          example: "POINT(46.716285 26.704703)"
+        streetAddress:
+          type: string
+          example: "Str. Republicii, nr.9, cod postal 605100"
+        email:
+          type: string
+          example: "gh.ababei@gmail.com"
+        offerId:
+          type: string
+          example: "SN1,SN2,SN3,SN4,SN5,SN6,SN9,SN10,SN11,SN12,SN13,SN14,SN15,SN16,SN17,SN20,SN21,SN23"
+        rating:
+          type: string
+          example: "0"
+        telephone: 
+          type: string
+          example: "0762918718"
+        knowsLanguage:
+          type: string
+          example: "Romana,Rusa"
+          
+    LanguageResp:
+      required:
+        - knowsLanguage
+      type: object
+      properties:
+        knowsLanguage:
+          type: string
+          example: "Romana"
+          
+    CountyResp:
+      required:
+        - addressRegion
+      type: object
+      properties:
+        knowsLanguage:
+          type: string
+          example: "ALBA"
+          
+    ServiceResp:
+      required:
+        - offerId
+        - offerName
+        - offerDesc
+      type: object
+      properties:
+        offerId:
+          type: string
+          example: "SN1"
+        offerName:
+          type: string
+          example: "Autentificarea actelor"
+        offerDesc: 
+          type: string
+          example: "serviciu prin care un notar atesta autenticitatea unei semnaturi sau a unui document."
+          
+    ReviewResp:
+      required:
+        - ratingComment
+        - ratingValue
+      type: object
+      properties:
+        ratingComment:
+          type: string
+          example: "comment"
+        ratingValue:
+          type: string
+          example: "1"
+          
+    Review:
+      required: 
+        - id
+        - username
+        - ratingValue
+        - ratingComment
+      type: object
+      properties:
+        id:
+          type: string
+          example: "N1"
+        username:
+          type: string
+          example: "test"
+        ratingValue:
+          type: string
+          example: "3"
+        ratinggComment:
+          type: string
+          example: "comment"
+          
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
