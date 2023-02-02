@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"">
+    <title>NoW Project - Technical Report</title>
+    <link rel=" stylesheet" href="resources/scholarly_styles.css">
+</head>
+
+<body prefix="schema: http://schema.org">
+
+    <article resource="#" typeof="schema:ScholarlyArticle">
+
+        <!-- Header section -->
+        <header>
+            <div class="banner">
+                <div class="status">Technical Report</div>
+            </div>
+            <h1 property="schema:name">NoW Project - Technical Report</h1>
+        </header>
+
+        <!-- Accessibility properties -->
+        <meta property="schema:accessibilityFeature" content="alternativeText">
+        <meta property="schema:accessibilityHazard" content="noFlashingHazard">
+        <meta property="schema:accessMode" content="textual">
+
+
+        <!-- Contentinfo section -->
+        <div role="contentinfo">
+            <h2>Content</h2>
+            <ol role="directory">
+                <li><a href="#ref_nav_abstract">Abstract</a></li>
+                <li><a href="#ref_nav_introduction">Introduction</a>
+                    <ol>
+                        <li><a href="#ref_nav_goals">Goals and Technical Requirements</a></li>
+                    </ol>
+                </li>
+                <li><a href="#ref_nav_implementation">Implementation </a>
+                    <ol>
+                        <li><a href="#ref_nav_implementation_front">Frontend</a></li>
+                        <li><a href="#ref_nav_implementation_back">Backend</a></li>
+                    </ol>
+                </li>
+                <li><a href="#ref_nav_architecture">Architecture</a>
+                    <ol>
+                        <li><a href="#ref_nav_architecture_front">Frontend Architecture</a></li>
+                        <li><a href="#ref_nav_architecture_back">Backend Architecture</a></li>
+                    </ol>
+                </li>
+                <li><a href="#ref_nav_data">Data</a>
+                    <ol>
+                        <li><a href="#ref_nav_modeling">Modeling</a></li>
+                        <li><a href="#ref_nav_notary">Notary</a></li>
+                        <li><a href="#ref_nav_translator">Translator</a></li>
+                    </ol>
+                </li>
+                <li><a href="#ref_nav_sparql">SPARQL queries and updates</a>
+                    <ol>
+                    </ol>
+                </li>
+                <li>
+                    <a href="#ref_nav_rdfa">RDFa</a></li>
+                </li>
+
+                <li><a href="#ref_nav_authors">Authors</a></li>
+                <li><a href="#ref_nav_affiliations">Affiliations</a></li>
+                <li><a href="#ref_nav_references">References</a></li>
+            </ol>
+
+            <dl>
+                <dt>Authors</dt>
+                <dd>
+                    *
+                    <a href="#ref_author_1">Ionita Mihail-Catalin</a>
+                    &amp;
+                    <a href="#ref_author_1">Craciun Mihai-Cosmin</a>
+                    &amp;
+                    <a href="#ref_author_1">Popa Stefan-Dorin</a>
+                    (<a href="https://www.info.uaic.ro/">info.uaic.ro</a>)
+                </dd>
+                <dt>License</dt>
+                <dd>
+                    <a property="schema:license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL-3.0</a>
+                </dd>
+                <dt>Keywords</dt>
+                <dd>
+                    <span property="schema:keywords">NoW</span>,
+                    <span property="schema:keywords">Web</span>,
+                    <span property="schema:keywords">Project</span>,
+                    <span property="schema:keywords">Web</span>,
+                    <span property="schema:keywords">SparQL</span>,
+                    <span property="schema:keywords">Schema</span>,
+                    <span property="schema:keywords">Modeling</span>
+                    <span property="schema:keywords">RDF</span>
+                    <span property="schema:keywords">Knowledge</span>,
+                </dd>
+            </dl>
+            <small><b>*</b> Authors have equal contributions and are just sorted in alphabetical order.</small>
+        </div>
+
+
+        <section id="ref_nav_abstract" role="doc-abstract" typeof="sa:Abstract">
+            <h2>Abstract</h2>
+            <p>
+                Using the official data regarding public notary entities [RO] and authorized translators + interpreters [RO], develop a smart modular 
+                Web system capable to provide support for locating offices and services – such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures – according to user preferences, geographical places, fees, restrictions, and other aspects (e.g., support for foreign citizens) 
+                – consider also legal paper provenance. Via SPARQL endpoints, the application will offer useful maps – see also Place schema.org concept – and additional knowledge (contact info, timetable, reviews, related points of interest) about each notary office.
+            </p>
+        </section>
+
+
+        <section id="ref_nav_introduction" role="doc-introduction">
+            <h2>Introduction</h2>
+            <p>
+                NoW as known as </i><b>N</b></i>otary </i><b>K</b></i>nowledge </i><b>W</b></i>eb Tool is a Web application following the Sematic Web principles, 
+                developed as part the evaluation process for the<i>Web Application Development</i><a
+                    href="#ref_biblio_wade"><sup>1</sup></a> course.
+            </p>
+
+            <section id="ref_nav_goals">
+                <h3>Goals and Techical Requirements</h3>
+
+                <p>As mentioned previously the project aims to offer a smart tool with the following goals in mind:</p>
+                <ul>
+                    <li><i>Visualize</i> - data about public entities (notaries, translators, etc) offering services of legal nature in the near vicinity of the user's actual location. 
+                        The nature of the legal services the entity is able to perform should also be visible to the user using visual cues.</li>
+                    <li><i>Filter</i> - based on various criterias such as (the nearest point of interest, the prefered services, etc).</li>
+                    <li><i> Model knowledge </i> - based on the data that is currently available, every data aspect of the application should be annotated with schema.org concept such as to be easily crawled by intelligent agents.</li>
+                </ul>
+
+                <p>Some of the most important requirements are as following:</p>
+                <ul>
+                    <li>The application should put emphasis on the ease of access, should be available on both mobile and desktop platforms.</li>
+                    <li>To follow the Linked Data recommended practices for publishing structured data on the Web, in
+                        order for the data to be processable by Semantic Web tools.</li>
+                    <li>To use a knowledge graph/base and provide a SPARQL endpoint. The project is using data stored in
+                        an RDF triple store using a set of frameworks (described in technologies section) and is
+                        providing an endpoint at which other SPARQL clients can make queries and manipulate data.</li>
+                    <li>To use various conceptual models such as schema.org<a
+                            href="#ref_biblio_schema_org"><sup>5</sup></a>
+                    <li>To provide support for locating offices and services - such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures 
+                        – according to user preferences, geographical places, fees, restrictions, and other aspects
+                    <li>To consider using legal paper provenance<a href="#ref_biblio_legal_paper"><sup>5</sup></a> for enforcing the trust in the data, legal in nature, that is being exposed to the enduser.
+                </ul>
+            </section>
+        </section>
+
+
+        <section id="ref_nav_implementation">
+            <h2>Implementation</h2>
+            <p>The Web Application as required was developed according to the actual popular and in-use software engineering practices (e.g.,
+                documentation, code modularity, testing, microservice oriented architecture, etc.).
+
+            <p>Considering the varied functionality the project has to offer, a technology stack to match is required. 
+                The technologies that were used to ensure that the services offered by NoW are running in a scalable and available manner are as follows:</p>
+
+            <section id="ref_nav_implementation_front">
+                <h3>Front-end</h3>
+                <p>Technologies used on the Front-end of the application, are as follows:</p>
+                <ul>
+                    <li><b><a href="https://angular.io/">Angular</a></b> - Angular (also referred to as "Angular 2+") is a TypeScript-based, 
+                        free and open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations. </li>
+                </ul>
+            </section>
+
+            <section id="ref_nav_implementation_back">
+                <h3>Back-end</h3>
+                <p>Technologies used on the Backend of the application, are as follows:</p>
+                <ul>
+                    <li><b><a href="https://nestjs.com/">NestJS</a></b> - Nest.JS is a framework that helps build Node. JS server-side applications. 
+                        The Nest framework is built using TypeScript which allows developers to build highly scalable and testable applications</li>
+                    <li><b><a href="https://graphdb.ontotext.com/">GraphDB</a></b> - GraphDB is an enterprise ready Semantic Graph Database, compliant with W3C Standards. Semantic graph databases (also called RDF triplestores) provide the core infrastructure for solutions where modelling agility, data integration, 
+                        relationship exploration and cross-enterprise data publishing and consumption are important.</li>
+                    <li><b><a href="https://www.rabbitmq.com/">MongoDB Atlas</a></b> - MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas. MongoDB is developed by MongoDB Inc. and licensed under the Server Side Public License (SSPL) which is deemed non-free by several distributions.
+                    <li><b><a href="https://www.docker.com/">Docker</a></b> - Docker is a platform designed to help developers build, share, and run modern applications. We handle the tedious setup, so you can focus on the code.
+                    <li><b><a href="https://docs.github.com/en/actions">Github Actions</a></b> - Automate, customize, and execute your software development workflows right in your repository with GitHub Actions. You can discover, create, and share actions to perform any job you'd like, including CI/CD, and combine actions in a completely customized workflow.
+
+                </ul>
+            </section>
+
+        </section>
+
+
+        <section id="ref_nav_architecture">
+            <h2>Architecture</h2>
+            <p>Considering the goals and requirements mentioned in the previous chapters on this document the Web Application has to be built ensuring a high functionality and availability. Software Engineering principles such as high cohesion and low coupling were core principles when considering the solution.  </p>
+
+            <section id="ref_nav_architecture_front">
+                <h3>The Front-end Architecture</h3>
+                <p>The Front-end application was developed using the Angular framework and consists of a Singe-Page Application<a href="#ref_biblio_mdn_spa"><sup>8</sup></a> 
+                    .The Front-end application aims to offer an attractive and easy to use interface for the users in order to access
+                    the functionality of the backend services in an intuitive manner and non-convoluted manner.</p>
+
+                <p>The application is a Single-Page Application
+                    organized in a set of pages with well defined functionality:</p>
+                <ul>
+                    <li><b>Login page</b> serves as an a way for the user to declare their identity, 
+                        the user is requested to authenticate although the application can be used without the necessity of an active account, 
+                        actions such as rating a public entity is only available under the protection of requested authentication.
+                    .</li>
+                    <li><b>Register page</b> serves as an a way for the user to register their identity
+                        the user is requested to authenticate, although the application can be used without the necessity of an active account, 
+                        actions such as rating a public entity is only available under the protection of requested authentication.
+                    .</li>
+                    <li><b>Main page</b> serves as an a entry point for the user, the application uses a map representation and marks the current location of each public entity
+                        with a specific associated marker, from the main page the user has the possibility to filter the available open data about the notaries or translators in the near vicinity.
+                    .</li>
+                </ul>
+            </section>
+
+            <section id="ref_nav_architecture_back">
+                <h3>The Back-end Architecture</h3>
+                <p>The back-end project, the core of the project,  aims to be microservice-oriented, well-organised in various microservices and subsequently modules and libraries that have
+                    througly defined boundaries and functionality, enabling high cohesion and low coupling, allowing the development team
+                    to reuse components as needed, without duplicating code, while maintaining an easy-to-upgrade
+                    code-base. Also the microservice based arhitecture offers improved scalalability, fault isolation and the simplicity of deployment.  </p>
+                <p>A overview of the arhitecture of the proposed solution, using the C4 Model<a
+                        href="#ref_biblio_c4model"><sup>9</sup></a> Level 2 :</p>
+
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-c2-level-2.png"
+                        alt="C4 Model - Level 2 Container Diagram">
+                    <figcaption>C4 Model - Level 2 Container Diagram</figcaption>
+                </figure>
+
+                <p>From the C2 level diagram above it can be observer how multiple microservices are compose and offer aggregated functionality.</p>
+
+                <section>
+                    <h4>Microservices</h4>
+                    <p>The split of functionality between different microservices:</p>
+                    <ul>
+                        <li><b>Client API Microservice</b> is a REST Web API which provides authentication and registration functionality. 
+                            The user is is authenticated using a JWT token that stores encrypted information about the current requesting user. 
+                            Considering that the user data consists of data that is private in nature the credentials are stored in MongoDB. <li>
+                        <li><b>NoW API Microservice</b> is a REST Web API which provides a open endpoint for requesting SparQL queries but not limited to, 
+                            this endpoint is actively used by the rating system to enhance the RDF data with ratings and comments generated by the user.</li>
+                        <li><b>NoW Email Daemon</b> is a daemon type service which provides the functionality of sending a email when requested by another microservices. 
+                            The daemon actively listens to a message queue and responds to events. The daemon is built with extendability in mind, it can send emails to a certain 
+                            recipient when events are generated, for instance the daemon will respond and send a welcome email when a new user registers successfully.</li>
+                        <li><b>Crawler component</b> is a Python based application which provides crawling functionalities over sources of data of interest. As a consequence of the scarcity 
+                        of the widely available data with public notary and translators entities, data that is available from government sources has to be augment with correlated informations available through common search engines. 
+                        The crawler component will export the data as an open non-RDF format such as JSON which is the converted and uploaded into the GraphDB instance. 
+                        <figure typeof="sa:image">
+                            <img src="resources/now-project-crawler.png"
+                                alt="Crawler Component Workflow">
+                            <figcaption>Crawler Component Workflow</figcaption>
+                        </figure>
+                        The resulted RDF construct after the enrichment process having as a starting point the crawl process.
+                        <figure typeof="sa:image">
+                            <img src="resources/now-project-crawler-entity.png"
+                                alt="RDF construct obtained as a result of crawling">
+                            <figcaption>RDF construct obtained as a result of crawling</figcaption>
+                        </figure>
+                    </li>
+                        
+                    </ul>
+                </section>
+
+                <section>
+                    <h4>Plugins</h4>
+                    <p>The external services that are not part of NoW Project but are vital to its development and deployment process:</p>
+                    <ul>
+                        <li><b>GraphDB</b> which is used for storing RDF data before and after it is being process by other services.</li>
+                        <li><b>Github Actions (Semantic-Release)</b> which is used for running workflows and generating associated microservices images for each incrementary development step. 
+                            Images are being generated can then be deployed with ease in the phase of deployment.</li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+
+
+        <section id="ref_nav_data">
+            <h2>Data</h2>
+            <p>The starting point of the project was the official data regarding several legal service providers
+                like notaries and legal translators provided by <a href="data.gov.ro">data.gov.ro</a> and creating
+                a custom model represended by a graph schema over that.</p>
+            <p>The information required in order to solve the task is found in two particular csv files provided by
+                the governmental website <a href="https://data.gov.ro/dataset/notari-publici">notaries</a> and 
+                <a href="https://data.gov.ro/dataset/traducatori-si-interpreti">legal translators</a>. As the fields 
+                provided were not sufficient in order to provide a good experience for the end user we had to find a solution
+                to enrich the data with more helpful fields using different methods like crawling different websites as 
+                <a href="https://notariatpublic.com/notari-iasi-judet">https://notariatpublic.com/notari-iasi-judet</a>
+                and using Geo Location API in order to locate the service providers based on their address. Over all that
+                information gathered another layer was added containing offered services in order to give the user a better
+                way to filter based on its needs.
+            </p>
+
+            <section id="ref_nav_modeling">
+                <h3>Modeling</h3>
+                <p>
+                    The developed Web application models its managed data into RDF-based knowledge models using 
+                    established vocabularies and basic ontologies. This modeling approach enables integration 
+                    with other datasets, allows for SPARQL query language utilization, and facilitates advanced 
+                    inferencing using both internal and external data.
+
+                    The Web Application utilizes RDF schemas to define entities and their semantic connections. 
+                    These entities are stored in separate graphs in a repository managed by GraphDB and are 
+                    organized with ontologies that model the semantic representation of the objects involved 
+                    (notaries and legal translators).
+
+                    In order to express and model the data in RDF triples the following open vocabularies were
+                    used:
+
+                    </p>
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                    @prefix schema: &lt;https://schema.org/&gt.
+                    @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt.
+                    @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt.
+                    @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt.
+                    @prefix geo: &lt;http://www.opengis.net/ont/geosparql#&gt.
+                    </pre>
+                    </figure>
+                
+                    <p>
+                        The most used vocabulary in our context was the <a href="https://schema.org/">Schema.org</a>
+                        one as it provides a lot of usefull classes and properties that were use in order to express 
+                        the data that was colected.
+                    </p>
+            </section>
+
+
+        
+            <section id="ref_nav_knowledge_notary">
+                <h3>Notary</h3>
+                <p>The notary concept was described using several <a href="https://schema.org/">Schema.org</a> classes and
+                properties.</p>
+
+                The notaries are described as a type of <a href="https://schema.org/Notary">schema:Notary</a> class, thus inheriting
+                its properties which are later described and how they were used
+
+                <section>
+                    <h4>Notary Properties</h4>
+                    <p>The properties used in order to define the notary class are the following:</p>
+                    <ul>
+                        <li><a href="https://schema.org/identifier">schema:identifier</a> used to uniquely identify a notary</li>
+                        <li><a href="https://schema.org/name">schema:name</a> represents the name of the notary</li>
+                        <li><a href="https://schema.org/areaServed">schema:areaServed</a> represents the are where the notary work, ussualy the county</li>
+                        <li><a href="https://schema.org/address">schema:address</a> full address of the notary</li>
+                        <li><a href="https://schema.org/description">schema:description</a> represents a short description of the notary</li>
+                        <li><a href="https://schema.org/telephone">schema:telephone</a> represents the phone number(s) of a notary</li>
+                        <li><a href="https://schema.org/email">schema:email</a> represents the email address of a notary</li>
+                        <li><a href="https://schema.org/aggregatedReview">schema:aggregatedReview</a> represents the aggregated rating values of a notary</li>
+                        <li><a href="https://schema.org/knowsLanguage">schema:knowsLanguage</a> represents a language that in which the notary operates</li>
+                        <li><a href="https://schema.org/location">schema:location</a> represents the geographical coordinates of the notary</li>
+                        <li><a href="https://schema.org/makesOffer">schema:makesOffer</a> represents a service provided by a notary</li>
+                        <li><a href="https://schema.org/review">schema:review</a> represents an instance of a review that the notary received</li>
+                    </ul>
+
+                    <p>
+                        Other than the properties mentioned above, several classes were used in order to express the object of the triplet, like for instance
+                    </p>
+                    
+                    <ul>
+                        <li><a href="https://schema.org/PostalAddress">schema:PostalAddress</a> to describe a full adress</li>
+                        <li><a href="https://schema.org/Offer">schema:Offer</a> to describe a service provided</li>
+                        <li><a href="https://schema.org/AggregatedReview">schema:AggregatedReview</a> To describe an agregated value of the reviews</li>
+                        <li><a href="https://schema.org/Review">schema:Review</a> to describe an instance of a review</li>
+                    </ul>
+
+                    <p>
+                        That being said an instance of a notary, after being processed and converted in RDF triples could look like this in the turtle format
+                    </p>
+
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                            _:n3-0 a schema:Notary;
+                            schema:identifier "N1";
+                            schema:name "ABABEI  GHEORGHE";
+                            schema:areaServed "BACĂU";
+                            schema:address _:n3-1.
+                        _:n3-1 a schema:PostalAddress;
+                            schema:addressLocality "BUHUŞI";
+                            schema:addressRegion "BACAU";
+                            schema:streetAddress "Str. Republicii, nr.9, cod postal 605100".
+                        _:n3-0 schema:description "Biroul notarial Ababei Gheorghe îşi desfăşoară activitatea în cadrul Camerei notarilor publici Bacau în circumscriptia judecătoriei Buhusi din localitatea Buhusi, judeţul Bacau";
+                            schema:telephone "Fix: 0234 265 696", "Mobil: 0741 265 360";
+                            schema:email "gh.ababei@gmail.com";
+                            schema:aggregatedReview _:n3-4;
+                            schema:knowsLanguage "Romana", "Rusa";
+                            schema:location "POINT(46.716285 26.704703)"^^geo:wktLiteral;
+                            schema:makesOffer _:n3-2.
+                        _:n3-2 a schema:Offer;
+                            schema:identifier "SN1";
+                            schema:name "Autentificarea actelor";
+                            schema:description "serviciu prin care un notar atesta autenticitatea unei semnaturi sau a unui document.".
+                        _:n3-0 schema:makesOffer _:n3-3.
+                        _:n3-3 a schema:Offer;
+                            schema:identifier "SN2";
+                            schema:name "Eliberarea de certificate de mostenitor";
+                            schema:description "serviciu prin care un notar elibereaza un document care atesta dreptul unei persoane de a mosteni un bun.".
+                        _:n3-0 schema:aggregatedReview _:n3-4.
+                        _:n3-4 a schema:AggregatedReview;
+                            schema:ratingValue "4".
+                        _:n3-0 schema:review _:n3-5.
+                        _:n3-0 schema:review _:n3-6.
+                        _:n3-5 a schema:Review;
+                            schema:reviewBody "Profesionalism si promptitudine";
+                            schema:reviewRating _:n3-7;
+                            schema:author _:n3-8.
+                        _:n3-6 a schema:Review;
+                            schema:reviewBody "Se putea si mai bine";
+                            schema:reviewRating _:n3-9;
+                            schema:author _:n3-10.
+                        _:n3-7 a schema:Rating;
+                            schema:ratingValue "5".
+                        _:n3-8 a schema:Author;
+                            schema:name "Mihai Craciun".
+                        _:n3-9 a schema:Rating;
+                            schema:ratingValue "3".
+                        _:n3-10 a schema:Author;
+                            schema:name "Catalin Ionita".
+                        </pre>
+                    </figure>
+
+                    <p>
+                        Note that blank nodes were used in order to represent multiple entites of the same type like multiple reviews or provided services
+                    </p>
+                </section>
+
+            <section id="ref_nav_translator">
+                <h3>Translator</h3>
+                <p>
+                    The Translator collection, while similar to the Notary one have a few differences.
+                </p>
+
+                <p>
+                    A key difference would be the fact that as there is no explicit class to describe translator 
+                    <a href="https://schema.org/LegalService">schema:LegalService</a> was used instead which was the closest thing
+                    in order to have some expression and a close connection to  <a href="https://schema.org/Notary">schema:Notary</a> class.
+                </p>
+
+                <section>
+                    <h4>Translator properties</h4>
+                    <p>The properties used in order to define the translator class are the following:</p>
+                </section>
+
+                <ul>
+                    <li><a href="https://schema.org/identifier">schema:identifier</a> used to uniquely identify a notary</li>
+                    <li><a href="https://schema.org/name">schema:name</a> represents the name of the notary</li>
+                    <li><a href="https://schema.org/leiCode">schema:leiCode</a> The unique fiscal code</li>
+                    <li><a href="https://schema.org/address">schema:address</a> full address of the notary</li>
+                    <li><a href="https://schema.org/description">schema:description</a> represents a short description of the notary</li>
+                    <li><a href="https://schema.org/telephone">schema:telephone</a> represents the phone number(s) of a notary</li>
+                    <li><a href="https://schema.org/aggregatedReview">schema:aggregatedReview</a> represents the aggregated rating values of a notary</li>
+                    <li><a href="https://schema.org/knowsLanguage">schema:knowsLanguage</a> represents a language that in which the notary operates</li>
+                    <li><a href="https://schema.org/location">schema:location</a> represents the geographical coordinates of the notary</li>
+                    <li><a href="https://schema.org/makesOffer">schema:makesOffer</a> represents a service provided by a notary</li>
+                    <li><a href="https://schema.org/review">schema:review</a> represents an instance of a review that the notary received</li>
+                </ul>
+                <p>An entity of the translator family could be represented as follows:</p>
+
+                <figure typeof="sa:SoftwareSourceCode">
+                    <pre class="pre_no_white_space">
+                        _:n3-0 a schema:LegalService;
+                        schema:identifier "T1";
+                        schema:name "Aamoum Alina-Nicoleta";
+                        schema:address _:n3-1.
+                    _:n3-1 schema:addressLocality "PLOIEŞTI";
+                        schema:addressRegion "BUZAU";
+                        schema:streetAddress "Buzău, Buzău, Romania".
+                    _:n3-0 schema:leiCode "5880";
+                        schema:telephone "212667952892";
+                        schema:aggregatedReview _:n3-2.
+                    _:n3-2 schema:ratingValue "0".
+                    _:n3-0 schema:knowsLanguage "Franceza", "Rusa", "Romana";
+                        schema:location "POINT(45.149006 26.830656)"^^geo:wktLiteral;
+                        schema:makesOffer _:n3-3.
+                    _:n3-3 schema:identifier "ST1";
+                        schema:name "Traducere de documente";
+                        schema:description "serviciu prin care un translator traduce documente din sau in limba dorita.".
+                    _:n3-0 schema:makesOffer _:n3-4.
+                    _:n3-4 schema:identifier "ST2";
+                        schema:name "Traducere legalizata";
+                        schema:description "serviciu prin care un translator traduce documente si obtine legalizarea traducerii de la autoritatile competente.".
+                    
+                    </pre>
+                </figure>
+            </section>
+
+            <section id="ref_nav_sparql">
+                <h2>SPARQL queries and updates</h2>
+    
+                <section id="ref_nav_sparql_get_notaries">
+                    <h3>Retrieving the notaries</h3>
+    
+                    <p>The following SPARQL query retrieves all the notaries and their properties grouping and aggregating the properties which have multiple instances like <a href="https://schema.org/knowsLanguage">schema:knowsLanguage</a>.
+                    </p>
+
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                        PREFIX schema: <https://schema.org/>
+
+                        SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId ?rating
+                        (GROUP_CONCAT(DISTINCT ?telephone; separator = ",") AS ?telephone) 
+                        (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
+                        (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
+                        WHERE {
+                            ?notary a schema:Notary ;
+                                schema:identifier ?identifier ;
+                                schema:name ?name ;
+                                schema:address [
+                                    schema:addressLocality ?addressLocality ;
+                                    schema:addressRegion ?addressRegion ;
+                                    schema:streetAddress ?streetAddress ;
+                                ] ;
+                                schema:aggregatedReview [
+                                    schema:ratingValue ?rating
+                                ] ;
+                                schema:location ?location ;
+                                schema:description ?description ;
+                                schema:areaServed ?areaServed ;
+                                schema:telephone ?telephone ;
+                                schema:email ?email ;
+                                schema:knowsLanguage ?knowsLanguage ;
+                                schema:makesOffer [
+                                    schema:identifier ?offerId
+                                ] ;
+                        }
+                        GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email ?rating
+                        </pre>
+                    </figure>
+
+                    <p>There could also be applied multiple filters over the queries using
+                        <code>FILTER</code> keyword like for instance over the notary name, county and known languages.
+                    
+                        Example:
+                    </p>
+                    
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                            FILTER(STRSTARTS(LCASE(?addressRegion), "IASI"))
+                        </pre>
+                    </figure>
+
+                </section>
+
+                <section id="ref_nav_sparql_get_notaries_by_distance">
+                    <h3>Retrieving the notaries ordered by distance from a point</h3>
+    
+                    <p>The following SPARQL query retrieves all the notaries as above but this time computes the distance from a given point and 
+                        returns the list ordered by the distance from said point. This was made possible by using the <a href="http://www.opengis.net/ont/geosparql#wktLiteral">geo:wktLiteral</a>
+                        to represent the location in the WTK point format and the <a href="http://www.opengis.net/def/function/geosparql/distance">geof:distance</a>
+                        function to compute the distance between 2 points.
+                    </p>
+
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                            PREFIX schema: <https://schema.org/>
+                            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+                            PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+                            
+                            SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId ?distance ?rating
+                            (GROUP_CONCAT(DISTINCT ?telephone; separator = ",") AS ?telephone) 
+                            (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
+                            (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
+                            WHERE {
+                                ?notary a schema:Notary ;
+                                    schema:identifier ?identifier ;
+                                    schema:name ?name ;
+                                    schema:address [
+                                        schema:addressLocality ?addressLocality ;
+                                        schema:addressRegion ?addressRegion ;
+                                         schema:streetAddress ?streetAddress ;
+                                    ] ;
+                                    schema:aggregatedReview [
+                                        schema:ratingValue ?rating
+                                        ] ;
+                                    schema:location ?location ;
+                                     schema:description ?description ;
+                                    schema:areaServed ?areaServed ;
+                                    schema:telephone ?telephone ;
+                                    schema:email ?email ;
+                                     schema:knowsLanguage ?knowsLanguage ;
+                                      schema:makesOffer [
+                                        schema:identifier ?offerId
+                                    ] ;
+                                    BIND(geof:distance(?location, "POINT(47.23123 23.59321)"^^geo:wktLiteral) AS ?distance)
+                            }
+                            GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email ?distance ?rating
+                        </pre>
+                    </figure>
+
+                    <p>There could also be applied multiple filters over the queries using
+                        <code>FILTER</code> keyword like for instance over the notary name, county and known languages.
+                    
+                        Example:
+                    </p>
+                    
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                            FILTER(STRSTARTS(LCASE(?addressRegion), "IASI"))
+                        </pre>
+                    </figure>
+
+                </section>
+    
+                <section id="ref_nav_sparql_add_review">
+                    <h3>Adding a review to a notary</h3>
+    
+                    <p>The following SPARQL update adds a review to a notary.
+                    </p>
+
+                    <figure typeof="sa:SoftwareSourceCode">
+                        <pre class="pre_no_white_space">
+                            PREFIX schema: <https://schema.org/>
+
+                            INSERT {
+                            ?notary schema:review [
+                                    schema:reviewBody "Commentariu";
+                                    schema:reviewRating [
+                                        schema:ratingValue "5"
+                                    ];
+                                    schema:author [
+                                        schema:name "Mihai Craciun"
+                                    ]
+                                ] .
+                            }WHERE{
+                            ?notary a schema:Notary ;
+                                schema:identifier ?identifier ;
+                                    filter(?identifier="N15")
+                            }
+                        </pre>
+                    </figure>
+
+                </section>
+
+            </section>
+
+            <section id="ref_nav_rdfa">
+                <h2>RDFa</h2>
+                <p>
+                    NoW application also does contain RDFa constructs embedded in the web view serializing the triplets
+                    received from quering the database in the JSON-LD format which is understanded and processed by the
+                    sniffers extentions like <a href="https://osds.openlinksw.com/">OpenLink Structured Data Sniffer</a>
+                    as it can be seen in the pictures below
+                </p>
+
+                <figure typeof="sa:image">
+                    <img src="resources/rdfa1.png"
+                        alt="OpenLink Structured Data Sniffer showing results inside the page pic. 1">
+                    <figcaption>OpenLink Structured Data Sniffer showing results inside the page pic. 1</figcaption>
+                </figure>
+                <figure typeof="sa:image">
+                    <img src="resources/rdfa2.png"
+                        alt="OpenLink Structured Data Sniffer showing results inside the page pic. 2">
+                    <figcaption>OpenLink Structured Data Sniffer showing results inside the page pic. 2</figcaption>
+                </figure>
+                <figure typeof="sa:image">
+                    <img src="resources/rdfa3.png"
+                        alt="OpenLink Structured Data Sniffer showing results inside the page pic. 3">
+                    <figcaption>OpenLink Structured Data Sniffer showing results inside the page pic. 3</figcaption>
+                </figure>
+            </section>
+        </section>
+
+
+
+
+
+        <!-- Authors section -->
+        <section id="ref_nav_authors" typeof="sa:AuthorsList">
+            <h2>Authors</h2>
+            <p>The following people are actively participating at developing the project:</p>
+            <ul>
+                <li id="ref_author_1" typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="https://github.com/IonitaCatalin">
+                        <meta property="schema:givenName" content="Mihail-Catalin">
+                        <meta property="schema:familyName" content="Ionita">
+                        <a href="https://github.com/IonitaCatalin"><span property="schema:name">Mihail-Catalin Ionita</span></a>
+                    </span>
+                    <a href="#aff_fii" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/">UAIC FII</a>
+                </li>
+                <li id="ref_author_2" typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="">
+                        <meta property="schema:givenName" content="Mihai-Cosmin">
+                        <meta property="schema:familyName" content="Craciun">
+                        <a href=""><span property="schema:name">Mihai-Cosmin Craciun</span></a>
+                    </span>
+                    <a href="#aff_fii" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/">UAIC FII</a>
+                </li>
+                <li id="ref_author_3" typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="">
+                        <meta property="schema:givenName" content="Stefan-Dorin">
+                        <meta property="schema:familyName" content="Popa">
+                        <a href=""><span property="schema:name">Stefan-Dorin Popa</span></a>
+                    </span>
+                    <a href="#aff_fii" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/">UAIC FII</a>
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- Affiliations section -->
+        <section id="ref_nav_affiliations" typeof="sa:Affiliations">
+            <h2>Affiliations</h2>
+            <ul>
+                <li id="aff_fii">
+                    <span typeof="schema:Organization" resource="https://www.info.uaic.ro/">
+                        <a href="https://www.info.uaic.ro/">
+                            <span property="schema:name">Faculty of Computer Science</span>
+                        </a>
+                        -
+                        <span property="schema:parentOrganization">
+                            <span typeof="schema:Organization">
+                                <a href="https://www.uaic.ro/en/">
+                                    <span property="schema:name">"Alexandru Ioan Cuza" University of Iasi</span>
+                                </a>
+                                -
+                                <span property="schema:location" typeof="schema:Place">
+                                    <span property="schema:address" typeof="schema:PostalAddress">
+                                        <span property="schema:addressLocality">Iasi</span>,
+                                        <span property="schema:addressRegion">Iasi</span>,
+                                        <span property="schema:addressCountry">Romania</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- References section -->
+        <section id="ref_nav_references" role="doc-bibliography">
+            <h2>References</h2>
+            <ol>
+                <li id="ref_biblio_wade" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://profs.info.uaic.ro/~busaco/teach/courses/wade/" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://profs.info.uaic.ro/~busaco/teach/courses/wade/">WADe</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Person">
+                        <span property="foaf:title">Dr. </span>
+                        <span property="schema:name">Sabin-Corneliu Buraga</span>
+                    </span>, published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2022">2022</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    </span>.
+                </li>
+                <li id="ref_biblio_schema_org" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://schema.org/" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://schema.org/">Schema.org</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">Schema.org</span>
+                    </span>, published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2022">2022</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    </span>
+                </li>
+                <li id="ref_biblio_w3c_rdf" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://www.w3.org/RDF/" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://www.w3.org/RDF/">Resource Description Framework (RDF)</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">RDF Working Group</span>
+                    </span>, published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2014">2014</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    </span>
+                </li>
+                <li id="ref_legal_paper_provenance" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://www.provbook.org/" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://www.provbook.org/">Provenance (Legal Paper Provenance)</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">Morgan&Claypool Publishers</span>
+                    </span>, published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2014">2013</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    </span>
+                </li>
+                <li id="ref_biblio_mdn_spa" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://developer.mozilla.org/en-US/docs/Glossary/SPA" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://developer.mozilla.org/en-US/docs/Glossary/SPA">Single-Page Application
+                            (SPA)</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">Mozilla Foundation</span>
+                    </span>, published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2022">2022</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    </span>.
+                </li>
+            </ol>
+        </section>
+
+    </article>
+
+</body>
+
+</html>
