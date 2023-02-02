@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import axios from 'axios';
-import { FILTER_ON_COUNTY, FILTER_ON_LANGUAGES, FILTER_ON_NAME, GET_ALL_COUNTIES, GET_ALL_LANGUAGES, GET_ALL_NOTARIES, GET_ALL_NOTARIES_SORTED_BY_DISTANCE_FROM_A_POINT, GET_ALL_SERVICES, GET_ALL_TRANSLATORS, GET_ALL_TRANSLATORS_SORTED_BY_DISTANCE_FROM_A_POINT, GET_NOTARY_BY_ID, GET_REVIEWS_FOR_PROVIDER, GET_SCHEMA_NOTARIES, GET_SCHEMA_TRANSLATORS, GET_TRANSLATOR_BY_ID, POST_REVIEW } from "../constants";
+import { FILTER_ON_COUNTY, FILTER_ON_LANGUAGES, FILTER_ON_NAME, GET_ALL_COUNTIES, GET_ALL_LANGUAGES, GET_ALL_NOTARIES, GET_ALL_NOTARIES_SORTED_BY_DISTANCE_FROM_A_POINT, GET_ALL_SERVICES, GET_ALL_TRANSLATORS, GET_ALL_TRANSLATORS_SORTED_BY_DISTANCE_FROM_A_POINT, GET_NOTARY_BY_ID, GET_REVIEWS_FOR_PROVIDER, GET_SCHEMA_NOTARIES, GET_SCHEMA_TRANSLATORS, GET_TRANSLATOR_BY_ID, POST_REVIEW, UPDATE_AGG_REVIEW } from "../constants";
 import { INotary } from "../interfaces";
 var FormData = require('form-data');
 
@@ -96,7 +96,23 @@ export class SparqlService {
             .replace('%ratingValue', body.ratingValue)
             .replace('%username', body.username);
 
+        const reviewQuery = GET_REVIEWS_FOR_PROVIDER.replace("%type", body.id.startsWith("T") ? 'LegalService' : 'Notary').replace('%id', body.id);
+        const reviews = await this.callSparqlEndpoint(reviewQuery);
+
+        let sum = 0;
+        for(let rev of reviews){
+            sum += parseInt(rev.ratingValue)
+        }
+        sum += parseInt(body.ratingValue);
+        
+
+        let agg = Math.round(sum/(reviews.length + 1));
+        const updateQuery = UPDATE_AGG_REVIEW.replace("%type", body.id.startsWith("T") ? 'LegalService' : 'Notary').replace('%id', body.id).replace('%rating', `${agg}`);
+
+
+        await this.updateSparqlEndpoint(updateQuery);
         return await this.updateSparqlEndpoint(query);
+
     }
 
     public async getSchema(){
