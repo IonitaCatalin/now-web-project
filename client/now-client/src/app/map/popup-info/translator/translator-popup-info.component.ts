@@ -106,8 +106,9 @@ export class TranslatorPopupInfoComponent implements OnInit {
     })
 
     this.reviewsComp?.addRating({
-      ...rating,
-      username: this.userService.getCurrentUser().username
-    })
+        ...rating,
+        username: this.userService.getCurrentUser().username,
+      },
+      this.translator?.id)
   }
 }
