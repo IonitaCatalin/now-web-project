@@ -283,7 +283,7 @@ CONSTRUCT {} WHERE {
         	schema:identifier ?offerId
     	] ;
 }
-LIMIT 1000
+LIMIT 500
 `
 
 export const GET_SCHEMA_TRANSLATORS = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -307,4 +307,62 @@ WHERE {
       	schema:makesOffer [
         	schema:identifier ?offerId
     	] ;
-}`
+}
+LIMIT 500
+`
+
+export const GET_REVIEWS_FOR_PROVIDER = `PREFIX schema: <https://schema.org/>
+select ?ratingComment ?ratingValue ?username
+where{
+    ?notary a schema:%type;
+            schema:identifier ?identifier ;
+            schema:review[
+        		schema:reviewBody ?ratingComment;
+                schema:reviewRating [
+					schema:ratingValue ?ratingValue
+                ];
+     			schema:author [
+        			schema:name ?username
+    			]
+    		];
+          filter(?identifier = "%id")
+}`;
+
+export const POST_REVIEW = `PREFIX schema: <https://schema.org/>
+
+INSERT {
+  ?notary schema:review [
+        schema:reviewBody "%ratingComment";
+        schema:reviewRating [
+        	schema:ratingValue "%ratingValue"
+    	];
+      	schema:author [
+        	schema:name "%username"
+    	]
+    ] .
+}WHERE{
+  ?notary a schema:%type ;
+    schema:identifier ?identifier ;
+          filter(?identifier="%id")
+}`;
+
+export const UPDATE_AGG_REVIEW = `PREFIX schema: <https://schema.org/>
+
+DELETE {
+	?agg schema:ratingValue ?rating.
+}
+INSERT{
+    ?notary schema:aggregatedReview [
+    	schema:ratingValue "%rating"
+    ]; 
+}
+WHERE {
+  ?notary a schema:%type;
+  	schema:identifier ?identifier;
+   	schema:aggregatedReview ?agg ;
+    schema:aggregatedReview [
+    	schema:ratingValue ?rating
+    ];
+   filter (?identifier = "%id")
+}
+`
