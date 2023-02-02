@@ -1,8 +1,8 @@
 export const GET_ALL_NOTARIES = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
-SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId
+SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId ?rating
 (GROUP_CONCAT(DISTINCT ?telephone; separator = ",") AS ?telephone) 
 (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
 (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
@@ -15,6 +15,9 @@ WHERE {
         	schema:addressRegion ?addressRegion ;
          	schema:streetAddress ?streetAddress ;
         ] ;
+        schema:aggregatedReview [
+        	schema:ratingValue ?rating
+   	 	] ;
     	schema:location ?location ;
      	schema:description ?description ;
         schema:areaServed ?areaServed ;
@@ -26,16 +29,16 @@ WHERE {
     	] ;
         %filters
 }
-GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email
+GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email ?rating
 LIMIT %limit
 OFFSET %offset`;
 
 
 export const GET_NOTARY_BY_ID = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
-SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId
+SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId ?rating
 (GROUP_CONCAT(DISTINCT ?telephone; separator = ",") AS ?telephone) 
 (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
 (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
@@ -48,6 +51,9 @@ WHERE {
         	schema:addressRegion ?addressRegion ;
          	schema:streetAddress ?streetAddress ;
         ] ;
+        schema:aggregatedReview [
+        	schema:ratingValue ?rating
+   	 	] ;
     	schema:location ?location ;
      	schema:description ?description ;
         schema:areaServed ?areaServed ;
@@ -59,15 +65,15 @@ WHERE {
     	] ;
         FILTER(?identifier="%id")
 }
-GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email`;
+GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email ?rating`;
 
 export const GET_ALL_NOTARIES_SORTED_BY_DISTANCE_FROM_A_POINT=`PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
-SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId ?distance
+SELECT ?identifier ?name ?addressLocality ?addressRegion ?areaServed ?description ?location ?streetAddress ?email ?offerId ?distance ?rating
 (GROUP_CONCAT(DISTINCT ?telephone; separator = ",") AS ?telephone) 
 (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
 (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
@@ -80,6 +86,9 @@ WHERE {
         	schema:addressRegion ?addressRegion ;
          	schema:streetAddress ?streetAddress ;
         ] ;
+        schema:aggregatedReview [
+        	schema:ratingValue ?rating
+   	 	] ;
     	schema:location ?location ;
      	schema:description ?description ;
         schema:areaServed ?areaServed ;
@@ -92,18 +101,18 @@ WHERE {
         BIND(geof:distance(?location, "POINT(%lat %lng)"^^geo:wktLiteral) AS ?distance)
         %filters
 }
-GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email ?distance
+GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?areaServed ?description ?location ?streetAddress ?email ?distance ?rating
 ORDER BY ?distance
 LIMIT %limit
 OFFSET %offset`
 
 export const GET_ALL_TRANSLATORS = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
-SELECT ?identifier ?name ?addressLocality ?addressRegion ?leiCode ?location ?streetAddress ?offerId ?telephone
+SELECT ?identifier ?name ?addressLocality ?addressRegion ?leiCode ?location ?streetAddress ?offerId ?telephone ?rating
 (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
 (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
 WHERE {
@@ -115,6 +124,9 @@ WHERE {
         	schema:addressRegion ?addressRegion ;
          	schema:streetAddress ?streetAddress ;
         ] ;
+        schema:aggregatedReview [
+        	schema:ratingValue ?rating
+   	 	] ;
     	schema:location ?location ;
         schema:leiCode ?leiCode ;
 		schema:telephone ?telephone ;
@@ -124,18 +136,18 @@ WHERE {
     	] ;
         %filters
 }
-GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?telephone
+GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?telephone ?rating
 LIMIT %limit
 OFFSET %offset
 `
 
 export const GET_TRANSLATOR_BY_ID = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
-SELECT ?identifier ?name ?addressLocality ?addressRegion ?leiCode ?location ?streetAddress ?offerId ?telephone
+SELECT ?identifier ?name ?addressLocality ?addressRegion ?leiCode ?location ?streetAddress ?offerId ?telephone ?rating
 (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
 (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
 WHERE {
@@ -147,6 +159,9 @@ WHERE {
         	schema:addressRegion ?addressRegion ;
          	schema:streetAddress ?streetAddress ;
         ] ;
+        schema:aggregatedReview [
+        	schema:ratingValue ?rating
+   	 	] ;
     	schema:location ?location ;
         schema:leiCode ?leiCode ;
 		schema:telephone ?telephone ;
@@ -156,16 +171,16 @@ WHERE {
     	] ;
         FILTER(?identifier="%id")
 }
-GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?telephone`;
+GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?telephone ?rating`;
 
 export const GET_ALL_TRANSLATORS_SORTED_BY_DISTANCE_FROM_A_POINT = `
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
-SELECT ?identifier ?name ?addressLocality ?addressRegion ?leiCode ?location ?streetAddress ?offerId ?distance ?telephone
+SELECT ?identifier ?name ?addressLocality ?addressRegion ?leiCode ?location ?streetAddress ?offerId ?distance ?telephone ?rating
 (GROUP_CONCAT(DISTINCT ?knowsLanguage; separator = ",") AS ?knowsLanguage)
 (GROUP_CONCAT(DISTINCT ?offerId; separator = ",") AS ?offerId) 
 WHERE {
@@ -177,6 +192,9 @@ WHERE {
         	schema:addressRegion ?addressRegion ;
          	schema:streetAddress ?streetAddress ;
         ] ;
+        schema:aggregatedReview [
+        	schema:ratingValue ?rating
+   	 	] ;
     	schema:location ?location ;
         schema:leiCode ?leiCode ;
 		schema:telephone ?telephone ;
@@ -187,7 +205,7 @@ WHERE {
         BIND(geof:distance(?location, "POINT(%lat %lng)"^^geo:wktLiteral) AS ?distance)
         %filters
 }
-GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?distance ?telephone
+GROUP BY ?identifier ?name ?addressLocality ?addressRegion ?address ?leiCode ?location ?streetAddress ?email ?distance ?telephone ?rating
 ORDER BY ?distance
 LIMIT %limit
 OFFSET %offset
@@ -195,7 +213,7 @@ OFFSET %offset
 
 export const GET_ALL_LANGUAGES = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
 SELECT DISTINCT ?knowsLanguage WHERE {{
 SELECT DISTINCT ?knowsLanguage 
@@ -216,7 +234,7 @@ WHERE {
 export const GET_ALL_SERVICES = `PREFIX notary: <http://example.org/notary#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
 SELECT * WHERE{
 {
@@ -242,7 +260,7 @@ WHERE {
 
 export const GET_ALL_COUNTIES = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
 SELECT DISTINCT ?addressRegion WHERE {{
 SELECT DISTINCT ?addressRegion 
@@ -262,7 +280,7 @@ WHERE {
 
 export const GET_SCHEMA_NOTARIES = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
 CONSTRUCT {} WHERE {
         ?notary a schema:Notary ;
@@ -288,7 +306,7 @@ LIMIT 500
 
 export const GET_SCHEMA_TRANSLATORS = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX schema: <https://schema.org#>
+PREFIX schema: <https://schema.org/>
 
 CONSTRUCT {}
 WHERE {
@@ -307,6 +325,7 @@ WHERE {
       	schema:makesOffer [
         	schema:identifier ?offerId
     	] ;
+
 }
 LIMIT 500
 `
@@ -365,4 +384,3 @@ WHERE {
     ];
    filter (?identifier = "%id")
 }
-`

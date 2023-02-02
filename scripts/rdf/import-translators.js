@@ -8,7 +8,7 @@ const { namedNode, literal, blankNode, quad } = DataFactory;
 let store = new n3.Store();
 const writer = new n3.Writer({ 
     prefixes: {
-        schema: 'https://schema.org#',
+        schema: 'https://schema.org/',
         rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
         rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
         xsd: 'http://www.w3.org/2001/XMLSchema#',
@@ -83,6 +83,20 @@ for(const translator of translatorData){
         namedNode('schema:telephone'),
         literal(`${translator.phone_numbers}`)
     );
+
+    const aggregatedReview = blankNode();
+    
+    writer.addQuad(
+        transl,
+        namedNode('schema:aggregatedReview'),
+        aggregatedReview
+    )
+
+    writer.addQuad(
+        aggregatedReview,
+        namedNode('schema:ratingValue'),
+        literal('0')
+    )
 
     //knowsLanguage
     if(translator.languages.length > 0){

@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { GetUserId, JwtAuthGuard } from "@now/auth";
 import { INotary, SparqlService } from "@now/sparql";
 
 @Controller('now')
@@ -56,7 +57,13 @@ export class NowController {
     }
 
     @Post('/review')
-    async getReviews(@Body() body){
-        //return await this.sparqlService.getReviews()
+    @UseGuards(JwtAuthGuard)
+    async postReview(@Body() body){
+        return await this.sparqlService.postReview(body)
+    }
+
+    @Get('/review/:id')
+    async getReview(@Param('id') id){
+        return await this.sparqlService.getReviews(id);
     }
 }
