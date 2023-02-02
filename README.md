@@ -18,3 +18,8 @@ The distribution of load between the team member is and will be **equal**, the s
 - Craciun Mihai-Cosmin - RDF Modelling, SparQL endpoint and queries
 - Popa Stefan-Dorin - FE client, Web based crawler
 
+## 🚧 Active progress
+
+The track of the project development can be observed using the CHANGELOG.md file.
+Subsequent releases of the application will generated changelog notes. 
+
