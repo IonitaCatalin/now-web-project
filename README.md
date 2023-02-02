@@ -9,3 +9,12 @@ Using the official data regarding public [notary entities [RO]](https://data.gov
 - Ionita Mihail-Catalin
 - Popa Stefan-Dorin
 - Craciun Mihai-Cosmin
+
+## ⌛ Distribution of load
+
+The distribution of load between the team member is and will be **equal**, the success of development belongs to all of us. The areas on which we focused out attention in a concurrent manner are the following:  
+
+- Ionita Mihail-Catalin - Microservices based arhitecture, CI/CD
+- Craciun Mihai-Cosmin - RDF Modelling, SparQL endpoint and queries
+- Popa Stefan-Dorin - FE client, Web based crawler
+
