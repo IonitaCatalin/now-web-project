@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>NoW - User Guide</title>
+    <link rel=" stylesheet" href="resources/scholarly_styles.css">
+</head>
+
+<body prefix="schema: http://schema.org">
+
+    <article resource="#" typeof="schema:ScholarlyArticle">
+
+        <!-- Header section -->
+        <header>
+            <div class="banner">
+                <div class="status">User Guide</div>
+            </div>
+            <h1 property="schema:name">NoW - User Guide</h1>
+        </header>
+
+        <!-- Accessibility properties -->
+        <meta property="schema:accessibilityFeature" content="alternativeText">
+        <meta property="schema:accessibilityHazard" content="noFlashingHazard">
+        <meta property="schema:accessMode" content="textual">
+
+
+        <!-- Contentinfo section -->
+        <div role="contentinfo">
+            <h2>Content</h2>
+            <ol role="directory">
+                <li><a href="#ref_nav_abstract">Abstract</a></li>
+                <li><a href="#ref_nav_introduction">Introduction</a> </li>
+                <li><a href="#ref_nav_pages">Pages and functionality</a>
+                    <ol>
+                        <li><a href="#ref_nav_pages_map">Map</a></li>
+                        <li><a href="#ref_nav_pages_login">Login</a></li>
+                        <li><a href="#ref_nav_register_page">Register</a></li>
+                        <li><a href="#ref_nav_filter_page">Filter</a></li>
+                        <li><a href="#ref_nav_entity page">Entity summary and review</a></li>
+                    </ol>
+                </li>
+                <li><a href="#ref_nav_swagger">Swagger</a>
+                </li>
+                <li><a href="#ref_nav_authors">Authors</a></li>
+                <li><a href="#ref_nav_affiliations">Affiliations</a></li>
+                <li><a href="#ref_nav_references">References</a></li>
+            </ol>
+
+            <dl>
+                <dt>Authors</dt>
+                <dd>
+                    <a href="#ref_author_1">Ionita Mihail-Catalin</a>
+                    ,
+                    <a href="#ref_author_2">Craciun Mihai-Cosmin</a>
+                    ,
+                    <a href="#ref_author_3">Popa Stefan-Dorin</a>
+                    (<a href="https://www.info.uaic.ro/">info.uaic.ro</a>)
+                </dd>
+                <dt>License</dt>
+                <dd>
+                    <a property="schema:license" href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL-3.0</a>
+                </dd>
+            </dl>
+        </div>
+
+
+        <section id="ref_nav_abstract" role="doc-abstract" typeof="sa:Abstract">
+            <h2>Abstract</h2>
+            <p>
+                Using the official data regarding public notary entities [RO] and authorized translators + interpreters [RO], develop a smart modular 
+                Web system capable to provide support for locating offices and services – such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures – according to user preferences, geographical places, fees, restrictions, and other aspects (e.g., support for foreign citizens) 
+                – consider also legal paper provenance. Via SPARQL endpoints, the application will offer useful maps – see also Place schema.org concept – and additional knowledge (contact info, timetable, reviews, related points of interest) about each notary office.
+            </p>
+        </section>
+
+
+        <section id="ref_nav_introduction" role="doc-introduction">
+            <h2>Introduction</h2>
+            <p>
+                NoW as known as </i><b>N</b></i>otary </i><b>K</b></i>nowledge </i><b>W</b></i>eb Tool is a Web application following the Sematic Web principles, 
+                developed as part the evaluation process for the<i>Web Application Development</i><a
+                    href="#ref_biblio_wade"><sup>1</sup></a> course.
+            </p>
+
+            <section id="ref_nav_goals">
+                <h3>Goals and Techical Requirements</h3>
+
+                <p>As mentioned previously the project aims to offer a smart tool with the following goals in mind:</p>
+                <ul>
+                    <li><i>Visualize</i> - data about public entities (notaries, translators, etc) offering services of legal nature in the near vicinity of the user's actual location. 
+                        The nature of the legal services the entity is able to perform should also be visible to the user using visual cues.</li>
+                    <li><i>Filter</i> - based on various criterias such as (the nearest point of interest, the prefered services, etc).</li>
+                    <li><i> Model knowledge </i> - based on the data that is currently available, every data aspect of the application should be annotated with schema.org concept such as to be easily crawled by intelligent agents.</li>
+                </ul>
+
+                <p>Some of the most important requirements are as following:</p>
+                <ul>
+                    <li>The application should put emphasis on the ease of access, should be available on both mobile and desktop platforms.</li>
+                    <li>To follow the Linked Data recommended practices for publishing structured data on the Web, in
+                        order for the data to be processable by Semantic Web tools.</li>
+                    <li>To use a knowledge graph/base and provide a SPARQL endpoint. The project is using data stored in
+                        an RDF triple store using a set of frameworks (described in technologies section) and is
+                        providing an endpoint at which other SPARQL clients can make queries and manipulate data.</li>
+                    <li>To use various conceptual models such as schema.org<a
+                            href="#ref_biblio_schema_org"><sup>5</sup></a>
+                    <li>To provide support for locating offices and services - such as notarized documents: acknowledgments, oaths/affirmations, copy certification, signature witnessing, others legal procedures 
+                        – according to user preferences, geographical places, fees, restrictions, and other aspects
+                    <li>To consider using legal paper provenance<a href="#ref_biblio_legal_paper"><sup>5</sup></a> for enforcing the trust in the data, legal in nature, that is being exposed to the enduser.
+                </ul>
+            </section>
+        </section>
+
+
+        <section id="ref_nav_pages">
+            <h2>Web Pages of the Application</h2>
+            <p>The Front-end application was developed using the Angular framework and consists of a Singe-Page Application
+                .The Front-end application aims to offer an attractive and easy to use interface for the users in order to access the functionality of the backend services in an intuitive manner and non-convoluted manner.</p>
+
+            <section id="ref_nav_pages_map">
+                <h3>Map Page</h3>
+                <p>The map page provides and entry point for the application, the general purpose of this page is to present the user with a 
+                    map populated with pin type markers with all the public entities (notaries, translators, etc.) in his vicinity. 
+                    The user has the possibility to filter based on different criteria such as: offered services, language, etc or choose between 
+                    a list of entities in a fixed radius around him.  </p>
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-map-page.png"
+                        alt="Map page - Entities are marked by pins">
+                    <figcaption>
+                        Map page - Entities are marked by pins
+                    </figcaption>
+                </figure>
+
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-map-page-filter.png"
+                        alt="Map page - List of nearby entities">
+                    <figcaption>
+                        Map page - List of nearby entities
+                    </figcaption>
+                </figure>
+            </section>
+
+            <section id="ref_nav_pages_login">
+                <h3>Login page</h3>
+                <p>The login page provides the users the functionality of authentication. Although partly the functionality is available without authentication, 
+                    a few functions such as reviews are locked behind required authentication.</p>
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-login-page.png"
+                        alt="Login page - Example">
+                    <figcaption>Login page - Example</figcaption>
+                </figure>
+            </section>
+
+            <section id="ref_nav_pages_register">
+                <h3>Register Page</h3>
+                <p>The register page provides the users the possibility to create an account which can be used to login at a later time.</p>
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-register-page.png"
+                        alt="Register Page - Example">
+                    <figcaption>Register Page - Example</figcaption>
+                </figure>
+            </section>
+
+            <section id="ref_nav_filter_page">
+                <h3>Filter functionality</h3>
+                <p>The filter functionality allows the user to filter through the available data using certain criteria such as: name, county, language and provider services. 
+                    After requesting a filter the number of markers on the map will adjust to reflect the filtered data.</p>
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-filter.png"
+                        alt="Filter functionality - filter by name Macovei and county IASI">
+                    <figcaption>Filter functionality - filter by name Macovei and county IASI</figcaption>
+                </figure>
+            </section>
+
+            <section id="ref_nav_entity_page">
+                <h3>Entity and review functionality</h3>
+                <p>The entity page allows the user to visualize additional information other than the physical location of the notary. Data such as the room, the city, the full address are exposed as well as a full list of services and their description.
+                    If the user requests it can leave a review consisting of a rating from one to five and a comment for the entity, the review will be available for the other authenticated users once submitted.
+                </p>
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-entity-page.png"
+                        alt="Entity page - Example for MACOVEI RALUCA MIHAELA">
+                    <figcaption>Entity page - Example for MACOVEI RALUCA MIHAELA</figcaption>
+                </figure>
+                <figure typeof="sa:image">
+                    <img src="resources/now-project-review.png"
+                        alt="Review page - ">
+                    <figcaption>Entity page - Example of giving 1 star review to MACOVEI RALUCA MIHAELA</figcaption>
+                </figure>
+            </section>
+        </section>
+
+
+        <section id="ref_nav_swagger">
+            <h2>Swagger</h2>
+            <p>The application also offers a REST API, and it's interface description follows the OpenAPI Specification
+                v3.1.0<a href="#ref_biblio_openapi_specs"><sup>5</sup></a>. The APIs provides access through the HTTP(S)
+                protocol to the data that is also backing-up the application.</p>
+
+
+        <!-- Authors section -->
+        <section id="ref_nav_authors" typeof="sa:AuthorsList">
+            <h2>Authors</h2>
+            <p>The following people are actively participating at developing the project:</p>
+            <ul>
+                <li id="ref_author_1" typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="https://github.com/IonitaCatalin">
+                        <meta property="schema:givenName" content="Mihail-Catalin">
+                        <meta property="schema:familyName" content="Ionita">
+                        <a href="https://github.com/IonitaCatalin"><span property="schema:name">Mihail-Catalin Ionita</span></a>
+                    </span>
+                    <a href="#aff_fii" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/">UAIC FII</a>
+                </li>
+                <li id="ref_author_2" typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="">
+                        <meta property="schema:givenName" content="Mihai-Cosmin">
+                        <meta property="schema:familyName" content="Craciun">
+                        <a href=""><span property="schema:name">Mihai-Cosmin Craciun</span></a>
+                    </span>
+                    <a href="#aff_fii" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/">UAIC FII</a>
+                </li>
+                <li id="ref_author_3" typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="">
+                        <meta property="schema:givenName" content="Stefan-Dorin">
+                        <meta property="schema:familyName" content="Popa">
+                        <a href=""><span property="schema:name">Stefan-Dorin Popa</span></a>
+                    </span>
+                    <a href="#aff_fii" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/">UAIC FII</a>
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- Affiliations section -->
+        <section id="ref_nav_affiliations" typeof="sa:Affiliations">
+            <h2>Affiliations</h2>
+            <ul>
+                <li id="aff_fii">
+                    <span typeof="schema:Organization" resource="https://www.info.uaic.ro/">
+                        <a href="https://www.info.uaic.ro/">
+                            <span property="schema:name">Faculty of Computer Science</span>
+                        </a>
+                        -
+                        <span property="schema:parentOrganization">
+                            <span typeof="schema:Organization">
+                                <a href="https://www.uaic.ro/en/">
+                                    <span property="schema:name">"Alexandru Ioan Cuza" University of Iasi</span>
+                                </a>
+                                -
+                                <span property="schema:location" typeof="schema:Place">
+                                    <span property="schema:address" typeof="schema:PostalAddress">
+                                        <span property="schema:addressLocality">Iasi</span>,
+                                        <span property="schema:addressRegion">Iasi</span>,
+                                        <span property="schema:addressCountry">Romania</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- References section -->
+        <section id="ref_nav_references" role="doc-bibliography">
+            <h2>References</h2>
+            <ol>
+                <li id="ref_biblio_rdfa_w3c" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://www.w3.org/TR/rdfa-lite/" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://www.w3.org/TR/rdfa-lite/">RDFa Lite 1.1 - Second Edition</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">W3C</span>
+                    </span>; published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2015">2015</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    </span>.
+                </li>
+                <li id="ref_biblio_openapi_specs" typeof="schema:WebPage" role="doc-biblioentry"
+                    resource="https://spec.openapis.org/oas/v3.1.0" property="schema:citation">
+                    <cite property="schema:name">
+                        <a href="https://spec.openapis.org/oas/v3.1.0">OpenAPI Specification v3.1.0</a>
+                    </cite>, by
+                    <span property="schema:author" typeof="schema:Organization">
+                        <span property="schema:name">OpenAPI Initiative Working Group</span>
+                    </span>; published in <time property="schema:datePublished" datatype="xsd:gYear"
+                        datetime="2021">2021</time>
+                    <span property="schema:potentialAction" typeof="schema:ReadAction">
+                        <meta property="schema:actionStatus" content="CompletedActionStatus">
+                    
+                    </span>.
+                </li>
+            </ol>
+        </section>
+
+    </article>
+
+</body>
+
+</html>

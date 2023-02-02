@@ -6,7 +6,7 @@ FROM node:16.13.1-alpine
 
 WORKDIR /app
 
-EXPOSE 9009
+EXPOSE 9108
 
 # Copy compiled application & libraries
 
@@ -15,8 +15,6 @@ COPY --from=builder /app/libs/tools /app/libs/tools/
 COPY --from=builder /app/libs/common /app/libs/common/
 
 COPY --from=builder /app/package.json /app/
-COPY --from=builder /app/package-lock.json /app/
-
 COPY --from=builder /app/tsconfig.json /app/
 COPY --from=builder /app/jest.config.js /app/
 
