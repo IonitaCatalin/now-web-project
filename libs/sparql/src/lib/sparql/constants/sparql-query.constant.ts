@@ -383,4 +383,4 @@ WHERE {
     	schema:ratingValue ?rating
     ];
    filter (?identifier = "%id")
-}
+}`
