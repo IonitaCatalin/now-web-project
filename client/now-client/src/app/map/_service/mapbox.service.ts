@@ -32,6 +32,7 @@ interface NotaryDTO {
   offerId: string,
   telephone: string;
   knowsLanguage: string;
+  rating: string;
 }
 
 interface TranslatorDTO {
@@ -44,6 +45,7 @@ interface TranslatorDTO {
   offerId: string,
   telephone: string;
   knowsLanguage: string;
+  rating: string;
 }
 
 interface CountiesDTO {
@@ -298,7 +300,7 @@ export class MapboxService {
 
   public get myRDF$() {
     if (Object.keys(this._myRDFSubject.value).length === 0) {
-      // this.loadRDF();
+      this.loadRDF();
     }
 
     return this._myRDFSubject.asObservable();
@@ -324,8 +326,9 @@ export class MapboxService {
         coordinates: `${this.userService.getCurrentUser().coords.lat},${this.userService.getCurrentUser().coords.lng}`,
         name: selections.selectedName,
         county: selections.selectedCounties,
-        languages: selections.selectedLanguages,
-        services: selections.selectedServices
+        language: selections.selectedLanguages,
+        services: selections.selectedServices,
+        limit: 50
       }
     }).subscribe(providers => {
       const notariesDTO = providers.notaries;
@@ -338,7 +341,8 @@ export class MapboxService {
   public getNotariesInProximity(proximity: LngLatProximity) {
     this.http.get<NotaryDTO[]>(`${environment.BASE_URL}/now/notary`, {
       params: {
-        coordinates: `${proximity.lat},${proximity.lng}`
+        coordinates: `${proximity.lat},${proximity.lng}`,
+        limit: 50
       }
     }).pipe(
       map((notariesDTO): Notary[] => {
@@ -372,7 +376,7 @@ export class MapboxService {
           lng: parseFloat(_coords[1]),
           lat: parseFloat(_coords[0])
         },
-        rating: 3,
+        rating: parseInt(notaryDTO.rating),
         services: _services
       }
     });
@@ -381,7 +385,8 @@ export class MapboxService {
   public getTranslatorsInProximity(proximity: LngLatProximity) {
     this.http.get<TranslatorDTO[]>(`${environment.BASE_URL}/now/translator`, {
       params: {
-        coordinates: `${proximity.lat},${proximity.lng}`
+        coordinates: `${proximity.lat},${proximity.lng}`,
+        limit: 50
       }
     }).pipe(
       map((translatorsDTO): Translator[] => {
@@ -413,7 +418,7 @@ export class MapboxService {
           lng: parseFloat(_coords[1]),
           lat: parseFloat(_coords[0])
         },
-        rating: 3,
+        rating: parseInt(translatorDTO.rating),
         services: _services
       }
     });

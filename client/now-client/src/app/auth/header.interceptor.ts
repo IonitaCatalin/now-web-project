@@ -3,13 +3,16 @@ import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {UserService} from "./user.service";
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
 
   constructor(private userService: UserService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const API_KEY = this.userService.getCurrentUser().authToken;
-    return next.handle(req.clone({ setHeaders: { API_KEY } }));
+    console.log("token", API_KEY);
+    return next.handle(req.clone({ setHeaders: {
+      Authorization: `Bearer ${API_KEY}`
+      } }));
   }
 }

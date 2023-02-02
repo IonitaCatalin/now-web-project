@@ -18,12 +18,7 @@ export class ReviewService {
       ratingValue: string;
       ratingComment: string;
     }[]>(
-      `${environment.BASE_URL}/now/rating`, {
-        params: {
-          id: providerId
-        }
-      }
-    ).pipe(map(_val => {
+      `${environment.BASE_URL}/now/review/${providerId}`).pipe(map(_val => {
       return _val.map(x => ({
         username: x.username,
         ratingValue: parseInt(x.ratingValue),
@@ -33,7 +28,7 @@ export class ReviewService {
   }
 
   createRating(ratingData: RatingData, id?: string) {
-    this.http.post(`${environment.BASE_URL}/now/rating`, {
+    this.http.post(`${environment.BASE_URL}/now/review`, {
       ...ratingData,
       id
     }).subscribe(_ => console.log("rated!"));

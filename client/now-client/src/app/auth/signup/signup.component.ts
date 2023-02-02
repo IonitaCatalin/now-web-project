@@ -33,7 +33,7 @@ export class SignupComponent {
     if (this.form.valid) {
       this.userService.signup(this.form.value).subscribe({
         next: (res) => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/auth/login']);
         },
         error: (err) => {
           console.log(err);

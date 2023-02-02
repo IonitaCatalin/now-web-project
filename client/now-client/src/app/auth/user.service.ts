@@ -62,21 +62,23 @@ export class UserService {
     username: string;
     password: string;
   }) {
-    // return this.http.post<{
-    //   access_token: string
-    // }>(`${environment.AUTH_URL}/auth/login`, loginData).pipe(
-    //   tap(token => this._userSubject.next(({
-    //     ...this._userSubject.value,
-    //     isAuth: true,
-    //     authToken: token.access_token,
-    //     username: loginData.username,
-    //   }))),
-    //   tap(user => this.persistIntoLocalStorage(this._userSubject.value))
-    // );
-    return of(this._mockUser).pipe(
-      tap(user => this._userSubject.next(user)),
-      tap(user => this.persistIntoLocalStorage(user))
+    return this.http.post<{
+      data: {
+        access_token: string
+      }
+    }>(`${environment.AUTH_URL}/auth/signin`, loginData).pipe(
+      tap(token => this._userSubject.next(({
+        ...this._userSubject.value,
+        isAuth: true,
+        authToken: token.data.access_token,
+        username: loginData.username,
+      }))),
+      tap(user => this.persistIntoLocalStorage(this._userSubject.value))
     );
+    // return of(this._mockUser).pipe(
+    //   tap(user => this._userSubject.next(user)),
+    //   tap(user => this.persistIntoLocalStorage(user))
+    // );
   }
 
   signup(signupData: {
@@ -84,23 +86,25 @@ export class UserService {
     email: string;
     password: string;
   }) {
-    // return this.http.post<{
-    //   access_token: string
-    // }>(`${environment.AUTH_URL}/auth/login`, signupData).pipe(
-    //   tap(token => this._userSubject.next(({
-    //     ...this._userSubject.value,
-    //     isAuth: true,
-    //     authToken: token.access_token,
-    //     username: signupData.username,
-    //     email: signupData.email,
-    //   }))),
-    //   tap(user => this.persistIntoLocalStorage(this._userSubject.value))
-    // );
-
-    return of(this._mockUser).pipe(
-      tap(user => this._userSubject.next(user)),
-      tap(user => this.persistIntoLocalStorage(user))
+    return this.http.post<{
+      data: {
+        access_token: string
+      }
+    }>(`${environment.AUTH_URL}/auth/signup`, signupData).pipe(
+      // tap(token => this._userSubject.next(({
+      //   ...this._userSubject.value,
+      //   isAuth: true,
+      //   authToken: token.data.access_token,
+      //   username: signupData.username,
+      //   email: signupData.email,
+      // }))),
+      // tap(user => this.persistIntoLocalStorage(this._userSubject.value))
     );
+
+    // return of(this._mockUser).pipe(
+    //   tap(user => this._userSubject.next(user)),
+    //   tap(user => this.persistIntoLocalStorage(user))
+    // );
   }
 
   logout() {
